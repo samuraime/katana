@@ -9,12 +9,12 @@
 - [x] Koa (Koa router, Koa static)
 - [x] RESTful API
 - [x] Mongoose
-- [] Auth
+- [ ] Auth
 
 ## Todos
 
-- [] React PropTypes map Mongoose Model
-- [] Auth
+- [ ] React PropTypes map Mongoose Model
+- [ ] Auth
 
 ## License
 
