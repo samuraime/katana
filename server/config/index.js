@@ -1,0 +1,13 @@
+const path = require('path');
+
+const env = process.env.NODE_ENV || 'production';
+
+module.exports = {
+  env,
+  db: 'mongodb://localhost/katana',
+  port: process.env.PORT || 3000,
+  staticPath: path.resolve(__dirname, '../../client/dist'),
+  jwtSecret: process.env.JWT_SECRET || 'samurai katana',
+  email: 'samurai7@foxmail.com',
+  password: '000000',
+};

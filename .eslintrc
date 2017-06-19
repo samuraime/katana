@@ -1,0 +1,26 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "extends": "airbnb",
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "globals": {
+    },
+    "rules": {
+        // 允许使用.js作为jsx
+        "react/jsx-filename-extension": 0,
+    }
+}
