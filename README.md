@@ -7,14 +7,16 @@
 - [x] Webpack HMR
 - [x] CSS Module
 - [x] Koa (Koa router, Koa static)
-- [x] RESTful API
 - [x] Mongoose
-- [ ] Auth
+- [x] RESTful API
+- [x] Auth (JSON Web Token)
 
 ## Todos
 
-- [ ] React PropTypes map Mongoose Model
-- [ ] Auth
+- [ ] map Mongoose Model to React PropTypes
+- [ ] reduce Redux actions, reducers
+- [ ] remove hard coded account
+- [ ] basic style
 
 ## License
 

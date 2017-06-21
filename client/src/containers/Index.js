@@ -6,8 +6,8 @@ import { getBookmarks, postBookmark, deleteBookmark } from '../actions';
 import { Bookmark } from '../types';
 
 const mapStateToProps = (state) => {
-  const { home } = state;
-  return { ...home };
+  const { home, auth } = state;
+  return { ...home, logged: auth.logged };
 };
 
 @withRouter
@@ -17,24 +17,29 @@ export default class Index extends Component {
     bookmarks: PropTypes.arrayOf(Bookmark).isRequired,
     isFetching: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
+    logged: PropTypes.bool.isRequired,
   }
-  componentDidMount() {
-    this.props.dispatch(getBookmarks());
+  componentWillMount() {
+    if (!this.props.bookmarks.length) {
+      this.props.dispatch(getBookmarks());
+    }
   }
   handleAdd = () => {
     const link = window.prompt('添加一个书签链接');
-    this.props.dispatch(postBookmark(link));
+    if (link && /^http/.test(link)) {
+      this.props.dispatch(postBookmark(link));
+    }
   }
   handleDelete = id => (e) => {
     e.stopPropagation();
     this.props.dispatch(deleteBookmark(id));
   }
   render() {
-    const { bookmarks, isFetching } = this.props;
+    const { logged, bookmarks, isFetching } = this.props;
     return (
       <div>
         <h1>Bookmarks</h1>
-        <div><button onClick={this.handleAdd}>Add</button></div>
+        <div>{logged && <button onClick={this.handleAdd}>Add</button>}</div>
         {isFetching && <div>loading...</div>}
         <ul>
           {bookmarks.map(bookmark => (
@@ -42,7 +47,9 @@ export default class Index extends Component {
               <h3>{bookmark.title}</h3>
               <p>{bookmark.description}</p>
               <address><a href={bookmark.link}>{bookmark.link}</a></address>
-              <div><button onClick={this.handleDelete(bookmark.id)}>Delete</button></div>
+              <div>
+                {logged && <button onClick={this.handleDelete(bookmark.id)}>Delete</button>}
+              </div>
             </li>
           ))}
         </ul>

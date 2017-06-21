@@ -1,4 +1,7 @@
-const API_ROOT = '//localhost:3000/api/';
+import { getAuthHeaders } from '../services/request';
+import { setAuthToken, removeAuthToken } from '../services/storage';
+
+const API_ROOT = '//localhost:3000/api';
 
 // make mongodb `_id` to `id`
 const normalizeId = (json) => {
@@ -19,47 +22,40 @@ const normalizeId = (json) => {
   return json;
 };
 
-// Extracts the next page URL from Github API response.
-// const getNextPageUrl = (response) => {
-//   const link = response.headers.get('link');
-//   if (!link) {
-//     return null;
-//   }
-
-//   const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1);
-//   if (!nextLink) {
-//     return null;
-//   }
-
-//   return nextLink.split(';')[0].slice(1, -1);
-// };
-
 const callApi = (endpoint, method = 'GET', body) => {
   const fullUrl = endpoint.includes(API_ROOT) ? endpoint : `${API_ROOT}${endpoint}`;
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
+  const headers = getAuthHeaders();
 
   const init = {
-    // headers,
+    headers,
     method: method.toUpperCase(),
     body: JSON.stringify(body),
     mode: 'cors',
   };
 
   return fetch(fullUrl, init)
-    .then(response =>
-      response.json().then((json) => {
-        if (!response.ok) {
-          return Promise.reject(json);
-        }
+    .then((response) => {
+      if (!response.ok) {
+        return Promise.reject(`${response.status} ${response.statusText}`);
+      }
+      const contentType = response.headers.get('Content-Type');
+      if (contentType && /application\/json/.test(contentType)) {
+        return response.json().then((json) => {
+          // handle login response
+          if (endpoint === '/login' && init.method === 'POST') {
+            setAuthToken(json.token);
+          }
+          return normalizeId(json);
+        });
+      }
 
-        return normalizeId(json);
-
-        // return { ...normalizedJson };
-        // const nextPageUrl = getNextPageUrl(response);
-        // return { ...normalizedJson, nextPageUrl };
-      }),
-    );
+      // handle logout response
+      if (endpoint === '/login' && init.method === 'DELETE') {
+        removeAuthToken();
+      }
+      // assume other content-type is text
+      return response.text();
+    });
 };
 
 // Action key that carries API call info interpreted by this Redux middleware.

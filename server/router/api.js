@@ -16,8 +16,21 @@ router.post('/login', (ctx) => {
   if (email === config.email && password === config.password) {
     ctx.body = { token: jwt.sign({ email }, config.jwtSecret) };
   } else {
-    ctx.throw(403);
+    ctx.throw(401);
   }
+});
+
+router.delete('/login', jwtMiddleware, (ctx) => {
+  // TODO: destory stored token
+  ctx.status = 204;
+});
+
+router.post('/autologin', jwtMiddleware, (ctx) => {
+  // TODO: generate new token
+  ctx.body = {
+    token: ctx.get('authorization').split(' ')[1],
+    email: config.email,
+  };
 });
 
 router.get('/bookmarks', async (ctx) => {
@@ -62,7 +75,7 @@ const getLinkInfo = link => new Promise((resolve, reject) => {
   });
 });
 
-router.post('/bookmarks', async (ctx) => {
+router.post('/bookmarks', jwtMiddleware, async (ctx) => {
   try {
     const { link } = ctx.request.body;
     const { title, description } = await getLinkInfo(link);
@@ -85,8 +98,7 @@ router.put('/bookmarks/:id', jwtMiddleware, async (ctx) => {
   }
 });
 
-router.delete('/bookmarks/:id', async (ctx) => {
-// router.delete('/bookmarks/:id', jwtMiddleware, async (ctx) => {
+router.delete('/bookmarks/:id', jwtMiddleware, async (ctx) => {
   try {
     const id = ctx.params.id;
     const bookmark = await Bookmark.findByIdAndRemove(id);

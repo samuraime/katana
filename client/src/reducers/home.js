@@ -32,7 +32,7 @@ const home = (state = {
       return {
         ...state,
         isFetching: false,
-        bookmarks: [...state.bookmarks, action.response],
+        bookmarks: [action.response, ...state.bookmarks],
       };
     case DELETE_BOOKMARK_SUCCESS:
       return {

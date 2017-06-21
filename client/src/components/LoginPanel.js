@@ -1,0 +1,58 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { postLogin, deleteLogin } from '../actions';
+
+const mapStateToProps = state => ({ ...state.auth });
+
+@connect(mapStateToProps)
+export default class LoginPanel extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    logged: PropTypes.bool.isRequired,
+    email: PropTypes.string,
+  }
+  static defaultProps = {
+    email: '',
+  }
+  state = {
+    email: this.props.email,
+    password: '',
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState({ email: nextProps.email });
+  }
+  handleChange = name => (e) => {
+    this.setState({ [name]: e.target.value });
+  }
+  handleSignIn = () => {
+    const { email, password } = this.state;
+    // TODO: validate form
+    this.props.dispatch(postLogin(email, password));
+  }
+  handleSignOut = () => {
+    this.props.dispatch(deleteLogin());
+  }
+  render() {
+    return (
+      <div>
+        {this.props.logged ?
+          <div>
+            <a>{this.props.email}</a><button onClick={this.handleSignOut}>Sign out</button>
+          </div> :
+          <div>
+            <div>
+              <label htmlFor="email">Email: </label>
+              <input id="email" type="text" value={this.state.email} onChange={this.handleChange('email')} />
+            </div>
+            <div>
+              <label htmlFor="email">Password: </label>
+              <input id="password" type="password" value={this.state.password} onChange={this.handleChange('password')} />
+            </div>
+            <div><button onClick={this.handleSignIn}>Sign in</button></div>
+          </div>
+        }
+      </div>
+    );
+  }
+}
