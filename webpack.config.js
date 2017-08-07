@@ -26,7 +26,7 @@ module.exports = {
     path: resolve(__dirname, 'client/dist'),
 
     // necessary for HMR to know where to load the hot update chunks
-    publicPath: '/',
+    publicPath: '/staitc/',
   },
 
   devtool: 'inline-source-map',
@@ -38,10 +38,19 @@ module.exports = {
     historyApiFallback: true,
 
     // match the output path
-    contentBase: resolve(__dirname, 'client/dist'),
+    // contentBase: resolve(__dirname, 'client/dist'),
+
+    proxy: {
+      '*': 'http://localhost:3000/',
+    },
 
     // match the output `publicPath`
-    publicPath: '/',
+    publicPath: '/static/',
+  },
+
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
   },
 
   module: {

@@ -1,13 +1,17 @@
 const http = require('http');
 const https = require('https');
+const mongoose = require('mongoose');
 const Router = require('koa-router');
+const body = require('koa-body');
 const jwt = require('jsonwebtoken');
 const koaJwt = require('koa-jwt');
 const config = require('../config');
-const Bookmark = require('../models/Bookmark');
 
+const Bookmark = mongoose.model('Bookmark');
 const jwtMiddleware = koaJwt({ secret: config.jwtSecret });
 const router = new Router({ prefix: '/api' });
+
+router.use(body());
 
 router.post('/login', (ctx) => {
   const email = ctx.request.body.email;

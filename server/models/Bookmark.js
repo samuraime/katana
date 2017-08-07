@@ -22,4 +22,4 @@ Bookmark.statics = {
   },
 };
 
-module.exports = mongoose.model('Bookmark', Bookmark);
+mongoose.model('Bookmark', Bookmark);
