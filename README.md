@@ -6,8 +6,10 @@
 - [x] React-router
 - [x] Webpack HMR
 - [x] CSS Module
+
 - [x] Koa (Koa router, Koa static)
 - [x] Mongoose
+- [x] Logger
 - [x] RESTful API
 - [x] Auth (JSON Web Token)
 
