@@ -96,10 +96,12 @@ export default store => next => (action) => {
 
   return callApi(endpoint, method, body).then(
     response => next(actionWith({
+      ...body,
       response,
       type: successType,
     })),
     error => next(actionWith({
+      ...body,
       type: failureType,
       error: error.message || 'Something bad happened',
     })),

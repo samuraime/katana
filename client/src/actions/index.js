@@ -36,20 +36,20 @@ export const postAutoLogin = () => (dispatch) => {
   dispatch(postAutoLoginAction());
 };
 
-export const DELETE_LOGIN_REQUEST = 'DELETE_LOGIN_REQUEST';
-export const DELETE_LOGIN_SUCCESS = 'DELETE_LOGIN_SUCCESS';
-export const DELETE_LOGIN_FAILURE = 'DELETE_LOGIN_FAILURE';
+export const POST_LOGOUT_REQUEST = 'POST_LOGOUT_REQUEST';
+export const POST_LOGOUT_SUCCESS = 'POST_LOGOUT_SUCCESS';
+export const POST_LOGOUT_FAILURE = 'POST_LOGOUT_FAILURE';
 
-const deleteLoginAction = () => ({
+const postLogoutAction = () => ({
   [CALL_API]: {
-    types: [DELETE_LOGIN_REQUEST, DELETE_LOGIN_SUCCESS, DELETE_LOGIN_FAILURE],
-    endpoint: '/login',
-    method: 'DELETE',
+    types: [POST_LOGOUT_REQUEST, POST_LOGOUT_SUCCESS, POST_LOGOUT_FAILURE],
+    endpoint: '/logout',
+    method: 'POST',
   },
 });
 
 export const deleteLogin = () => (dispatch) => {
-  dispatch(deleteLoginAction());
+  dispatch(postLogoutAction());
 };
 
 export const GET_BOOKMARKS_REQUEST = 'GET_BOOKMARKS_REQUEST';

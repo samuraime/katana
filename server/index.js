@@ -20,8 +20,8 @@ fs.readdirSync(models)
   });
 
 // routes must be place after models
-const apiRouter = require('./router/api');
-const webRouter = require('./router');
+const apiRouter = require('./routes/api');
+const webRouter = require('./routes');
 
 // security headers
 app.use(helmet());

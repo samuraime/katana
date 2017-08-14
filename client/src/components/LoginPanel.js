@@ -44,10 +44,12 @@ export default class LoginPanel extends Component {
             <div>
               <label htmlFor="email">Email: </label>
               <input id="email" type="text" value={this.state.email} onChange={this.handleChange('email')} />
+              <label htmlFor="email">katana@samuraime.com</label>
             </div>
             <div>
-              <label htmlFor="email">Password: </label>
+              <label htmlFor="password">Password: </label>
               <input id="password" type="password" value={this.state.password} onChange={this.handleChange('password')} />
+              <label htmlFor="password">000000</label>
             </div>
             <div><button onClick={this.handleSignIn}>Sign in</button></div>
           </div>

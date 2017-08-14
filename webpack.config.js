@@ -38,12 +38,11 @@ module.exports = {
     historyApiFallback: true,
 
     // match the output path
-    // contentBase: resolve(__dirname, 'client/dist'),
+    contentBase: resolve(__dirname, 'client/dist'),
 
     proxy: {
-      '*': 'http://localhost:3000/',
+      '/static': 'http://localhost:3000',
     },
-
     // match the output `publicPath`
     publicPath: '/static/',
   },
