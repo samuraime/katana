@@ -1,8 +1,9 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  context: resolve(__dirname, 'client/src'),
+  context: resolve(__dirname, 'src'),
 
   entry: [
     // the entry point of our app
@@ -10,11 +11,10 @@ module.exports = {
   ],
   output: {
     // the output bundle
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
 
-    path: resolve(__dirname, 'client/dist'),
+    path: resolve(__dirname, 'dist'),
 
-    // necessary for HMR to know where to load the hot update chunks
     publicPath: '/static/',
   },
 
@@ -29,7 +29,16 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss-loader', 'sass-loader?sourceMap'],
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader?sourceMap',
+        ],
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=2048&name=[name]-[hash].[ext]',
       },
     ],
   },
@@ -49,6 +58,10 @@ module.exports = {
       compress: {
         warnings: true,
       },
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: '../../server/views/index.html',
     }),
   ],
 };

@@ -1,8 +1,10 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 
 module.exports = {
-  context: resolve(__dirname, 'client/src'),
+  context: resolve(__dirname, 'src'),
 
   entry: [
     // activate HMR for React
@@ -23,10 +25,10 @@ module.exports = {
     // the output bundle
     filename: 'bundle.js',
 
-    path: resolve(__dirname, 'client/dist'),
+    path: resolve(__dirname, 'dist'),
 
     // necessary for HMR to know where to load the hot update chunks
-    publicPath: '/staitc/',
+    publicPath: '/static/',
   },
 
   devtool: 'inline-source-map',
@@ -38,7 +40,7 @@ module.exports = {
     historyApiFallback: true,
 
     // match the output path
-    contentBase: resolve(__dirname, 'client/dist'),
+    contentBase: resolve(__dirname, 'dist'),
 
     proxy: {
       '/static': 'http://localhost:3000',
@@ -61,7 +63,16 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: ['style-loader', 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss-loader', 'sass-loader?sourceMap'],
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'postcss-loader',
+          'sass-loader?sourceMap',
+        ],
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=2048&name=[name]-[hash].[ext]',
       },
     ],
   },
@@ -72,5 +83,11 @@ module.exports = {
 
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: '../../server/views/index.html',
+      alwaysWriteToDisk: true,
+    }),
+    new HtmlWebpackHarddiskPlugin(),
   ],
 };
