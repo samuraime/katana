@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { postLogin, deleteLogin } from '../actions';
 
@@ -36,6 +37,11 @@ export default class LoginPanel extends Component {
   render() {
     return (
       <div>
+        <div>
+          <NavLink to="/" exact activeClassName="selected">Home</NavLink>
+          <NavLink to="/new" activeClassName="selected">New</NavLink>
+          <NavLink to="/about" activeClassName="selected">About</NavLink>
+        </div>
         {this.props.logged ?
           <div>
             <a>{this.props.email}</a><button onClick={this.handleSignOut}>Sign out</button>

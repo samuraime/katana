@@ -1,17 +1,25 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import Index from './containers/Index';
+import New from './containers/New';
 import About from './containers/About';
-import LoginPanel from './components/LoginPanel';
+import Header from './components/Header';
 import { postAutoLogin } from './actions';
 import { getAuthToken } from './services/storage';
+// import asyncComponent from './utils/asyncComponent';
+
+// const New = asyncComponent(() => System.import(/* webpackChunkName: "new" */'./containers/New'));
+// const About = asyncComponent(() => System.import(/* webpackChunkName: "about" */'./containers/About'));
 
 const history = createHistory();
-const store = configureStore();
+
+// Build the middleware for intercepting and dispatching navigation actions
+const router = routerMiddleware(history);
+const store = configureStore({}, { router });
 
 // check local storage and login
 const authToken = getAuthToken();
@@ -24,15 +32,13 @@ const App = () => (
     {/* ConnectedRouter will use the store from Provider automatically */}
     <ConnectedRouter history={history}>
       <div>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-        </ul>
-        <LoginPanel />
-        <hr />
-
-        <Route exact path="/" component={Index} />
-        <Route path="/about" component={About} />
+        <Header />
+        <Switch>
+          <Route exact path="/" component={Index} />
+          <Route path="/new" component={New} />
+          <Route path="/about" component={About} />
+          <Route component={Index} />
+        </Switch>
       </div>
     </ConnectedRouter>
   </Provider>

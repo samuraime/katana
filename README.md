@@ -4,12 +4,13 @@
 
 - [x] Redux
 - [x] React-router
+- [x] Code Splitting
 - [x] Webpack HMR
 - [x] CSS Module
 
 - [x] Koa (Koa router, Koa static)
 - [x] Mongoose
-- [x] Logger
+- [x] Logger (winston)
 - [x] RESTful API
 - [x] Auth (JSON Web Token)
 

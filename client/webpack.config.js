@@ -6,24 +6,31 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 module.exports = {
   context: resolve(__dirname, 'src'),
 
-  entry: [
-    // activate HMR for React
-    'react-hot-loader/patch',
+  entry: {
+    app: [
+      // activate HMR for React
+      'react-hot-loader/patch',
 
-    // bundle the client for webpack-dev-server
-    // and connect to the provided endpoint
-    'webpack-dev-server/client?http://localhost:8080',
+      // bundle the client for webpack-dev-server
+      // and connect to the provided endpoint
+      'webpack-dev-server/client?http://localhost:8080',
 
-    // bundle the client for hot reloading
-    // only- means to only hot reload for successful updates
-    'webpack/hot/only-dev-server',
+      // bundle the client for hot reloading
+      // only- means to only hot reload for successful updates
+      'webpack/hot/only-dev-server',
 
-    // the entry point of our app
-    './index.js',
-  ],
+      // the entry point of our app
+      './index.js',
+    ],
+    vendor: ['babel-polyfill', 'react', 'react-dom'],
+  },
+
   output: {
     // the output bundle
-    filename: 'bundle.js',
+    filename: '[name].js',
+
+    // determines the name of non-entry chunk files
+    chunkFilename: '[name].[chunkhash].js',
 
     path: resolve(__dirname, 'dist'),
 
@@ -47,11 +54,6 @@ module.exports = {
     },
     // match the output `publicPath`
     publicPath: '/static/',
-  },
-
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
   },
 
   module: {
@@ -80,7 +82,9 @@ module.exports = {
   plugins: [
     // enable HMR globally
     new webpack.HotModuleReplacementPlugin(),
-
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({

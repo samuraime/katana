@@ -5,16 +5,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   context: resolve(__dirname, 'src'),
 
-  entry: [
+  entry: {
     // the entry point of our app
-    './index.js',
-  ],
+    app: './index.js',
+    vendor: ['babel-polyfill', 'react', 'react-dom'],
+  },
+
   output: {
     // the output bundle
     filename: '[name].[hash].js',
 
+    // determines the name of non-entry chunk files
+    chunkFilename: '[name].[chunkhash].js',
+
     path: resolve(__dirname, 'dist'),
 
+    // replace cdn, https://cdn.example.com/static/
     publicPath: '/static/',
   },
 
@@ -43,16 +49,14 @@ module.exports = {
     ],
   },
 
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
-
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

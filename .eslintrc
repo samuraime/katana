@@ -22,5 +22,8 @@
     "rules": {
         // 允许使用.js作为jsx
         "react/jsx-filename-extension": 0,
+        "no-plusplus": [2, {
+            "allowForLoopAfterthoughts": true
+        }],
     }
 }
