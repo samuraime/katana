@@ -22,8 +22,20 @@
     "rules": {
         // 允许使用.js作为jsx
         "react/jsx-filename-extension": 0,
+        "no-mixed-operators": [
+            2,
+            {
+                "groups": [
+                    ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                    ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                    ["&&", "||"],
+                    ["in", "instanceof"]
+                ],
+                "allowSamePrecedence": true
+            }
+        ],
         "no-plusplus": [2, {
             "allowForLoopAfterthoughts": true
-        }],
+        }]
     }
 }

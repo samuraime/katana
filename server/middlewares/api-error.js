@@ -9,10 +9,13 @@ const handle = async (ctx, next) => {
       Method: ctx.method,
       Headers: ctx.headers,
       Body: ctx.request.body,
-      'Error Message': e.message,
-      'Error Stack': e.stack,
+      message: e.message,
+      stack: e.stack,
     });
-    ctx.throw(e);
+    ctx.status = e.status || 500;
+    ctx.body = {
+      message: e.message,
+    };
   }
 };
 

@@ -1,26 +1,9 @@
 import { getAuthHeaders } from '../services/request';
 import { setAuthToken, removeAuthToken } from '../services/storage';
+import normalizeId from '../utils/normalize-id';
 
-const API_ROOT = '//localhost:3000/api';
-
-// make mongodb `_id` to `id`
-const normalizeId = (json) => {
-  if (Array.isArray(json)) {
-    return json.map(normalizeId);
-  }
-  if (typeof json === 'object') {
-    const normalizedJson = {};
-    Object.keys(json).forEach((key) => {
-      if (key === '_id') {
-        normalizedJson.id = json[key];
-      } else {
-        normalizedJson[key] = normalizeId(json[key]);
-      }
-    });
-    return normalizedJson;
-  }
-  return json;
-};
+// inject from webpack
+const API_ROOT = API_URL; // eslint-disable-line
 
 const callApi = (endpoint, method = 'GET', body) => {
   const fullUrl = endpoint.includes(API_ROOT) ? endpoint : `${API_ROOT}${endpoint}`;
@@ -36,7 +19,7 @@ const callApi = (endpoint, method = 'GET', body) => {
   return fetch(fullUrl, init)
     .then((response) => {
       if (!response.ok) {
-        return Promise.reject(`${response.status} ${response.statusText}`);
+        return Promise.reject(new Error(`${response.status} ${response.statusText}`));
       }
       const contentType = response.headers.get('Content-Type');
       if (contentType && /application\/json/.test(contentType)) {
@@ -64,7 +47,7 @@ export const CALL_API = 'Call_API';
 // A Redux middleware that interprets actions with CALL_API info specified.
 // Performs the call and promises when such actions are dispatched.
 export default store => next => (action) => {
-  const callAPI = action[CALL_API];
+  const { [CALL_API]: callAPI, ...payload } = action;
   if (typeof callAPI === 'undefined') {
     return next(action);
   }
@@ -85,25 +68,21 @@ export default store => next => (action) => {
     throw new Error('Expected action types to be strings.');
   }
 
-  const actionWith = (data) => {
-    const finalAction = { ...action, ...data };
-    delete finalAction[CALL_API];
-    return finalAction;
-  };
-
   const [requestType, successType, failureType] = types;
-  next(actionWith({ type: requestType }));
+  next({ type: requestType, ...payload });
 
   return callApi(endpoint, method, body).then(
-    response => next(actionWith({
-      ...body,
-      response,
+    response => next({
+      ...payload,
       type: successType,
-    })),
-    error => next(actionWith({
-      ...body,
+      request: body,
+      response,
+    }),
+    error => next({
+      ...payload,
       type: failureType,
-      error: error.message || 'Something bad happened',
-    })),
+      request: body,
+      error,
+    }),
   );
 };

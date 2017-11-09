@@ -4,15 +4,17 @@ import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import configureStore from './store/configureStore';
-import Index from './containers/Index';
-import New from './containers/New';
+import Home from './containers/Home';
+import Upload from './containers/Upload';
 import About from './containers/About';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import { postAutoLogin } from './actions';
 import { getAuthToken } from './services/storage';
-// import asyncComponent from './utils/asyncComponent';
+// import asyncComponent from './utils/async-component';
+import s from './App.scss';
 
-// const New = asyncComponent(() => System.import(/* webpackChunkName: "new" */'./containers/New'));
+// const Upload = asyncComponent(() => System.import(/* webpackChunkName: "new" */'./containers/Upload'));
 // const About = asyncComponent(() => System.import(/* webpackChunkName: "about" */'./containers/About'));
 
 const history = createHistory();
@@ -31,14 +33,15 @@ const App = () => (
   <Provider store={store}>
     {/* ConnectedRouter will use the store from Provider automatically */}
     <ConnectedRouter history={history}>
-      <div>
+      <div className={s.root}>
         <Header />
         <Switch>
-          <Route exact path="/" component={Index} />
-          <Route path="/new" component={New} />
+          <Route exact path="/" component={Home} />
+          <Route path="/upload" component={Upload} />
           <Route path="/about" component={About} />
-          <Route component={Index} />
+          <Route component={Home} />
         </Switch>
+        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>

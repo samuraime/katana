@@ -1,7 +1,12 @@
-.app {
-  text-size-adjust: none;
-  font-family: helvetica, arial, sans-serif;
-  line-height: 200%;
-  padding: 6px 20px 30px;
-  color: #f00;
+.root {
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 800px;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  & > *:nth-child(2) {
+    flex: 1;
+  }
 }

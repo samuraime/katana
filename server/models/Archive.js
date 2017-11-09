@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const ArchiveSchema = new mongoose.Schema({
   name: String,
-  path: String,
   size: Number,
-  mimetype: String,
+  type: String,
+  hash: String,
   tags: Array,
-  comment: { type: String, default: '' },
+  updatedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
 });
 

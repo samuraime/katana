@@ -5,11 +5,13 @@ import {
   POST_LOGOUT_SUCCESS,
 } from '../actions';
 
-const auth = (state = {
+const initialState = {
   email: '',
   token: '',
   logged: false,
-}, action) => {
+};
+
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case POST_AUTO_LOGIN_SUCCESS:
       return {

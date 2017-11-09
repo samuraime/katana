@@ -1,0 +1,44 @@
+@import './variables.scss';
+
+@font-face {
+  font-family: consolas;
+  src: local('consolas'), url('https://o5vlybhl1.qnssl.com/fonts/consola/consola.ttf') format('ttf');
+}
+@font-face {
+  font-family: FontAwesome;
+  src: url('https://o5vlybhl1.qnssl.com/fonts/fontawesome-webfont.woff2') format('woff2');
+}
+
+:global {
+  * {
+    outline: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+    margin: 0;
+  }
+  body {
+    font-family: consolas, helvetica, sans-serif;
+    margin: 0;
+    color: $font-color;
+  }
+  input, button {
+    border: none;
+    padding: 0;
+    background: transparent;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #fff inset;
+  }
+  button {
+    cursor: pointer;
+  }
+  a {
+    color: inherit;
+  }
+  .icon {
+    font-family: FontAwesome;
+    font-style: normal;
+    text-align: center;
+  }
+}

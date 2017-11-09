@@ -67,19 +67,25 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]',
+          'postcss-loader?sourceMap',
           'sass-loader?sourceMap',
         ],
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=2048&name=[name]-[hash].[ext]',
+        loader: 'url-loader?limit=2048&name=[name].[hash].[ext]',
       },
     ],
   },
 
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+      API_URL: JSON.stringify(`//localhost:${process.env.PORT || 3000}/api`),
+    }),
     // enable HMR globally
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.CommonsChunkPlugin({

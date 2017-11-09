@@ -86,7 +86,7 @@ const makeFile = (host, fileSize, ctxList, token) => (
 );
 
 const getUploadToken = async () => {
-  const res = await fetch('http://localhost:3000/api/upload/token', {
+  const res = await fetch(`${API_URL}/upload/token`, {
     headers: getAuthHeaders(),
     mode: 'cors',
   });

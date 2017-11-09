@@ -37,14 +37,14 @@ module.exports = {
         test: /\.s?css$/,
         use: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'css-loader?modules&importLoaders=1&localIdentName=_[hash:base64:5]',
           'postcss-loader',
-          'sass-loader?sourceMap',
+          'sass-loader',
         ],
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=2048&name=[name]-[hash].[ext]',
+        loader: 'url-loader?limit=2048&name=[name].[hash].[ext]',
       },
     ],
   },
@@ -54,6 +54,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
+      API_URL: JSON.stringify('/api'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

@@ -1,48 +1,57 @@
+import update from 'immutability-helper';
 import {
-  GET_BOOKMARKS_REQUEST,
-  GET_BOOKMARKS_SUCCESS,
-  GET_BOOKMARKS_FAILURE,
-  POST_BOOKMARK_REQUEST,
-  POST_BOOKMARK_SUCCESS,
-  POST_BOOKMARK_FAILURE,
-  DELETE_BOOKMARK_REQUEST,
-  DELETE_BOOKMARK_SUCCESS,
-  DELETE_BOOKMARK_FAILURE,
+  GET_ARCHIVES_REQUEST,
+  GET_ARCHIVES_SUCCESS,
+  GET_ARCHIVES_FAILURE,
+  PUT_ARCHIVE_REQUEST,
+  PUT_ARCHIVE_SUCCESS,
+  PUT_ARCHIVE_FAILURE,
+  DELETE_ARCHIVE_REQUEST,
+  DELETE_ARCHIVE_SUCCESS,
+  DELETE_ARCHIVE_FAILURE,
 } from '../actions';
 
-const home = (state = {
-  bookmarks: [],
+const initialState = {
+  archives: [],
   isFetching: false,
-}, action) => {
+};
+
+const home = (state = initialState, action) => {
   switch (action.type) {
-    case GET_BOOKMARKS_REQUEST:
-    case POST_BOOKMARK_REQUEST:
-    case DELETE_BOOKMARK_REQUEST:
+    case GET_ARCHIVES_REQUEST:
+    case PUT_ARCHIVE_REQUEST:
+    case DELETE_ARCHIVE_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case GET_BOOKMARKS_SUCCESS:
+    case GET_ARCHIVES_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        bookmarks: [...state.bookmarks, ...action.response],
+        archives: [...state.archives, ...action.response],
       };
-    case POST_BOOKMARK_SUCCESS:
+    case PUT_ARCHIVE_SUCCESS: {
+      const index = state.archives.findIndex(({ id }) => action.id === id);
       return {
         ...state,
         isFetching: false,
-        bookmarks: [action.response, ...state.bookmarks],
+        archives: update(state.archives, [
+          [index]: {
+            $set: action.response,
+          },
+        ]),
       };
-    case DELETE_BOOKMARK_SUCCESS:
+    }
+    case DELETE_ARCHIVE_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        bookmarks: state.bookmarks.filter(({ id }) => id !== action.id),
+        archives: state.archives.filter(({ id }) => id !== action.id),
       };
-    case GET_BOOKMARKS_FAILURE:
-    case POST_BOOKMARK_FAILURE:
-    case DELETE_BOOKMARK_FAILURE:
+    case GET_ARCHIVES_FAILURE:
+    case PUT_ARCHIVE_FAILURE:
+    case DELETE_ARCHIVE_FAILURE:
       return {
         ...state,
         isFetching: false,
