@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const login = (ctx) => {
-  const email = ctx.request.body.email;
-  const password = ctx.request.body.password;
+  const { email, password } = ctx.request.body;
 
   if (email === config.email && password === config.password) {
     const token = jwt.sign({ email }, config.jwtSecret);

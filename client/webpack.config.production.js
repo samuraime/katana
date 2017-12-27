@@ -13,7 +13,7 @@ module.exports = {
 
   output: {
     // the output bundle
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
 
     // determines the name of non-entry chunk files
     chunkFilename: '[name].[chunkhash].js',

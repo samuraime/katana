@@ -12,9 +12,7 @@ const ArchiveSchema = new mongoose.Schema({
 
 ArchiveSchema.statics = {
   list(options = {}) {
-    const criteria = options.criteria || {};
-    const page = options.page || 0;
-    const limit = options.limit || 1000;
+    const { page = 0, limit = 1000, ...criteria } = options;
     return this.find(criteria)
       .sort({ createdAt: -1 })
       .limit(limit)

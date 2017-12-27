@@ -1,18 +1,23 @@
 import { getAuthHeaders } from '../services/request';
 import { setAuthToken, removeAuthToken } from '../services/storage';
 import normalizeId from '../utils/normalize-id';
+import utils from '../utils';
 
 // inject from webpack
 const API_ROOT = API_URL; // eslint-disable-line
 
 const callApi = (endpoint, method = 'GET', body) => {
-  const fullUrl = endpoint.includes(API_ROOT) ? endpoint : `${API_ROOT}${endpoint}`;
+  let fullUrl = endpoint.includes(API_ROOT) ? endpoint : `${API_ROOT}${endpoint}`;
   const headers = getAuthHeaders();
+  const upperCasedMethod = method.toUpperCase();
 
+  if (upperCasedMethod === 'GET' && body) {
+    fullUrl += `?${utils.stringify(body)}`;
+  }
   const init = {
     headers,
-    method: method.toUpperCase(),
-    body: JSON.stringify(body),
+    method: upperCasedMethod,
+    body: upperCasedMethod !== 'GET' ? JSON.stringify(body) : null,
     mode: 'cors',
   };
 

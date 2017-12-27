@@ -5,7 +5,12 @@ const upload = require('./upload');
 const Archive = mongoose.model('Archive');
 
 const list = async (ctx) => {
-  const archives = await Archive.list();
+  const { per_page: limit = 1, page = 0, name } = ctx.query;
+  const criteria = { limit, page };
+  if (name) {
+    criteria.name = name;
+  }
+  const archives = await Archive.list(criteria);
   ctx.body = archives.map(a => ({ ...a.toObject(), link: `${qiniu.domain}/${a.hash}` }));
 };
 

@@ -14,6 +14,7 @@ fs.readdirSync(models)
   });
 
 const connect = () => {
+  // reconnect only when initial connect successfully
   mongoose.connect(config.db, {
     autoReconnect: true,
     useMongoClient: true,
@@ -23,8 +24,8 @@ const connect = () => {
     .then(() => {
       console.log('connected to %s', config.db);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     });
 };
 

@@ -69,10 +69,11 @@ export const GET_ARCHIVES_REQUEST = 'GET_ARCHIVES_REQUEST';
 export const GET_ARCHIVES_SUCCESS = 'GET_ARCHIVES_SUCCESS';
 export const GET_ARCHIVES_FAILURE = 'GET_ARCHIVES_FAILURE';
 
-export const getArchives = () => ({
+export const getArchives = query => ({
   [CALL_API]: {
     types: [GET_ARCHIVES_REQUEST, GET_ARCHIVES_SUCCESS, GET_ARCHIVES_FAILURE],
     endpoint: '/archives',
+    body: query,
   },
 });
 

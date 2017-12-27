@@ -23,25 +23,44 @@ export default class Home extends Component {
     dispatch: PropTypes.func.isRequired,
     logged: PropTypes.bool.isRequired,
   }
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      search: '',
+      filter: '',
+    };
+
     if (!this.props.archives.length) {
       this.props.dispatch(getArchives());
     }
   }
+  handleSearchChange = (event) => {
+    this.setState({ search: event.target.value });
+  }
+  // handleSearch = () => {
+  //   this.props.dispatch(getArchives({
+  //     name: this.state.search,
+  //   }));
+  // }
   handleDelete = id => () => {
     this.props.dispatch(deleteArchive(id));
   }
   render() {
     const { logged, archives } = this.props;
+    const filteredList = this.state.search
+      ? archives.filter(({ name }) => name.includes(this.state.search))
+      : archives;
+
     return (
       <div>
         <div className={s.search}>
-          <input type="text" placeholder="filename or #tagname" />
-          <button className="icon">&#xf002;</button>
+          <input type="text" value={this.state.search} onChange={this.handleSearchChange} placeholder="filename or #tagname" />
+          {/* <button className="icon" onClick={this.handleSearch}>&#xf002;</button> */}
         </div>
-        {archives.length ?
+        {filteredList.length ?
           <ul className={s.list}>
-            {archives.map(archive => (
+            {filteredList.map(archive => (
               <li key={archive.id} className={s.item}>
                 <div className={s.left}>
                   <span className={s.title}>{archive.name}</span>
