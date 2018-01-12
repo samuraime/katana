@@ -49,7 +49,7 @@ const upload = (state = initialState, action) => {
         isFetching: true,
       };
     case POST_ARCHIVE_SUCCESS: {
-      const index = state.archives.findIndex(({ hash }) => action.hash === hash);
+      const index = state.archives.findIndex(({ key }) => action.key === key);
       return {
         ...state,
         isFetching: false,

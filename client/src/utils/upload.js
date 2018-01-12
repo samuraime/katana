@@ -1,7 +1,5 @@
 // https://developer.qiniu.com/kodo/manual/1650/chunked-upload
 
-import { getAuthHeaders } from '../services/request';
-
 const getLength = (chunk) => {
   if (chunk instanceof ArrayBuffer) {
     return chunk.byteLength;
@@ -12,13 +10,13 @@ const getLength = (chunk) => {
 const slice = (buffer, size, index) => buffer.slice(index * size, (index + 1) * size);
 
 const post = (url, headers, body) => new Promise(async (resolve, reject) => {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body,
-    mode: 'cors',
-  });
   try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body,
+      mode: 'cors',
+    });
     const json = await response.json();
     if (response.status !== 200) {
       throw new Error(json.error);
@@ -47,14 +45,13 @@ const readFile = file => new Promise((resolve, reject) => {
 // Content-Length: <firstChunkSize>
 // Authorization:  UpToken <UploadToken>
 // <firstChunkBinary>
-const makeBlock = (blockBuffer, firstChunkBuffer, token) => {
-  const host = 'http://upload.qiniu.com';
-  return post(`${host}/mkblk/${getLength(blockBuffer)}`, {
+const makeBlock = (host, blockBuffer, firstChunkBuffer, token) => (
+  post(`${host}/mkblk/${getLength(blockBuffer)}`, {
     'Content-Type': 'application/octet-stream',
     'Content-Length': getLength(firstChunkBuffer),
     Authorization: `UpToken ${token}`,
-  }, firstChunkBuffer);
-};
+  }, firstChunkBuffer)
+);
 
 // POST /bput/<ctx>/<nextChunkOffset> HTTP/1.1
 // Host:           <UpHost>
@@ -85,20 +82,28 @@ const makeFile = (host, fileSize, ctxList, token) => (
   }, ctxList)
 );
 
-const getUploadToken = async () => {
-  const res = await fetch(`${API_URL}/upload/token`, {
-    headers: getAuthHeaders(),
-    mode: 'cors',
-  });
-  const { token } = await res.json();
-  return token;
-};
+const noop = () => {};
 
-const upload = async (file, options = {}) => {
-  const onProgress = options.onProgress || (() => {});
+/**
+ * @param {File} file
+ * @param {Object} options
+ * @param {String|Function} options.token - upload token or a function
+ * @param {String} [options.host=http://upload.qiniu.com] - upload host
+ * @param {String} [options.domain=] - download bucket domain
+ * @param {Function} [options.onComplete]
+ * @param {Function} [options.onProgress]
+ * @return {Promise}
+ */
+const upload = async (file, {
+  host = 'http://upload.qiniu.com',
+  domain = '',
+  token,
+  onComplete = noop,
+  onProgress = noop,
+}) => {
   const blockSize = 4 * 1024 * 1024; // 4MB
   const chunkSize = 256 * 1024; // 256KB
-  const token = await getUploadToken();
+  const uploadToken = typeof token === 'function' ? await token() : token;
   const fileBuffer = await readFile(file);
   const fileSize = fileBuffer.byteLength;
   let uploaded = 0;
@@ -118,9 +123,9 @@ const upload = async (file, options = {}) => {
     for (let i = 0; i < chunkCount; i++) {
       const chunkBuffer = slice(blockBuffer, chunkSize, i);
       if (i === 0) {
-        lastUploadedChunk = await makeBlock(blockBuffer, chunkBuffer, token); // eslint-disable-line
+        lastUploadedChunk = await makeBlock(host, blockBuffer, chunkBuffer, uploadToken); // eslint-disable-line
       } else {
-        lastUploadedChunk = await postChunk(chunkBuffer, lastUploadedChunk, token); // eslint-disable-line
+        lastUploadedChunk = await postChunk(chunkBuffer, lastUploadedChunk, uploadToken); // eslint-disable-line
       }
       uploaded += getLength(chunkBuffer);
       onProgress(uploaded, fileSize);
@@ -129,15 +134,19 @@ const upload = async (file, options = {}) => {
   }));
   const lastBlock = blockResults.slice(-1)[0];
   const ctxList = blockResults.map(b => b.ctx);
-  const { hash, key } = await makeFile(lastBlock.host, fileSize, ctxList.join(','), token);
+  const { hash, key } = await makeFile(lastBlock.host || host, fileSize, ctxList.join(','), uploadToken);
   const { name, size, type } = file;
-  return {
+  const fileInfo = {
     hash,
     key,
     name,
     size,
     type,
+    url: `${domain}/${key}`,
   };
+  onComplete(fileInfo);
+
+  return fileInfo;
 };
 
 export default upload;

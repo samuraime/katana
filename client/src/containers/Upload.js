@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { addArchives, updateArchive, removeArchive, postArchive, deleteArchive } from '../actions';
+import utils from '../utils';
 import uploadFile from '../utils/upload';
 import formatSize from '../utils/size';
 import { Archive } from '../types';
@@ -88,30 +89,33 @@ export default class Upload extends PureComponent {
         status: UPLOADING,
       }));
       uploadFile(archive.originFile, {
+        token: async () => {
+          const { token } = await utils.get('/upload/token');
+          return token;
+        },
         onProgress: (uploaded) => {
           dispatch(updateArchive(archive.key, {
             uploaded,
           }));
         },
-      }).then(({ hash }) => (
+      }).then(({ hash }) => {
         dispatch(postArchive({
           hash,
           name: archive.name,
           size: archive.size,
           type: archive.type,
-        })).then(() => (
+        }, archive.key)).then(({ response }) => (
           dispatch(updateArchive(archive.key, {
             hash,
             status: DONE,
-          })).then(({ response }) => (
-            dispatch(updateArchive(archive.key, response))
-          ))
-        ))
-      )).catch(() => (
+            ...response,
+          }))
+        ));
+      }).catch(() => {
         dispatch(updateArchive(archive.key, {
           status: ERROR,
-        }))
-      ));
+        }));
+      });
     });
   }
   render() {
