@@ -60,4 +60,4 @@ typings/
 .DS_Store
 *.sublime-workspace
 katana.sublime-workspace
-client/dist/*.js
+client/dist/*
