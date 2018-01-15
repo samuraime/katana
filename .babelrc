@@ -2,10 +2,12 @@
   "presets": [
     // webpack understands the native import syntax, and uses it for tree shaking
     ["es2015", {"modules": false}],
-    "es2016",
-    "es2017",
-    // Transpile React components to JavaScript
-    "react"
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 8", "android >= 4.4"]
+      }
+    }]
   ],
   "plugins": [
     // Enables React code to work with HMR.
