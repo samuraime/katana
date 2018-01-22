@@ -6,7 +6,7 @@
   "scripts": {
     "client": "NODE_ENV=development PORT=8000 webpack-dev-server --config ./client/webpack.config.js",
     "server": "NODE_ENV=development PORT=8000 nodemon --watch server ./server",
-    "build": "webpack --config ./client/webpack.config.production.js",
+    "build": "webpack --progress --config ./client/webpack.config.production.js",
     "start": "node ./server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
