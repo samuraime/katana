@@ -5,7 +5,7 @@ const upload = require('./upload');
 const Archive = mongoose.model('Archive');
 
 const list = async (ctx) => {
-  const { per_page: limit = 1, page = 0, name } = ctx.query;
+  const { per_page: limit = 10000, page = 0, name } = ctx.query;
   const criteria = { limit, page };
   if (name) {
     criteria.name = name;
