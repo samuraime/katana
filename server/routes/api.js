@@ -15,6 +15,8 @@ router.use(body());
 router.use(APIError);
 
 router.post('/login', auth.login);
+router.get('/archives', archives.list);
+router.get('/archives/:id', archives.find);
 
 // following routes need to jwt
 router.use(koaJwt({ secret: config.jwtSecret }));
@@ -24,8 +26,6 @@ router.get('/upload/token', upload.getToken);
 router.post('/logout', auth.logout);
 router.post('/autologin', auth.autoLogin);
 
-router.get('/archives', archives.list);
-router.get('/archives/:id', archives.find);
 router.put('/archives/:id', archives.update);
 router.delete('/archives/:id', archives.destory);
 router.post('/archives', archives.create);
