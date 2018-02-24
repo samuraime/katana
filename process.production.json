@@ -1,0 +1,12 @@
+{
+  "name": "katana",
+  "script": "./server/index.js",
+  "watch": true,
+  "ignore_watch": ["client", "node_modules"],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "engines": {
+    "node": ">=8.0"
+  }
+}

@@ -22,7 +22,7 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
 
     // replace cdn, https://cdn.example.com/static/
-    publicPath: '/static/',
+    publicPath: 'http://cdn.samuraime.com/katana/',
   },
 
   devtool: 'cheap-module-source-map',
@@ -67,8 +67,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: '../../server/views/index.html',
+      template: 'index.html',
     }),
   ],
 };

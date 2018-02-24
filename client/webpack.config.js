@@ -94,8 +94,7 @@ module.exports = {
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: '../../server/views/index.html',
+      template: 'index.html',
       alwaysWriteToDisk: true,
     }),
     new HtmlWebpackHarddiskPlugin(),

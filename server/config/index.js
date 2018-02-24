@@ -4,7 +4,7 @@ const env = process.env.NODE_ENV || 'production';
 
 module.exports = {
   env,
-  db: 'mongodb://localhost/katana',
+  db: process.env.DB || 'mongodb://localhost/katana',
   port: process.env.PORT || 3000,
   staticPath: path.resolve(__dirname, '../../client/dist'),
   viewPath: path.resolve(__dirname, '../../client/dist'),
