@@ -60,7 +60,7 @@
     "prop-types": "^15.5.10",
     "qiniu": "^7.1.0",
     "qiniu-up": "^1.0.2",
-    "qupload": "^0.2.0",
+    "qupload": "^0.2.1",
     "react": "16.0.0",
     "react-dom": "^16.0.0",
     "react-hot-loader": "^3.0.0-beta.6",

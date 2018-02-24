@@ -5802,9 +5802,9 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
-qupload@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/qupload/-/qupload-0.2.0.tgz#a7c4729f80556b356871052571c2e7a49fb64fe3"
+qupload@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/qupload/-/qupload-0.2.1.tgz#7a3e1914967b2221b3b79dc4b7204206c62cce50"
   dependencies:
     find-up "^2.1.0"
     listr "^0.13.0"
