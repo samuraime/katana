@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import { postAutoLogin } from './actions';
 import { getAuthToken } from './services/storage';
 // import asyncComponent from './utils/async-component';
+import './styles/global.scss';
 import s from './App.scss';
 
 // const Upload = asyncComponent(() => System.import(/* webpackChunkName: "new" */'./containers/Upload'));
