@@ -1,26 +1,15 @@
-# React SPA universal starter
+# Katana [![CircleCI](https://circleci.com/gh/samuraime/katana.svg?style=shield)](https://circleci.com/gh/samuraime/katana)
 
-## Features
+the backend of suzaku
 
-- [x] Redux
-- [x] React-router
-- [x] Code Splitting
-- [x] Webpack HMR
-- [x] CSS Module
+## Scripts
 
-- [x] Koa (Koa router, Koa static)
-- [x] Mongoose
-- [x] Logger (winston)
-- [x] RESTful API
-- [x] Auth (JSON Web Token)
-
-## Todos
-
-- [ ] map Mongoose Model to React PropTypes
-- [ ] reduce Redux actions, reducers
-- [ ] remove hard coded account
-- [ ] basic style
+  - `yarn run dev` 同时运行前后端
+  - `yarn run be` 开发环境后端
+  - `yarn run fe` 开发环境前端
+  - `yarn run start` 生产环境后端
+  - `yarn run deploy` 部署前后端
 
 ## License
 
-MIT
+[MIT](./LICENSE)

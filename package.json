@@ -1,52 +1,47 @@
 {
   "name": "katana",
   "version": "1.0.0",
-  "description": "React SPA universal starter",
+  "description": "the backend of suzaku",
   "main": "index.js",
   "scripts": {
-    "client": "NODE_ENV=development PORT=8000 webpack-dev-server --config ./client/webpack.config.js",
-    "server": "NODE_ENV=development PORT=8000 nodemon --watch server ./server",
-    "build": "webpack --progress --config ./client/webpack.config.production.js",
-    "cdn": "qupload -p katana/ -r ./client/dist",
-    "deploy": "npm run build && npm run cdn",
+    "dev": "concurrently 'BROWSER=none npm run fe' 'npm run be'",
+    "be": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
+    "fe": "cd frontend && npm run start",
+    "fe:build": "PUBLIC_URL=http://cdn.samuraime.com/suzaku cd frontend && npm run build",
+    "fe:cdn": "QUPLOAD_DOMAIN=http://cdn.samuraime.com qupload -p suzaku/ -r ./frontend/build",
     "start": "pm2 start process.production.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run fe:build && npm run fe:cdn",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && CI=true npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "author": "SamuraiMe",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.24.0",
-    "babel-eslint": "^8.0.1",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.23.0",
-    "clean-webpack-plugin": "^0.1.17",
-    "css-loader": "^0.28.0",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.0.1",
-    "file-loader": "^1.1.6",
-    "html-webpack-harddisk-plugin": "^0.1.0",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.5.3",
+    "concurrently": "^4.1.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.17.2",
+    "husky": "^2.1.0",
+    "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
     "nodemon": "^1.11.0",
-    "postcss-loader": "^2.0.8",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.4.2"
+    "prettier": "^1.17.0",
+    "qupload": "^0.4.1"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "history": "^4.6.2",
-    "immutability-helper": "^2.4.0",
     "jsonwebtoken": "^8.1.0",
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
@@ -57,19 +52,7 @@
     "koa-router": "^7.2.0",
     "koa-static": "^4.0.1",
     "mongoose": "^4.10.6",
-    "prop-types": "^15.5.10",
     "qiniu": "^7.1.0",
-    "qiniu-up": "^1.0.2",
-    "qupload": "^0.2.1",
-    "react": "16.0.0",
-    "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "react-redux": "^5.0.5",
-    "react-router-dom": "^4.1.1",
-    "react-router-redux": "^5.0.0-alpha.9",
-    "react-transition-group": "^2.2.1",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
     "winston": "^2.3.1"
   },
   "repository": "git@github.com:samuraime/katana.git"
