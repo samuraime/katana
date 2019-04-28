@@ -4,14 +4,14 @@
   "description": "the backend of suzaku",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'npm run fe' 'npm run be'",
-    "be": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
-    "fe": "cd frontend && npm run start",
-    "fe:build": "cd frontend && PUBLIC_URL=https://cdn.samuraime.com/suzaku npm run build",
-    "fe:cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p suzaku/ -r --use-path ./frontend/build",
+    "dev": "concurrently 'npm run client' 'npm run server'",
+    "server": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
+    "client": "cd frontend && npm run start",
+    "build": "cd frontend && PUBLIC_URL=https://cdn.samuraime.com/suzaku npm run build",
+    "cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p suzaku/ -r --use-path ./frontend/build",
+    "deploy": "npm run build && npm run cdn",
     "start:pm2": "pm2 start process.production.json",
     "start": "node index.js",
-    "deploy": "npm run fe:build && npm run fe:cdn",
     "test": "jest"
   },
   "husky": {
