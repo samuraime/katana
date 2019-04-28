@@ -7,7 +7,7 @@
     "dev": "concurrently 'BROWSER=none npm run fe' 'npm run be'",
     "be": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
     "fe": "cd frontend && npm run start",
-    "fe:build": "PUBLIC_URL=http://cdn.samuraime.com/suzaku cd frontend && npm run build",
+    "fe:build": "cd frontend && PUBLIC_URL=http://cdn.samuraime.com/suzaku npm run build",
     "fe:cdn": "QUPLOAD_DOMAIN=http://cdn.samuraime.com qupload -p suzaku/ -r ./frontend/build",
     "start": "pm2 start process.production.json",
     "deploy": "npm run fe:build && npm run fe:cdn",
