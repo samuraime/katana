@@ -2,9 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
 jobs:
-  build:
+  test:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
@@ -35,3 +35,80 @@ jobs:
 
       # run tests!
       - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
+
+  frontend_test_build:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run:
+          name: "Pull frontend submodule"
+          command: |
+            git submodule init
+            git submodule update --remote
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run:
+          name: "Install dependencies"
+          command:
+            yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-frontend-{{ checksum "package.json" }}
+            - v1-dependencies-frontend-
+
+      - run:
+          name: "Install frontend dependencies"
+          command: |
+            cd frontend
+            yarn install
+            cd ..
+
+      - save_cache:
+          paths:
+            - frontend/node_modules
+          key: v1-dependencies-frontend-{{ checksum "package.json" }}
+
+      - run:
+          name: "Test frontend"
+          command: |
+            cd frontend
+            yarn test
+            cd ..
+
+      - run:
+          name: "Build frontend"
+          command:
+            yarn build
+
+  deploy:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - run: echo "deploy job"
+
+workflows:
+  version: 2
+  test_build_approval_deploy:
+    jobs:
+      # parallel
+      - test
+      - frontend_test_build
+      - hold:
+          type: approval
+          requires:
+            - test
+            - frontend_test_build
+      - deploy:
+          requires:
+            - hold
