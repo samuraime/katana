@@ -4,7 +4,7 @@
 #
 version: 2.1
 jobs:
-  test:
+  backend:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
@@ -36,7 +36,7 @@ jobs:
       # run tests!
       - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
 
-  frontend_test_build:
+  frontend:
     docker:
       - image: circleci/node:lts
     steps:
@@ -102,13 +102,19 @@ workflows:
   test_build_approval_deploy:
     jobs:
       # parallel
-      - test
-      - frontend_test_build
+      - backend
+      - frontend
       - hold:
           type: approval
           requires:
-            - test
-            - frontend_test_build
+            - backend
+            - frontend
+          filters:
+            branches:
+              only: master
       - deploy:
           requires:
             - hold
+          filters:
+            branches:
+              only: master
