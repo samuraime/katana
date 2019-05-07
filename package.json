@@ -4,6 +4,7 @@
   "description": "the backend of suzaku",
   "main": "index.js",
   "scripts": {
+    "setup": "yarn install && cd frontend && yarn install",
     "dev": "concurrently 'npm run client' 'npm run server'",
     "server": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
     "client": "cd frontend && npm run start",

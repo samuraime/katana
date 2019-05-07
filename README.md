@@ -2,8 +2,15 @@
 
 the backend of suzaku
 
+## Setup
+
+  ```sh
+  git clone --recurse-submodules -j8 git@github.com:samuraime/katana.git
+  ```
+
 ## Scripts
 
+  - `yarn run setup` 安装依赖
   - `yarn run dev` 同时运行前后端
   - `yarn run be` 开发环境后端
   - `yarn run fe` 开发环境前端
