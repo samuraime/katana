@@ -1,6 +1,6 @@
 module.exports = {
-  accessKey: 'qiniu_access_key',
-  secretKey: 'qiniu_secret_key',
+  accessKey: process.env.QINIU_ACCESS_KEY,
+  secretKey: process.env.QINIU_SECRET_KEY,
   policy: {
     scope: 'mimosa', // bucket
     expires: 86400,

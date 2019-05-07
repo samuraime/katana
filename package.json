@@ -1,61 +1,10 @@
 {
   "name": "katana",
+  "private": true,
   "version": "1.0.0",
-  "description": "the backend of suzaku",
-  "main": "index.js",
-  "scripts": {
-    "setup": "yarn install && cd frontend && yarn install",
-    "dev": "concurrently 'npm run client' 'npm run server'",
-    "server": "NODE_ENV=development PORT=8000 nodemon --ignore frontend/",
-    "client": "cd frontend && npm run start",
-    "build": "cd frontend && PUBLIC_URL=https://cdn.samuraime.com/suzaku npm run build",
-    "cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p suzaku/ -r --use-path ./frontend/build",
-    "deploy": "npm run build && npm run cdn",
-    "start:pm2": "pm2 start process.production.json",
-    "start": "node index.js",
-    "test": "jest"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && CI=true npm test"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  },
+  "description": "katana",
+  "workspaces": ["backend", "frontend"],
   "author": "SamuraiMe",
   "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "coveralls": "^3.0.3",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.2.0",
-    "eslint-plugin-import": "^2.17.2",
-    "husky": "^2.1.0",
-    "jest": "^24.7.1",
-    "lint-staged": "^8.1.5",
-    "nodemon": "^1.11.0",
-    "prettier": "^1.17.0",
-    "qupload": "^0.4.1"
-  },
-  "dependencies": {
-    "jsonwebtoken": "^8.1.0",
-    "kcors": "^2.2.1",
-    "koa": "^2.2.0",
-    "koa-body": "^2.3.0",
-    "koa-helmet": "^3.2.0",
-    "koa-jwt": "^3.2.2",
-    "koa-mount": "^3.0.0",
-    "koa-router": "^7.2.0",
-    "koa-static": "^4.0.1",
-    "mongoose": "^4.10.6",
-    "qiniu": "^7.1.0",
-    "winston": "^2.3.1"
-  },
   "repository": "git@github.com:samuraime/katana.git"
 }

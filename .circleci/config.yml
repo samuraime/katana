@@ -38,58 +38,35 @@ jobs:
 
   frontend:
     docker:
+      # specify the version you desire here
       - image: circleci/node:lts
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
     steps:
       - checkout
-      - run:
-          name: "Pull frontend submodule"
-          command: |
-            git submodule init
-            git submodule update --remote
 
+      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: "Install dependencies"
-          command:
-            yarn install
+      - run: yarn install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - restore_cache:
-          keys:
-            - v1-dependencies-frontend-{{ checksum "package.json" }}
-            - v1-dependencies-frontend-
-
-      - run:
-          name: "Install frontend dependencies"
-          command: |
-            cd frontend
-            yarn install
-            cd ..
-
-      - save_cache:
-          paths:
-            - frontend/node_modules
-          key: v1-dependencies-frontend-{{ checksum "package.json" }}
-
-      - run:
-          name: "Test frontend"
-          command: |
-            cd frontend
-            yarn test
-            cd ..
-
-      - run:
-          name: "Build frontend"
-          command:
-            yarn build
+      # run tests!
+      - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
 
   deploy:
     docker:

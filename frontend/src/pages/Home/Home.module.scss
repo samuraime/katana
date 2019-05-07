@@ -1,0 +1,24 @@
+.root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background: #fafbfc;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.samurai {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.motto {
+  font-size: 1.5rem;
+  font-style: italic;
+}

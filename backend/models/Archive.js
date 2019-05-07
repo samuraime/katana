@@ -21,4 +21,4 @@ ArchiveSchema.statics = {
   },
 };
 
-mongoose.model('Archive', ArchiveSchema);
+module.exports = mongoose.model('Archive', ArchiveSchema);

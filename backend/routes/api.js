@@ -18,7 +18,7 @@ router.post('/login', auth.login);
 router.get('/archives', archives.list);
 router.get('/archives/:id', archives.find);
 
-// following routes need to jwt
+// following routes need to jwt auth
 router.use(koaJwt({ secret: config.jwtSecret }));
 
 router.get('/upload/token', upload.getToken);

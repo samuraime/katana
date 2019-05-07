@@ -2,6 +2,7 @@ const Koa = require('koa');
 const helmet = require('koa-helmet');
 const staticServe = require('koa-static');
 // const mount = require('koa-mount');
+const session = require('koa-session');
 const cors = require('kcors');
 const config = require('./config');
 const connect = require('./utils/connect');
@@ -15,6 +16,8 @@ const app = new Koa();
 const apiRouter = require('./routes/api');
 const webRouter = require('./routes');
 
+app.keys = config.keys;
+
 // security headers
 app.use(helmet());
 
@@ -23,6 +26,8 @@ app.use(helmet());
 app.use(staticServe(config.staticPath));
 
 app.use(cors());
+
+app.use(session(app));
 
 // apiRouter first, webRouter match all other routes
 app.use(apiRouter.routes());
