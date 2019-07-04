@@ -1,7 +1,8 @@
 {
-  "name": "katana",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "the backend of suzaku",
+  "private": true,
+  "description": "",
   "main": "index.js",
   "scripts": {
     "setup": "yarn install && cd frontend && yarn install",
@@ -15,33 +16,17 @@
     "start": "node index.js",
     "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && CI=true npm test"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
-  },
   "author": "SamuraiMe",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^4.1.0",
-    "coveralls": "^3.0.3",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-import": "^2.17.2",
-    "husky": "^2.1.0",
     "jest": "^24.7.1",
-    "lint-staged": "^8.1.5",
     "nodemon": "^1.11.0",
-    "prettier": "^1.17.0",
     "qupload": "^0.4.1"
   },
   "dependencies": {

@@ -4,7 +4,7 @@
 #
 version: 2.1
 jobs:
-  backend:
+  test:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
@@ -34,9 +34,11 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
+      # - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
+      - run: yarn workspace frontend test
+      - run: yarn workspace backend test
 
-  frontend:
+  build:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
@@ -66,7 +68,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
+      - run: yarn workspace frontend build
 
   deploy:
     docker:
@@ -79,13 +81,13 @@ workflows:
   test_build_approval_deploy:
     jobs:
       # parallel
-      - backend
-      - frontend
+      - test
+      - build
       - hold:
           type: approval
           requires:
-            - backend
-            - frontend
+            - test
+            - build
           filters:
             branches:
               only: master

@@ -3,7 +3,29 @@
   "private": true,
   "version": "1.0.0",
   "description": "katana",
-  "workspaces": ["backend", "frontend"],
+  "main": "index.js",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "coveralls": "^3.0.4",
+    "husky": "^3.0.0",
+    "lint-staged": "^9.0.2",
+    "prettier": "^1.18.2"
+  },
   "author": "SamuraiMe",
   "license": "MIT",
   "repository": "git@github.com:samuraime/katana.git"
