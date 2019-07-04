@@ -2,7 +2,6 @@
   "name": "katana",
   "script": "./index.js",
   "watch": true,
-  "ignore_watch": ["frontend", "node_modules"],
   "env": {
     "NODE_ENV": "production",
     "PORT": 3001

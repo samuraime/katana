@@ -8,6 +8,15 @@
     "backend",
     "frontend"
   ],
+  "scripts": {
+    "start": "concurrently 'yarn frontend' 'yarn backend'",
+    "frontend": "yarn workspace frontend start",
+    "backend": "yarn workspace backend start",
+    "build": "PUBLIC_URL=https://cdn.samuraime.com/katana yarn workspace frontend build",
+    "cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p katana/ -r --use-path ./frontend/build",
+    "deploy": "yarn build && yarn cdn",
+    "start:pm2": "pm2 start pm2.json"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -20,13 +29,15 @@
       "git add"
     ]
   },
-  "dependencies": {
+  "author": "SamuraiMe",
+  "license": "MIT",
+  "repository": "git@github.com:samuraime/katana.git",
+  "devDependencies": {
+    "concurrently": "^4.1.1",
     "coveralls": "^3.0.4",
     "husky": "^3.0.0",
     "lint-staged": "^9.0.2",
-    "prettier": "^1.18.2"
-  },
-  "author": "SamuraiMe",
-  "license": "MIT",
-  "repository": "git@github.com:samuraime/katana.git"
+    "prettier": "^1.18.2",
+    "qupload": "^0.4.1"
+  }
 }
