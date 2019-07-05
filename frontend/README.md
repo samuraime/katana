@@ -1,4 +1,4 @@
-# Suzaku &middot; [![CircleCI](https://circleci.com/gh/samuraime/suzaku.svg?style=shield&circle-token=4d3aea63843ae9f531e319fab7da0eebdc0e3e57)](https://circleci.com/gh/samuraime/suzaku) [![Coverage Status](https://coveralls.io/repos/github/samuraime/suzaku/badge.svg?branch=master&t=KBvjMQ)](https://coveralls.io/github/samuraime/suzaku?branch=master)
+# Suzaku
 
 ## Target
 
