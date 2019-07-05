@@ -35,8 +35,7 @@ jobs:
 
       # run tests!
       # - run: yarn test --coverage --coverageReporters=text-lcov | ./node_modules/coveralls/bin/coveralls.js
-      - run: yarn workspace frontend test
-      - run: yarn workspace backend test
+      - run: yarn coverage:report
 
   build:
     docker:
@@ -68,7 +67,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn workspace frontend build
+      - run: yarn build
 
   deploy:
     docker:
