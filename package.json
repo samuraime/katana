@@ -10,7 +10,7 @@
   "scripts": {
     "start": "concurrently 'yarn start:fe' 'yarn start:be'",
     "start:fe": "yarn workspace frontend start",
-    "start:be": "yarn workspace backend start",
+    "start:be": "PORT=8000 yarn workspace backend start",
     "build": "PUBLIC_URL=https://cdn.samuraime.com/katana yarn workspace frontend build",
     "cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p katana/ -r --use-path ./frontend/build",
     "deploy": "yarn build && yarn cdn",
