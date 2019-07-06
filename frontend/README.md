@@ -1,26 +1,5 @@
 # Suzaku
 
-## Target
-
-  - homepage (includes introduction, resume and QA about me)
-  - yumehub
-  - playground (includes tech implements, physical animation, etc)
-  - blog
-
-## Tech Plan
-  
-  The repo should represent my current technical pursuing.
-
-  - [ ] focus on software engineering
-  - [ ] TDD
-  - [x] CI / CD
-  - [ ] auto deployment
-  - [ ] only use funcional react component with hooks, state-manager, router
-  - [ ] responsive design
-  - [ ] spliting code
-  - [ ] try locale (language, timezone)
-  - [ ] try PWA
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
