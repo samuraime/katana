@@ -2,7 +2,7 @@ const initialState = {
   notifications: [],
 };
 
-function appReducer(state = initialState, { type, payload }) {
+function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case 'ADD_NOTIFICATION': {
       return {
@@ -16,4 +16,4 @@ function appReducer(state = initialState, { type, payload }) {
   }
 }
 
-export default appReducer;
+export default reducer;

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import app from './app';
-import account from './account';
+import app from './app/reducer';
+import user from './user/reducer';
 
 const rootReducer = combineReducers({
   app,
-  account,
+  user,
 });
 
 export default rootReducer;
