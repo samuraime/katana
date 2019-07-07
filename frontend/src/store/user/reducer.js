@@ -8,16 +8,18 @@ const initialState = {
 
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
-    case 'USER_GET_SUCCESS': {
+    case 'GET_USER_SUCCESS': {
       return {
         ...state,
         ...payload,
         signedIn: true,
       };
     }
-    case 'USER_GET_ERROR': {
+    case 'GET_USER_PENDING':
+    case 'GET_USER_FAILURE': {
       return {
         ...state,
+        ...payload,
         signedIn: false,
       };
     }

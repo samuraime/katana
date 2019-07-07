@@ -4,10 +4,11 @@ const Router = require('koa-router');
 const http = require('../utils/http');
 const config = require('../config');
 const { github } = require('../config/auth');
-const session = require('../constants/session');
 const User = require('../models/User');
 
 const router = new Router();
+
+const userStateKey = 'githubOAuthState';
 
 router.get('/auth/github', ctx => {
   const randomState = Math.random()
@@ -26,7 +27,7 @@ router.get('/auth/github', ctx => {
     allow_signup: 'true',
   };
 
-  ctx.session[session.githubOAuthState] = randomState;
+  ctx.session[userStateKey] = randomState;
 
   const query = qs.stringify(params);
   ctx.redirect(`https://github.com/login/oauth/authorize?${query}`);
@@ -34,7 +35,7 @@ router.get('/auth/github', ctx => {
 
 router.get('/auth/github/callback', async ctx => {
   const { code, state, redirect_uri: redirectURI } = ctx.query;
-  const storedState = ctx.session[session.githubOAuthState];
+  const storedState = ctx.session[userStateKey];
   if (state !== storedState) {
     throw new Error('auth failed');
   }
@@ -68,8 +69,8 @@ router.get('/auth/github/callback', async ctx => {
     user = await User.create({ id, avatar, email, login, name });
   }
 
-  ctx.session[session.githubOAuthState] = null;
-  ctx.session[session.user] = user;
+  ctx.session[userStateKey] = null;
+  ctx.session.user = user;
 
   ctx.redirect(redirectURI || '/');
 });

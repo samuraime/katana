@@ -1,7 +1,7 @@
 const qs = require('querystring');
 const fetch = require('node-fetch');
 
-const request = method => (endpoint, options) => {
+const request = method => (endpoint, options = {}) => {
   const { headers, body, query, restOptions } = options;
   const finalOptions = {
     ...restOptions,

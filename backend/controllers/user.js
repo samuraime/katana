@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
+function getUser(ctx) {
+  const { user } = ctx.session;
+  if (!user) {
+    ctx.throw(403);
+  }
+  ctx.body = user;
+}
+
 const login = ctx => {
   const { email, password } = ctx.request.body;
 
@@ -29,4 +37,5 @@ module.exports = {
   login,
   logout,
   autoLogin,
+  getUser,
 };

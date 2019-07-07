@@ -2,14 +2,16 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { object } from 'prop-types';
+import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Playground from './pages/Playground';
 import NotFound from './pages/NotFound';
-import './App.css';
+import s from './App.css';
 
 function App({ store }) {
   return (
     <Provider store={store}>
+      <Navigation className={s.navigation} />
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
