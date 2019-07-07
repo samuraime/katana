@@ -1,37 +1,39 @@
-const defaultStateMap = {
+const defaultSuffixMap = {
   pending: '_PENDING',
   fulfill: '_SUCCESS',
   reject: '_FAILURE',
 };
 
+const getAction = (action, suffix, payload) => {
+  return {
+    ...action,
+    type: `${action.type}${suffix}`,
+    payload,
+  };
+};
+
 /**
  * separate a promise action into 3 actions
  *
- * @param {Object} stateMap
+ * @param {Object} stateSuffixMap
  */
-export default (stateMap = defaultStateMap) => {
-  const getAction = (action, suffix, payload) => {
-    return {
-      ...action,
-      type: `${action.type}${suffix}`,
-      payload,
-    };
-  };
+export default ({
+  pending,
+  fulfill,
+  reject,
+} = defaultSuffixMap) => () => next => action => {
+  if (!(action.payload instanceof Promise)) {
+    next(action);
+    return;
+  }
 
-  return () => next => action => {
-    if (!(action.payload instanceof Promise)) {
-      next(action);
-      return;
-    }
+  next(getAction(action, pending));
 
-    next(getAction(action, stateMap.pending));
-
-    action.payload
-      .then(res => {
-        next(getAction(action, stateMap.fulfill, res));
-      })
-      .catch(err => {
-        next(getAction(action, stateMap.reject, err));
-      });
-  };
+  action.payload
+    .then(result => {
+      next(getAction(action, fulfill, result));
+    })
+    .catch(error => {
+      next(getAction(action, reject, error));
+    });
 };

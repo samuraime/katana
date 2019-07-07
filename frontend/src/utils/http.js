@@ -23,7 +23,7 @@ const request = method => (endpoint, options = {}) => {
     const data = await res.json();
     if (!res.ok) {
       const { message } = data;
-      throw new Error(`http error: ${message}`);
+      throw new Error(message || res.statusText);
     }
     return data;
   });
