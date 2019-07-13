@@ -22,7 +22,9 @@ export default ({
   fulfill,
   reject,
 } = defaultSuffixMap) => () => next => action => {
-  if (!(action.payload instanceof Promise)) {
+  const { payload } = action;
+
+  if (!(payload instanceof Promise)) {
     next(action);
     return;
   }

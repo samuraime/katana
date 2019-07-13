@@ -1,0 +1,21 @@
+@import '../../styles/variables.scss';
+
+.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 10rem;
+  padding: 1rem;
+  border: 2px dashed $border-gray-color;
+  text-align: center;
+  transition: border .3s;
+}
+
+.dropZoneHover {
+  border: 2px dashed #333;
+}
+
+.uploaderList {
+  margin-top: 1rem;
+  border: 1px solid $border-gray-color;
+}

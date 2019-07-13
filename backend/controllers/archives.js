@@ -34,7 +34,7 @@ const destory = async ctx => {
   const { id } = ctx.params;
   const archive = await Archive.findByIdAndRemove(id);
   await upload.destory(archive.hash);
-  ctx.status = 204;
+  ctx.body = archive;
 };
 
 const create = async ctx => {

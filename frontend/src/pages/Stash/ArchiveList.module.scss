@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  padding: .5rem .5rem .5rem 1rem;
+
+  &:first-child {
+    border-top: 1px solid #eee;
+  }
+}
+
+.archiveInfo > * {
+  margin-right: 0.5rem;
+}
+
+.download, .delete {
+  padding: .5rem;
+  cursor: pointer;
+  color: inherit;
+}

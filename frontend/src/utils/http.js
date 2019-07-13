@@ -6,6 +6,21 @@ const queryString = query => {
   return searchParams.toString();
 };
 
+// eslint-disable-next-line no-underscore-dangle
+const normalize = object => {
+  if (typeof object !== 'object') {
+    return object;
+  }
+
+  if (Array.isArray(object)) {
+    return object.map(normalize);
+  }
+
+  const { _id: id, ...others } = object;
+
+  return { ...others, id };
+};
+
 const request = method => (endpoint, options = {}) => {
   const { headers, body, query, restOptions } = options;
   const finalOptions = {
@@ -16,7 +31,7 @@ const request = method => (endpoint, options = {}) => {
       'Content-Type': 'application/json',
       ...headers,
     },
-    body: body || JSON.stringify(body),
+    body: typeof body === 'object' ? JSON.stringify(body) : body,
   };
   const resource = query ? `${endpoint}?${queryString(query)}` : endpoint;
   return fetch(resource, finalOptions).then(async res => {
@@ -25,7 +40,7 @@ const request = method => (endpoint, options = {}) => {
       const { message } = data;
       throw new Error(message || res.statusText);
     }
-    return data;
+    return normalize(data);
   });
 };
 

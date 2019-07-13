@@ -2,20 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { object } from 'prop-types';
-import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import Playground from './pages/Playground';
+import Stash from './pages/Stash';
 import NotFound from './pages/NotFound';
-import s from './App.css';
 
 function App({ store }) {
   return (
     <Provider store={store}>
-      <Navigation className={s.navigation} />
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/playground" component={Playground} />
+          <Route path="/stash" component={Stash} />
           <Route component={NotFound} />
         </Switch>
       </Router>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { func, shape } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 import userActions from '../../store/user/actions';
 
 function Navigation({ user, getUser }) {
@@ -20,7 +20,7 @@ function Navigation({ user, getUser }) {
 }
 
 Navigation.propTypes = {
-  user: shape().isRequired,
+  user: shape({ name: string }).isRequired,
   getUser: func.isRequired,
 };
 
