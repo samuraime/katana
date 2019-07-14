@@ -9,12 +9,9 @@ executors:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
+        environment:
+          SSH_USER: root
+          SSH_HOST: sh.samuraime.com
     working_directory: ~/repo
 
 jobs:
@@ -78,6 +75,9 @@ jobs:
     executor: my-executor
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "f7:a4:9e:3e:f4:17:88:37:60:39:db:1c:b2:f1:3c:6b"
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
@@ -90,11 +90,11 @@ jobs:
             tar -cvf dist.tar backend frontend/build/index.html
       - store_artifacts:
           path: dist.tar
-          destination: dist
-      #- run:
-      #    name: Deploy Over SSH
-      #    command: |
-      #      ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
+          destination: dist.tar
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "/www/katana/deploy.sh $CIRCLE_BUILD_NUM"
 
 workflows:
   version: 2

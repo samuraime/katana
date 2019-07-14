@@ -10112,7 +10112,7 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qiniu-browser@0.1.1:
+qiniu-browser@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/qiniu-browser/-/qiniu-browser-0.1.1.tgz#96a80ebfe1b9d42ec5f75a6834f503516ce5c21e"
   integrity sha512-WBAKA/zEnVUBSJAIwq4rrlLhNzDzG/1wLHjzTdkAgcC4TCY+RLD5qKujEMS3M3wcXo/UOVCEc1HUumTiqA9mEg==
