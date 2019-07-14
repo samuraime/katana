@@ -7,6 +7,9 @@ const initialState = {
   uploaderArchives: [],
 };
 
+const findIndexByTempKey = (state, key) =>
+  state.uploaderArchives.findIndex(({ tempKey }) => tempKey === key);
+
 const reducer = handleActions(
   {
     GET_ARCHIVES_SUCCESS(state, { payload }) {
@@ -28,9 +31,7 @@ const reducer = handleActions(
       };
     },
     CREATE_ARCHIVE_PENDING(state, { meta }) {
-      const index = state.uploaderArchives.findIndex(
-        ({ key }) => key === meta.key
-      );
+      const index = findIndexByTempKey(state, meta.tempKey);
       return update(state, {
         uploaderArchives: {
           [index]: {
@@ -42,9 +43,7 @@ const reducer = handleActions(
       });
     },
     CREATE_ARCHIVE_SUCCESS(state, { payload, meta }) {
-      const index = state.uploaderArchives.findIndex(
-        ({ key }) => key === meta.key
-      );
+      const index = findIndexByTempKey(state, meta.tempKey);
       const uploadedArchive = {
         ...state.uploaderArchives[index],
         status: DONE,
@@ -62,9 +61,7 @@ const reducer = handleActions(
       });
     },
     CREATE_ARCHIVE_FAILURE(state, { meta }) {
-      const index = state.uploaderArchives.findIndex(
-        ({ key }) => key === meta.key
-      );
+      const index = findIndexByTempKey(state, meta.tempKey);
       return update(state, {
         uploaderArchives: {
           [index]: {
@@ -76,9 +73,7 @@ const reducer = handleActions(
       });
     },
     UPDATE_ARCHIVE_PROGRESS(state, { payload }) {
-      const index = state.uploaderArchives.findIndex(
-        ({ key }) => key === payload.key
-      );
+      const index = findIndexByTempKey(state, payload.tempKey);
       return update(state, {
         uploaderArchives: {
           [index]: {

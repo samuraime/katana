@@ -5,5 +5,5 @@ module.exports = {
     scope: 'mimosa', // bucket
     expires: 86400,
   },
-  domain: 'http://ot7pceyp2.bkt.clouddn.com',
+  domain: 'http://cdn-katana.samuraime.com',
 };

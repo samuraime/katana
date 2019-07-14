@@ -13,7 +13,7 @@ const list = async ctx => {
   const archives = await Archive.list(criteria);
   ctx.body = archives.map(a => ({
     ...a.toObject(),
-    link: `${qiniu.domain}/${a.hash}`,
+    link: `${qiniu.domain}/${a.key || a.hash}`,
   }));
 };
 
@@ -38,11 +38,12 @@ const destory = async ctx => {
 };
 
 const create = async ctx => {
-  const { name, size, type, hash } = ctx.request.body;
+  const { name, size, type, key, hash } = ctx.request.body;
   const archive = new Archive({
     name,
     size,
     type,
+    key,
     hash,
   });
   await archive.save();

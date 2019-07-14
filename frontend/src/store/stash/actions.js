@@ -6,9 +6,10 @@ const actions = createActions({
   APPEND_ARCHIVES: undefined,
   CREATE_ARCHIVE: [
     (uploadPromise, archive) =>
-      uploadPromise.then(({ hash }) =>
+      uploadPromise.then(({ key, hash }) =>
         postArchive({
           ...archive,
+          key,
           hash,
         })
       ),

@@ -1,6 +1,7 @@
 import React from 'react';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
 import { func, arrayOf, Archive } from '../../types';
+import { getDownloadLink } from '../../utils';
 import getIcon from '../../utils/icon';
 import formatSize from '../../utils/formatSize';
 import s from './ArchiveList.module.scss';
@@ -17,7 +18,7 @@ export default function ArchiveList({ archives, onDelete, ...otherProps }) {
           </div>
           <div className={s.action}>
             <a
-              href={archive.link}
+              href={getDownloadLink(archive.key || archive.hash)}
               download={archive.name}
               className={s.download}
             >

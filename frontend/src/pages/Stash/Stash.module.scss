@@ -14,6 +14,7 @@
 .uploader {
   flex: 2;
   width: 100%;
+  min-width: 300px;
   margin: 1rem;
   cursor: pointer;
 }
@@ -21,6 +22,8 @@
 .archiveList {
   flex: 3;
   width: 100%;
+  min-width: 300px;
+  min-height: 10rem;
   margin: 1rem;
   border: 1px solid #eee;
 }

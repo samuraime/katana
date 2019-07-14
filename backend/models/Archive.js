@@ -4,6 +4,7 @@ const ArchiveSchema = new mongoose.Schema({
   name: String,
   size: Number,
   type: String,
+  key: String,
   hash: String,
   updatedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },

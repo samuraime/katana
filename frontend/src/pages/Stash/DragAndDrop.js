@@ -30,6 +30,7 @@ export default function DragAndDrop({
 
   const handleDrop = e => {
     e.preventDefault();
+    setDragOver(false);
     const files = Array.from(e.dataTransfer.files);
     onChange(e, files);
   };
