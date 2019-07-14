@@ -6,7 +6,8 @@ const user = require('../controllers/user');
 const archives = require('../controllers/archives');
 const upload = require('../controllers/upload');
 const APIError = require('../middlewares/APIError');
-// const authGuard = require('../middlewares/authGuard');
+const authGuard = require('../middlewares/authGuard');
+const superUserGuard = require('../middlewares/superUserGuard');
 
 const router = new Router({ prefix: '/api' });
 
@@ -21,11 +22,18 @@ router.get('/archives/:id', archives.find);
 
 // following routes need to jwt auth
 // router.use(koaJwt({ secret: config.jwtSecret }));
-// router.use(authGuard);
 
 router.get('/user', user.getUser);
+
+router.use(authGuard);
+
+router.get('/signout', user.signout);
+
 router.post('/logout', user.logout);
 router.post('/autologin', user.autoLogin);
+
+// only super user
+router.use(superUserGuard);
 
 router.get('/upload/token', upload.getToken);
 

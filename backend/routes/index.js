@@ -4,6 +4,7 @@ const Router = require('koa-router');
 const http = require('../utils/http');
 const config = require('../config');
 const { github } = require('../config/auth');
+const { githubSuperUserIDs } = require('../constants');
 const User = require('../models/User');
 
 const router = new Router();
@@ -66,7 +67,8 @@ router.get('/auth/github/callback', async ctx => {
 
   let user = await User.findOne({ id });
   if (!user) {
-    user = await User.create({ id, avatar, email, login, name });
+    const superUser = githubSuperUserIDs.includes(id);
+    user = await User.create({ id, avatar, email, login, name, superUser });
   }
 
   ctx.session[userStateKey] = null;

@@ -3,10 +3,7 @@ const config = require('../config');
 
 function getUser(ctx) {
   const { user } = ctx.session;
-  if (!user) {
-    ctx.throw(403);
-  }
-  ctx.body = user;
+  ctx.body = user || {};
 }
 
 const login = ctx => {
@@ -33,9 +30,15 @@ const autoLogin = ctx => {
   };
 };
 
+const signout = ctx => {
+  ctx.session.user = null;
+  ctx.status = 204;
+};
+
 module.exports = {
   login,
   logout,
   autoLogin,
   getUser,
+  signout,
 };

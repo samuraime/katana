@@ -35,7 +35,8 @@ const request = method => (endpoint, options = {}) => {
   };
   const resource = query ? `${endpoint}?${queryString(query)}` : endpoint;
   return fetch(resource, finalOptions).then(async res => {
-    const data = await res.json();
+    const hasContent = res.headers.get('Content-Length');
+    const data = hasContent ? await res.json() : {};
     if (!res.ok) {
       const { message } = data;
       throw new Error(message || res.statusText);

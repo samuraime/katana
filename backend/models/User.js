@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
   email: String,
   login: String,
   name: String,
+  superUser: Boolean,
   updatedAt: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
 });

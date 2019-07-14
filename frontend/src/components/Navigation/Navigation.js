@@ -1,42 +1,90 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { string, func, shape } from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { string, func, shape } from '../../types';
 import userActions from '../../store/user/actions';
+import s from './Navigation.module.scss';
 
-function Navigation({ user, getUser }) {
-  useEffect(getUser, [user.id]);
+const getLoginURL = () => {
+  return `/auth/github?redirect_uri=${encodeURIComponent(
+    window.location.href
+  )}`;
+};
+
+function Navigation({ user, dispatch, title }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  function handleMenu(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  function handleSignOut() {
+    dispatch(userActions.signOut());
+    handleClose();
+  }
+
+  useEffect(() => {
+    dispatch(userActions.getUser());
+  }, [dispatch]);
 
   return (
-    <nav>
-      {user.signedIn ? (
-        <div>
-          <span>{user.name}</span>
-        </div>
-      ) : (
-        <a href="/auth/github">Sign In</a>
-      )}
-    </nav>
+    <AppBar position="static">
+      <Toolbar variant="dense">
+        <Typography variant="h6" className={s.title}>
+          {title}
+        </Typography>
+        {user.signedIn ? (
+          <Button color="inherit" onClick={handleMenu}>
+            {user.name}
+          </Button>
+        ) : (
+          <Button color="inherit" href={getLoginURL()}>
+            Sign In
+          </Button>
+        )}
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+        </Menu>
+      </Toolbar>
+    </AppBar>
   );
 }
 
 Navigation.propTypes = {
+  title: string,
   user: shape({ name: string }).isRequired,
-  getUser: func.isRequired,
+  dispatch: func.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    user: state.user,
-  };
+Navigation.defaultProps = {
+  title: '',
+};
+
+function mapStateToProps({ user }) {
+  return { user };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getUser: () => dispatch(userActions.getUser()),
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Navigation);
+export default connect(mapStateToProps)(Navigation);

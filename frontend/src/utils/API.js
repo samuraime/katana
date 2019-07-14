@@ -2,6 +2,8 @@ import http from './http';
 
 export const getUser = () => http.get('/api/user');
 
+export const signOut = () => http.get('/api/signout');
+
 export const getUploadToken = () => http.get('/api/upload/token');
 
 export const getArchives = () => http.get('/api/archives');

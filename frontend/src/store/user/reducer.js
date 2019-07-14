@@ -1,28 +1,32 @@
 import { handleActions } from 'redux-actions';
 
 const initialState = {
-  signedIn: false,
   id: '',
   avatar: '',
   email: '',
   name: '',
+  signedIn: false,
+  superUser: false,
 };
 
 const reducer = handleActions(
   {
-    GET_USER_SUCCESS(state, action) {
+    GET_USER_SUCCESS(state, { payload }) {
       return {
         ...state,
-        ...action.payload,
-        signedIn: true,
+        ...payload,
+        signedIn: !!payload.id,
       };
     },
-    GET_USER_FAILURE(state, action) {
+    GET_USER_FAILURE(state, { payload }) {
       return {
         ...state,
-        ...action.payload,
+        ...payload,
         signedIn: false,
       };
+    },
+    SIGN_OUT_SUCCESS() {
+      return initialState;
     },
   },
   initialState
