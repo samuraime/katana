@@ -3,8 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
-jobs:
-  test:
+
+executors:
+  my-executor:
     docker:
       # specify the version you desire here
       - image: circleci/node:lts
@@ -16,6 +17,9 @@ jobs:
 
     working_directory: ~/repo
 
+jobs:
+  test:
+    executor: my-executor
     steps:
       - checkout
 
@@ -38,42 +42,59 @@ jobs:
       - run: yarn coverage:report
 
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:lts
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
+    executor: my-executor
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
-
       - run: yarn install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
-      - run: yarn build
+      - run:
+          name: Build Frontend
+          command: |
+            yarn build
+      - run:
+          name: Upload CDN
+          command: |
+            yarn cdn
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
+          # taken to be the root directory of the workspace.
+          root: ./
+          # Must be relative path from root
+          paths:
+            - backend
+            - frontend/build/index.html
 
   deploy:
-    docker:
-      - image: circleci/node:lts
+    executor: my-executor
+
     steps:
-      - run: echo "deploy job"
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ./
+      - run:
+          name: Prepare Production Project
+          command: |
+            cd backend
+            yarn install --production
+            cd ..
+            tar -cvf dist.tar backend frontend/build/index.html
+      - store_artifacts:
+          path: dist.tar
+          destination: dist
+      #- run:
+      #    name: Deploy Over SSH
+      #    command: |
+      #      ssh $SSH_USER@$SSH_HOST "<remote deploy command>"
 
 workflows:
   version: 2
