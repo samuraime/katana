@@ -77,7 +77,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "f7:a4:9e:3e:f4:17:88:37:60:39:db:1c:b2:f1:3c:6b"
+            - "a7:39:34:e3:2c:1b:a4:07:e6:77:c3:c1:83:16:ce:7e"
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
@@ -94,7 +94,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST "/www/katana/deploy.sh $CIRCLE_BUILD_NUM"
+            ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no "/www/katana/deploy.sh ${CIRCLE_BUILD_NUM}"
 
 workflows:
   version: 2
