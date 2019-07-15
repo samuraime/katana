@@ -8,7 +8,7 @@ const queryString = query => {
 
 // eslint-disable-next-line no-underscore-dangle
 const normalize = object => {
-  if (typeof object !== 'object') {
+  if (typeof object !== 'object' || object === null) {
     return object;
   }
 
@@ -17,6 +17,10 @@ const normalize = object => {
   }
 
   const { _id: id, ...others } = object;
+
+  if (!id) {
+    return object;
+  }
 
   return { ...others, id };
 };
@@ -35,8 +39,9 @@ const request = method => (endpoint, options = {}) => {
   };
   const resource = query ? `${endpoint}?${queryString(query)}` : endpoint;
   return fetch(resource, finalOptions).then(async res => {
-    const hasContent = res.headers.get('Content-Length');
-    const data = hasContent ? await res.json() : {};
+    // TODO: use robust way
+    const hasContent = res.status !== 204;
+    const data = hasContent ? await res.json() : null;
     if (!res.ok) {
       const { message } = data;
       throw new Error(message || res.statusText);
