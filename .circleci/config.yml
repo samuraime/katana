@@ -10,7 +10,7 @@ executors:
       # specify the version you desire here
       - image: circleci/node:lts
         environment:
-          SSH_USER: root
+          SSH_USER: ci
           SSH_HOST: sh.samuraime.com
     working_directory: ~/repo
 
@@ -49,11 +49,29 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-backend
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "frontend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-frontend
       - run: yarn install
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - backend/node_modules
+          key: v1-dependencies-{{ checksum "backend/package.json" }}
+      - save_cache:
+          paths:
+            - frontend/node_modules
+          key: v1-dependencies-{{ checksum "frontend/package.json" }}
       - run:
           name: Build Frontend
           command: |
@@ -81,6 +99,11 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "backend/package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run:
           name: Prepare Production Project
           command: |
@@ -88,13 +111,18 @@ jobs:
             yarn install --production
             cd ..
             tar -cvf dist.tar backend frontend/build/index.html
+      - save_cache:
+          paths:
+            - backend/node_modules
+          key: v1-dependencies-{{ checksum "backend/package.json" }}
       - store_artifacts:
           path: dist.tar
           destination: dist.tar
-      - run:
-          name: Deploy Over SSH
-          command: |
-            ssh $SSH_USER@$SSH_HOST -o StrictHostKeyChecking=no "/www/katana/deploy.sh ${CIRCLE_BUILD_NUM}"
+      #- run:
+      #    name: Deploy Over SSH
+      #    command: |
+      #      echo "/www/katana/deploy.sh ${CIRCLE_BUILD_NUM}"
+      #      ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "/www/katana/deploy.sh ${CIRCLE_BUILD_NUM}"
 
 workflows:
   version: 2
