@@ -110,7 +110,7 @@ jobs:
             cd backend
             yarn install --production
             cd ..
-            tar -cvf dist.tar backend frontend/build/index.html
+            tar -cvf dist.tar backend frontend/build/*.*
       - save_cache:
           paths:
             - backend/node_modules

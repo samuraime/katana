@@ -4,7 +4,7 @@ module.exports = {
   env: process.env.NODE_ENV || 'production',
   db: process.env.DB,
   port: process.env.PORT,
-  staticPath: path.resolve(__dirname, '../../frontend/build'),
+  publicPath: path.resolve(__dirname, '../../frontend/build'),
   frontendEntry: path.resolve(__dirname, '../../frontend/build/index.html'),
   jwtSecret: process.env.JWT_SECRET,
   home: process.env.SITE_HOME, // https://samuraime.com

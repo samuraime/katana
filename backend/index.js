@@ -22,8 +22,8 @@ app.keys = config.keys;
 app.use(helmet());
 
 // static files
-// app.use(mount('/static', staticServe(config.staticPath)));
-app.use(staticServe(config.staticPath));
+// app.use(mount('/static', staticServe(config.publicPath)));
+app.use(staticServe(config.publicPath));
 
 app.use(cors());
 
