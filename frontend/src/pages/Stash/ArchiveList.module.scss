@@ -10,12 +10,22 @@
   }
 }
 
-.archiveInfo > * {
-  margin-right: 0.5rem;
+.archiveInfo {
+  white-space: normal;
+  word-break: break-all;
+  line-height: 1.4;
+
+  & > * {
+    margin-right: 0.5rem;
+  }
 }
 
 .download, .delete {
   padding: .5rem;
   cursor: pointer;
-  color: inherit;
+  color: #666;
+
+  &:hover {
+    color: inherit;
+  }
 }

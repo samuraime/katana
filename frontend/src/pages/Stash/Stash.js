@@ -32,6 +32,7 @@ function Stash({ superUser, archives, uploaderArchives, dispatch }) {
       <ArchiveList
         className={s.archiveList}
         archives={archives}
+        deletable={superUser}
         onDelete={handleDelete}
       />
     </div>

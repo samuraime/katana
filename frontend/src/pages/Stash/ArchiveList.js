@@ -1,12 +1,17 @@
 import React from 'react';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
-import { func, arrayOf, Archive } from '../../types';
+import { bool, func, arrayOf, Archive } from '../../types';
 import { getDownloadLink } from '../../utils';
 import getIcon from '../../utils/icon';
 import formatSize from '../../utils/formatSize';
 import s from './ArchiveList.module.scss';
 
-export default function ArchiveList({ archives, onDelete, ...otherProps }) {
+export default function ArchiveList({
+  archives,
+  deletable,
+  onDelete,
+  ...otherProps
+}) {
   return (
     <div {...otherProps}>
       {archives.map(archive => (
@@ -24,13 +29,15 @@ export default function ArchiveList({ archives, onDelete, ...otherProps }) {
             >
               <Octicon icon={CloudDownload} size={20} />
             </a>
-            <button
-              type="button"
-              className={s.delete}
-              onClick={() => onDelete(archive)}
-            >
-              <Octicon icon={Trashcan} size={20} />
-            </button>
+            {deletable && (
+              <button
+                type="button"
+                className={s.delete}
+                onClick={() => onDelete(archive)}
+              >
+                <Octicon icon={Trashcan} size={20} />
+              </button>
+            )}
           </div>
         </div>
       ))}
@@ -41,4 +48,5 @@ export default function ArchiveList({ archives, onDelete, ...otherProps }) {
 ArchiveList.propTypes = {
   archives: arrayOf(Archive).isRequired,
   onDelete: func.isRequired,
+  deletable: bool.isRequired,
 };
