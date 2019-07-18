@@ -1,14 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
+import IconButton from '@material-ui/core/IconButton';
+import Octicon, { ThreeBars } from '@primer/octicons-react';
 import MenuItem from '@material-ui/core/MenuItem';
 import { string, func, shape } from '../../types';
 import userActions from '../../store/user/actions';
 import s from './Navigation.module.scss';
+
+const AdapterLink = React.forwardRef((props, ref) => (
+  <Link innerRef={ref} {...props} />
+));
 
 const getLoginURL = () => {
   return `/auth/github?redirect_uri=${encodeURIComponent(
@@ -40,6 +47,16 @@ function Navigation({ user, dispatch, title }) {
   return (
     <AppBar position="static">
       <Toolbar variant="dense">
+        <IconButton
+          component={AdapterLink}
+          to="/"
+          className={s.menu}
+          edge="start"
+          color="inherit"
+          aria-label="Menu"
+        >
+          <Octicon className={s.typeIcon} icon={ThreeBars} size={20} />
+        </IconButton>
         <Typography variant="h6" className={s.title}>
           {title}
         </Typography>

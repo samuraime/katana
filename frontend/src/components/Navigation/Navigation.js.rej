@@ -1,0 +1,16 @@
+diff a/frontend/src/components/Navigation/Navigation.js b/frontend/src/components/Navigation/Navigation.js	(rejected hunks)
+@@ -45,6 +45,8 @@ function Navigation({ user, dispatch, title }) {
+-        <IconButton href="/" className={s.menu} edge="start" color="inherit" aria-label="Menu">
+-          <Octicon
+-            className={s.typeIcon}
+-            icon={ThreeBars}
+-            size={20}
+-          />
++        <IconButton
++          href="/"
++          className={s.menu}
++          edge="start"
++          color="inherit"
++          aria-label="Menu"
++        >
++          <Octicon className={s.typeIcon} icon={ThreeBars} size={20} />
