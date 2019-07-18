@@ -16,12 +16,16 @@ export default function ArchiveList({
     <div {...otherProps}>
       {archives.map(archive => (
         <div key={archive.id} className={s.item}>
+          <Octicon
+            className={s.typeIcon}
+            icon={getIcon(archive.name)}
+            size={20}
+          />
           <div className={s.archiveInfo}>
-            <Octicon icon={getIcon(archive.name)} size={20} />
             <span>{archive.name}</span>
             <span>{formatSize(archive.size)}</span>
           </div>
-          <div className={s.action}>
+          <div className={s.actions}>
             <a
               href={getDownloadLink(archive.key || archive.hash)}
               download={archive.name}
