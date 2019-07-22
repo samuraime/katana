@@ -87,7 +87,7 @@ jobs:
           # Must be relative path from root
           paths:
             - backend
-            - frontend/build/index.html
+            - frontend/build/*.*
 
   deploy:
     executor: my-executor
