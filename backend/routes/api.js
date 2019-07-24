@@ -5,6 +5,7 @@ const body = require('koa-body');
 const user = require('../controllers/user');
 const archives = require('../controllers/archives');
 const upload = require('../controllers/upload');
+const yumes = require('../controllers/yumes');
 const APIError = require('../middlewares/APIError');
 const authGuard = require('../middlewares/authGuard');
 const superUserGuard = require('../middlewares/superUserGuard');
@@ -31,6 +32,13 @@ router.get('/signout', user.signout);
 
 router.post('/logout', user.logout);
 router.post('/autologin', user.autoLogin);
+
+router.get('/yumes', yumes.list);
+router.post('/yumes', yumes.create);
+// router.get('/yumes/starred', yumes.starred);
+// router.get('/yumes/posts', yumes.posts);
+// router.put('/yume/starred/:id', yumes.star);
+// router.delete('/yume/starred/:id', yumes.unstar);
 
 // only super user
 router.use(superUserGuard);

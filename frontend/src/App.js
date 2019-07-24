@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import Home from './pages/Home';
 import Playground from './pages/Playground';
 import Stash from './pages/Stash';
+import Yume from './pages/Yume';
 import NotFound from './pages/NotFound';
 import theme from './styles/theme';
 
@@ -18,6 +19,7 @@ function App({ store }) {
             <Route exact path="/" component={Home} />
             <Route path="/playground" component={Playground} />
             <Route path="/stash" component={Stash} />
+            <Route path="/yume" component={Yume} />
             <Route component={NotFound} />
           </Switch>
         </Router>
