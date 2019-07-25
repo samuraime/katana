@@ -1,4 +1,3 @@
-const fs = require('fs');
 const qs = require('querystring');
 const Router = require('koa-router');
 const http = require('../utils/http');
@@ -6,6 +5,7 @@ const config = require('../config');
 const { github } = require('../config/auth');
 const { githubSuperUserIDs } = require('../constants');
 const User = require('../models/User');
+const SPA = require('../middlewares/SPA');
 
 const router = new Router();
 
@@ -77,9 +77,6 @@ router.get('/auth/github/callback', async ctx => {
   ctx.redirect(redirectURI || '/');
 });
 
-router.get('/*', async ctx => {
-  ctx.body = fs.createReadStream(config.frontendEntry);
-  ctx.type = 'text/html';
-});
+router.get('/*', SPA);
 
 module.exports = router;

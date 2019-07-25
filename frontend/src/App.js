@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { object } from 'prop-types';
 import { ThemeProvider } from '@material-ui/styles';
+import AuthRoute from './components/AuthRoute';
 import Home from './pages/Home';
 import Playground from './pages/Playground';
 import Stash from './pages/Stash';
@@ -19,7 +20,7 @@ function App({ store }) {
             <Route exact path="/" component={Home} />
             <Route path="/playground" component={Playground} />
             <Route path="/stash" component={Stash} />
-            <Route path="/yume" component={Yume} />
+            <AuthRoute path="/yume" component={Yume} />
             <Route component={NotFound} />
           </Switch>
         </Router>

@@ -32,6 +32,7 @@
     "mongoose": "^4.10.6",
     "node-fetch": "^2.6.0",
     "qiniu": "^7.1.0",
+    "serialize-javascript": "^1.7.0",
     "winston": "^2.3.1"
   },
   "repository": "git@github.com:samuraime/katana.git"

@@ -9,6 +9,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Octicon, { ThreeBars } from '@primer/octicons-react';
 import MenuItem from '@material-ui/core/MenuItem';
+import { getLoginURL } from '../../utils';
 import { string, func, shape } from '../../types';
 import userActions from '../../store/user/actions';
 import s from './Navigation.module.scss';
@@ -16,12 +17,6 @@ import s from './Navigation.module.scss';
 const AdapterLink = React.forwardRef((props, ref) => (
   <Link innerRef={ref} {...props} />
 ));
-
-const getLoginURL = () => {
-  return `/auth/github?redirect_uri=${encodeURIComponent(
-    window.location.href
-  )}`;
-};
 
 function Navigation({ user, dispatch, title }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
