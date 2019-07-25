@@ -14,7 +14,12 @@ const request = method => (endpoint, options = {}) => {
     body: body || JSON.stringify(body),
   };
   const resource = query ? `${endpoint}?${qs.stringify(query)}` : endpoint;
-  return fetch(resource, finalOptions).then(res => res.json());
+  return fetch(resource, finalOptions).then(res => {
+    if (res.headers.get('content-type').includes('application/json')) {
+      return res.json();
+    }
+    return res.text();
+  });
 };
 
 module.exports = {

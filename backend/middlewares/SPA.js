@@ -1,12 +1,24 @@
 const fs = require('fs');
-// const serialize = require('serialize-javascript');
+const serialize = require('serialize-javascript');
 const config = require('../config');
 
-const entryHTML = fs.readFileSync(config.frontendEntry, 'utf8');
+let entryHTML;
+
+function getEntryHTML() {
+  if (entryHTML) {
+    return entryHTML;
+  }
+
+  return fs.readFileSync(config.frontendEntry, 'utf8');
+}
 
 function preloadState(state) {
-  const serialized = JSON.stringify(state);
-  return entryHTML.replace(/(?<=__PRELOADED_STATE__=){}/, serialized);
+  const html = getEntryHTML();
+  const serialized = serialize({
+    haxorXSS: state,
+  });
+  const scriptTag = `<script>window.__PRELOADED_STATE__=${serialized}</script>`;
+  return html.replace(/(?<=<div id="root"><\/div>)\B/, scriptTag);
 }
 
 function SPA(ctx) {
