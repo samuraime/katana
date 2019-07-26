@@ -14,9 +14,7 @@ function getEntryHTML() {
 
 function preloadState(state) {
   const html = getEntryHTML();
-  const serialized = serialize({
-    haxorXSS: state,
-  });
+  const serialized = serialize(state, { isJSON: true });
   const scriptTag = `<script>window.__PRELOADED_STATE__=${serialized}</script>`;
   return html.replace(/(?<=<div id="root"><\/div>)\B/, scriptTag);
 }
