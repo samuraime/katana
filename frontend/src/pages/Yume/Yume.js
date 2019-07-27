@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { func, arrayOf, Yume as YumeType } from '../../types';
 import yumeActions from '../../store/yume/actions';
+import { withNavigation } from '../../components/Navigation';
 import YumeCard from './YumeCard';
+import s from './Yume.module.scss';
 
 function Yume({ yumes, dispatch }) {
   useEffect(() => {
@@ -10,9 +13,9 @@ function Yume({ yumes, dispatch }) {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={s.root}>
       {yumes.map(yume => (
-        <YumeCard key={yume.id} yume={yume} />
+        <YumeCard key={yume.id} yume={yume} className={s.yumeCard} />
       ))}
     </div>
   );
@@ -29,4 +32,7 @@ function mapStateToProps({ yume }) {
   };
 }
 
-export default connect(mapStateToProps)(Yume);
+export default compose(
+  withNavigation({ title: 'YumeHub' }),
+  connect(mapStateToProps)
+)(Yume);

@@ -13,10 +13,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { Yume } from '../../types';
+import { string, Yume } from '../../types';
 import s from './YumeCard.module.scss';
 
-function YumeCard({ yume }) {
+function YumeCard({ yume, className }) {
   const [expanded, setExpanded] = React.useState(false);
 
   function handleExpandClick() {
@@ -26,7 +26,7 @@ function YumeCard({ yume }) {
   const { dreamer } = yume;
 
   return (
-    <Card className={s.card}>
+    <Card className={className}>
       <CardHeader
         avatar={
           <Avatar
@@ -87,6 +87,11 @@ function YumeCard({ yume }) {
 
 YumeCard.propTypes = {
   yume: Yume.isRequired,
+  className: string,
+};
+
+YumeCard.defaultProps = {
+  className: '',
 };
 
 export default YumeCard;
