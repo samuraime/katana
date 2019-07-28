@@ -63,12 +63,19 @@ router.get('/auth/github/callback', async ctx => {
     },
   });
 
-  const { id, avatar_url: avatar, email, login, name } = githubUser;
+  const { id: githubID, avatar_url: avatar, email, login, name } = githubUser;
 
-  let user = await User.findOne({ id });
+  let user = await User.findOne({ githubID });
   if (!user) {
-    const superUser = githubSuperUserIDs.includes(id);
-    user = await User.create({ id, avatar, email, login, name, superUser });
+    const superUser = githubSuperUserIDs.includes(githubID);
+    user = await User.create({
+      githubID,
+      avatar,
+      email,
+      login,
+      name,
+      superUser,
+    });
   }
 
   ctx.session[userStateKey] = null;

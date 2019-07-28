@@ -11,11 +11,11 @@ const initialState = {
 
 const reducer = handleActions(
   {
-    INIT(state, { payload = {} }) {
+    INIT(state, { payload }) {
       return {
         ...state,
         ...payload,
-        signedIn: !!payload.id,
+        signedIn: !!payload && !!payload.id,
       };
     },
     GET_USER_SUCCESS(state, { payload }) {

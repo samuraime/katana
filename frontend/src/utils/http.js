@@ -16,13 +16,16 @@ const normalize = object => {
     return object.map(normalize);
   }
 
-  const { _id: id, ...others } = object;
+  const normalized = {};
+  Object.keys(object).forEach(key => {
+    if (key === '_id') {
+      normalized.id = object[key];
+      return;
+    }
+    normalized[key] = normalize(object[key]);
+  });
 
-  if (!id) {
-    return object;
-  }
-
-  return { ...others, id };
+  return normalized;
 };
 
 const request = method => (endpoint, options = {}) => {

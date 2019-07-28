@@ -35,6 +35,7 @@ router.post('/autologin', user.autoLogin);
 
 router.get('/yumes', yumes.list);
 router.post('/yumes', yumes.create);
+router.delete('/yumes/:id', yumes.remove);
 // router.get('/yumes/starred', yumes.starred);
 // router.get('/yumes/posts', yumes.posts);
 // router.put('/yume/starred/:id', yumes.star);

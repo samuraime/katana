@@ -8,19 +8,52 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { string, Yume } from '../../types';
+import { bool, string, func, oneOfType, Yume } from '../../types';
 import s from './YumeCard.module.scss';
 
-function YumeCard({ yume, className }) {
+function YumeCard({ yume, className, onDelete }) {
   const [expanded, setExpanded] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+
+  const menuOpen = Boolean(anchorEl);
+
+  function handleMenuOpen(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleMenuClose() {
+    setAnchorEl(null);
+  }
 
   function handleExpandClick() {
     setExpanded(!expanded);
+  }
+
+  function handleDeleteDialogOpen() {
+    setDeleteDialogOpen(true);
+    handleMenuClose();
+  }
+
+  function handleDeleteDialogClose() {
+    setDeleteDialogOpen(false);
+  }
+
+  function handleDelete() {
+    onDelete(yume);
   }
 
   const { dreamer } = yume;
@@ -38,11 +71,23 @@ function YumeCard({ yume, className }) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="Settings">{<MoreVertIcon />}</IconButton>
+          <IconButton aria-label="Settings" onClick={handleMenuOpen}>
+            <MoreVertIcon />
+          </IconButton>
         }
         title={dreamer.name}
         subheader={yume.createdAt}
       />
+      <Menu
+        anchorEl={anchorEl}
+        keepMounted
+        open={menuOpen}
+        onClose={handleMenuClose}
+      >
+        {onDelete && (
+          <MenuItem onClick={handleDeleteDialogOpen}>Delete</MenuItem>
+        )}
+      </Menu>
       {!!yume.images.length && (
         <CardMedia
           className={s.media}
@@ -69,7 +114,7 @@ function YumeCard({ yume, className }) {
             })}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-            aria-label="Show more"
+            aria-label="show interpretation"
           >
             <ExpandMoreIcon />
           </IconButton>
@@ -81,6 +126,24 @@ function YumeCard({ yume, className }) {
           <Typography paragraph>{yume.interpretation}</Typography>
         </CardContent>
       </Collapse>
+
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleDeleteDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle>Delete a record?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Do you want to delete a record?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteDialogClose}>Cancel</Button>
+          <Button onClick={handleDelete} color="secondary" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 }
@@ -88,10 +151,12 @@ function YumeCard({ yume, className }) {
 YumeCard.propTypes = {
   yume: Yume.isRequired,
   className: string,
+  onDelete: oneOfType([bool, func]),
 };
 
 YumeCard.defaultProps = {
   className: '',
+  onDelete: false,
 };
 
 export default YumeCard;

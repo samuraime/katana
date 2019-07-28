@@ -28,14 +28,18 @@ function getPreloadStateHTML(state) {
 }
 
 function SPA(ctx) {
+  const { user } = ctx.session;
+  const state = {
+    user: user ? { ...user, id: user._id } : null, // eslint-disable-line no-underscore-dangle
+  };
+
   if (ctx.path === '/preloadState.js') {
-    ctx.body = getPreloadStateScript({ user: ctx.session.user });
+    ctx.body = getPreloadStateScript(state);
     ctx.type = 'application/javascript';
     return;
   }
 
-  // ctx.body = fs.createReadStream(config.frontendEntry);
-  ctx.body = getPreloadStateHTML({ user: ctx.session.user });
+  ctx.body = getPreloadStateHTML(state);
   ctx.type = 'text/html';
 }
 

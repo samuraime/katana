@@ -14,6 +14,7 @@ export { string, number, bool, func, shape, arrayOf, node, oneOfType };
 // TODO: map MongoDB Schema to PropTypes
 
 export const User = shape({
+  id: string,
   avatar: string,
   email: string,
   login: string,

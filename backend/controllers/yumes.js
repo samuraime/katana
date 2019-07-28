@@ -6,27 +6,37 @@ const User = require('../models/User');
 
 const list = async ctx => {
   const { page, perPage } = ctx.query;
-  const [yumes, user] = await Promise.all([
-    Yume.list({ page: +page - 1, perPage: +perPage, public: true }),
-    User.findById(ctx.session.user._id, { stars: true }),
-  ]);
-  ctx.body = yumes.map(yume => ({
-    ...yume._doc,
-    starred: user.stars.includes(yume._id),
-  }));
+  const yumes = await Yume.list({
+    page: +page - 1,
+    perPage: +perPage,
+    public: true,
+  });
+  ctx.body = yumes;
 };
 
 const create = async ctx => {
   // TODO validate
+  if (!ctx.body.text) {
+    ctx.throw(400);
+    return;
+  }
+
   const yume = await Yume.create({
     ...ctx.request.body,
     dreamer: ctx.session.user._id,
   });
-  await User.findByIdAndUpdate(ctx.session.user._id, {
-    $push: {
-      posts: yume._id,
-    },
-  });
+  ctx.body = yume;
+};
+
+const remove = async ctx => {
+  // TODO validate
+  const yume = await Yume.findById(ctx.params.id);
+  if (ctx.session.user._id !== yume.dreamer.toString()) {
+    ctx.throw(403);
+    return;
+  }
+
+  await yume.remove();
   ctx.body = yume;
 };
 
@@ -126,57 +136,12 @@ const unstar = async ctx => {
   };
 };
 
-const thumbup = async ctx => {
-  const { id } = ctx.params;
-  const yume = await Yume.findByIdAndUpdate(
-    id,
-    {
-      $inc: {
-        thumbups: 1,
-      },
-    },
-    {
-      new: true,
-      select: {
-        thumbups: true,
-      },
-    }
-  );
-  ctx.body = {
-    thumbups: yume.thumbups,
-    thumbupped: true,
-  };
-};
-
-const unthumbup = async ctx => {
-  const { id } = ctx.params;
-  const yume = await Yume.findByIdAndUpdate(
-    id,
-    {
-      $inc: {
-        thumbups: -1,
-      },
-    },
-    {
-      new: true,
-      select: {
-        thumbups: true,
-      },
-    }
-  );
-  ctx.body = {
-    thumbups: yume.thumbups,
-    thumbupped: false,
-  };
-};
-
 module.exports = {
   list,
   create,
+  remove,
   posts,
   starred,
   star,
   unstar,
-  thumbup,
-  unthumbup,
 };
