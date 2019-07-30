@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -14,11 +13,7 @@ import { string, func, shape } from '../../types';
 import userActions from '../../store/user/actions';
 import s from './Navigation.module.scss';
 
-const AdapterLink = React.forwardRef((props, ref) => (
-  <Link innerRef={ref} {...props} />
-));
-
-function Navigation({ user, dispatch, title }) {
+function Navigation({ user, dispatch, title, onMenuClick, ...otherProps }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -40,15 +35,14 @@ function Navigation({ user, dispatch, title }) {
   }, [dispatch]);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" {...otherProps}>
       <Toolbar variant="dense">
         <IconButton
-          component={AdapterLink}
-          to="/"
           className={s.menu}
           edge="start"
           color="inherit"
           aria-label="Menu"
+          onClick={onMenuClick}
         >
           <Octicon className={s.typeIcon} icon={ThreeBars} size={20} />
         </IconButton>
@@ -88,6 +82,7 @@ function Navigation({ user, dispatch, title }) {
 Navigation.propTypes = {
   title: string,
   user: shape({ name: string }).isRequired,
+  onMenuClick: func.isRequired,
   dispatch: func.isRequired,
 };
 
