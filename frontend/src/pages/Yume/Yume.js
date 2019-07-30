@@ -23,8 +23,8 @@ function Yume({ yumes, dispatch, user }) {
     };
   }
 
-  function handleSubmit(text) {
-    dispatch(yumeActions.createYume({ text, public: true }));
+  function handleSubmit(yume) {
+    dispatch(yumeActions.createYume(yume));
   }
 
   return (

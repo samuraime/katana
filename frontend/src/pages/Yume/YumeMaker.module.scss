@@ -1,12 +1,23 @@
-.root {
-
+.editor {
+  position: relative;
 }
 
 .text {
   width: 100%;
 }
 
+.input {
+  transition: height .3s ease;
+}
+
+.expandLess {
+  position: absolute !important;
+  right: .5rem;
+  bottom: 1rem;
+}
+
 .actions {
   width: 100%;
-  text-align: right;  
+  display: flex;
+  justify-content: flex-end;
 }

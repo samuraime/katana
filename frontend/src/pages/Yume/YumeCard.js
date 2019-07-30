@@ -62,11 +62,7 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
     <Card {...otherProps}>
       <CardHeader
         avatar={
-          <Avatar
-            aria-label={dreamer.name}
-            src={dreamer.avatar}
-            className={s.avatar}
-          >
+          <Avatar aria-label={dreamer.name} src={dreamer.avatar}>
             {dreamer.name[0]}
           </Avatar>
         }

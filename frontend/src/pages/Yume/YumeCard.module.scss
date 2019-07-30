@@ -6,13 +6,9 @@
 .expand {
   transform: rotate(0deg);
   margin-left: auto;
-  transition: transform 150ms ease;
+  transition: transform 150ms ease !important;
 }
 
 .expandOpen {
   transform: rotate(180deg);
-}
-
-.avatar {
-  // background-color: 
 }
