@@ -16,7 +16,7 @@ const list = async ctx => {
 
 const create = async ctx => {
   // TODO validate
-  if (!ctx.body.text) {
+  if (!ctx.request.body.text) {
     ctx.throw(400);
     return;
   }

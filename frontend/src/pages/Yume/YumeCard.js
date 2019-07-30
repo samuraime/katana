@@ -21,10 +21,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { bool, string, func, oneOfType, Yume } from '../../types';
+import { bool, func, oneOfType, Yume } from '../../types';
 import s from './YumeCard.module.scss';
 
-function YumeCard({ yume, className, onDelete }) {
+function YumeCard({ yume, onDelete, ...otherProps }) {
   const [expanded, setExpanded] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
@@ -59,7 +59,7 @@ function YumeCard({ yume, className, onDelete }) {
   const { dreamer } = yume;
 
   return (
-    <Card className={className}>
+    <Card {...otherProps}>
       <CardHeader
         avatar={
           <Avatar
@@ -150,12 +150,10 @@ function YumeCard({ yume, className, onDelete }) {
 
 YumeCard.propTypes = {
   yume: Yume.isRequired,
-  className: string,
   onDelete: oneOfType([bool, func]),
 };
 
 YumeCard.defaultProps = {
-  className: '',
   onDelete: false,
 };
 

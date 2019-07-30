@@ -5,6 +5,7 @@ import { func, arrayOf, User, Yume as YumeType } from '../../types';
 import yumeActions from '../../store/yume/actions';
 import { withNavigation } from '../../components/Navigation';
 import YumeCard from './YumeCard';
+import YumeMaker from './YumeMaker';
 import s from './Yume.module.scss';
 
 function Yume({ yumes, dispatch, user }) {
@@ -22,8 +23,13 @@ function Yume({ yumes, dispatch, user }) {
     };
   }
 
+  function handleSubmit(text) {
+    dispatch(yumeActions.createYume({ text, public: true }));
+  }
+
   return (
     <div className={s.root}>
+      <YumeMaker className={s.yumeMaker} onSubmit={handleSubmit} />
       {yumes.map(yume => (
         <YumeCard
           key={yume.id}
