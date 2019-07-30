@@ -18,17 +18,19 @@ function YumeMaker({ onSubmit, ...otherProps }) {
   return (
     <div {...otherProps}>
       <TextField
-        label="Record a yume"
+        label="Compose a yume"
         multiline
         rows={4}
-        rowsMax="4"
+        rowsMax={8}
         value={text}
         onChange={handleChange}
         className={s.text}
         margin="normal"
         variant="outlined"
       />
-      <Button onClick={handleRecord}>Record</Button>
+      <div className={s.actions}>
+        <Button onClick={handleRecord}>Done</Button>
+      </div>
     </div>
   );
 }

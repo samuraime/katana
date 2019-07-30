@@ -23,9 +23,10 @@ const create = async ctx => {
 
   const yume = await Yume.create({
     ...ctx.request.body,
-    dreamer: ctx.session.user._id,
+    dreamer: mongoose.Types.ObjectId(ctx.session.user._id),
   });
-  ctx.body = yume;
+  const yumeWithDreamer = await yume.populate('dreamer').execPopulate();
+  ctx.body = yumeWithDreamer;
 };
 
 const remove = async ctx => {
