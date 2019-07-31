@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { func, arrayOf, User, Yume as YumeType } from '../../types';
 import yumeActions from '../../store/yume/actions';
-import { withNavigation } from '../../components/Navigation';
 import YumeCard from './YumeCard';
 import YumeMaker from './YumeMaker';
 import s from './Yume.module.scss';
@@ -55,7 +53,4 @@ function mapStateToProps({ yume, user }) {
   };
 }
 
-export default compose(
-  withNavigation({ title: 'YumeHub' }),
-  connect(mapStateToProps)
-)(Yume);
+export default connect(mapStateToProps)(Yume);

@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { bool, func, arrayOf, Archive } from '../../types';
 import stashActions from '../../store/stash/actions';
 import Uploader from './Uploader';
 import ArchiveList from './ArchiveList';
-import { withNavigation } from '../../components/Navigation';
 import s from './Stash.module.scss';
 
 function Stash({ superUser, archives, uploaderArchives, dispatch }) {
@@ -52,8 +49,4 @@ const mapStateToProps = ({ user, stash }) => ({
   uploaderArchives: stash.uploaderArchives,
 });
 
-export default compose(
-  withNavigation({ title: 'Stash' }),
-  withRouter,
-  connect(mapStateToProps)
-)(Stash);
+export default connect(mapStateToProps)(Stash);

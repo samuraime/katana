@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +15,21 @@ import { string, func, shape } from '../../types';
 import userActions from '../../store/user/actions';
 import s from './Navigation.module.scss';
 
-function Navigation({ user, dispatch, title, onMenuClick, ...otherProps }) {
+function getAppBarTitleByPathName(pathname) {
+  const appBarTitleMap = {
+    stash: 'Stash',
+    yume: 'YumeHub',
+  };
+  const match = pathname.match(/\w+/);
+
+  if (!match) {
+    return null;
+  }
+
+  return appBarTitleMap[match[0]];
+}
+
+function Navigation({ user, dispatch, onMenuClick, location, className }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -34,8 +50,10 @@ function Navigation({ user, dispatch, title, onMenuClick, ...otherProps }) {
     dispatch(userActions.getUser());
   }, [dispatch]);
 
+  const title = getAppBarTitleByPathName(location.pathname);
+
   return (
-    <AppBar position="static" {...otherProps}>
+    <AppBar position="static" className={className}>
       <Toolbar variant="dense">
         <IconButton
           className={s.menu}
@@ -80,18 +98,18 @@ function Navigation({ user, dispatch, title, onMenuClick, ...otherProps }) {
 }
 
 Navigation.propTypes = {
-  title: string,
   user: shape({ name: string }).isRequired,
   onMenuClick: func.isRequired,
   dispatch: func.isRequired,
-};
-
-Navigation.defaultProps = {
-  title: '',
+  location: shape({ pathname: string }).isRequired,
+  className: string.isRequired,
 };
 
 function mapStateToProps({ user }) {
   return { user };
 }
 
-export default connect(mapStateToProps)(Navigation);
+export default compose(
+  withRouter,
+  connect(mapStateToProps)
+)(Navigation);

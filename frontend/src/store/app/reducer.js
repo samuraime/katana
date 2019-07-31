@@ -1,19 +1,26 @@
+import { handleActions } from 'redux-actions';
+
 const initialState = {
+  title: '',
   notifications: [],
 };
 
-function reducer(state = initialState, { type, payload }) {
-  switch (type) {
-    case 'ADD_NOTIFICATION': {
+const reducer = handleActions(
+  {
+    SET_TITLE(state, { payload }) {
+      return {
+        ...state,
+        title: payload.title,
+      };
+    },
+    ADD_NOTIFICATION(state, { payload }) {
       return {
         ...state,
         notifications: [...state.notifications, payload],
       };
-    }
-    default: {
-      return state;
-    }
-  }
-}
+    },
+  },
+  initialState
+);
 
 export default reducer;
