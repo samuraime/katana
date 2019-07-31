@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './Navigation';
 import MenuDrawer from './MenuDrawer';
@@ -21,9 +20,13 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  contentRoot: {
+    display: 'flex',
+    width: '100%',
+  },
   content: {
+    width: '100vw',
     flexGrow: 1,
-    // padding: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
@@ -62,29 +65,29 @@ function withNavigation({ title }) {
 
       return (
         <div className={classes.root}>
-          <CssBaseline />
           <Navigation
             title={title}
             onMenuClick={handleToggle}
             className={classes.appBar}
           />
-          <MenuDrawer
-            open={open}
-            onClose={handleClose}
-            className={classes.drawer}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            toolbarPlaceholder={toolbarPlaceholder}
-          />
-          <main
-            className={classnames(classes.content, {
-              [classes.contentShift]: open,
-            })}
-          >
-            {toolbarPlaceholder}
-            <Component {...props} />
-          </main>
+          <div className={classes.contentRoot}>
+            <MenuDrawer
+              open={open}
+              onClose={handleClose}
+              className={classes.drawer}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              toolbarPlaceholder={toolbarPlaceholder}
+            />
+            <main
+              className={classnames(classes.content, {
+                [classes.contentShift]: open,
+              })}
+            >
+              <Component {...props} />
+            </main>
+          </div>
         </div>
       );
     };

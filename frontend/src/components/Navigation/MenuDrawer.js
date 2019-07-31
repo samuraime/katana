@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Drawer from '@material-ui/core/Drawer';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,30 +12,30 @@ import CloudCircleIcon from '@material-ui/icons/CloudCircle';
 import GameIcon from '@material-ui/icons/Games';
 import { bool, func, node } from 'prop-types';
 
-// const AdapterLink = React.forwardRef((props, ref) => (
-//   <Link innerRef={ref} {...props} />
-// ));
+const AdapterLink = React.forwardRef((props, ref) => (
+  <Link innerRef={ref} {...props} />
+));
+
+const menuConfigs = [
+  { name: 'Home', path: '/', icon: HomeIcon },
+  { name: 'Stash', path: '/stash', icon: CloudCircleIcon },
+  { name: 'YumeHub', path: '/yume', icon: Brightness4 },
+  { name: 'PlayGround', path: '/playground', icon: GameIcon },
+];
 
 function MenuDrawer(props) {
   const { open, onClose, toolbarPlaceholder, ...otherProps } = props;
-  const icons = [
-    <HomeIcon />,
-    <CloudCircleIcon />,
-    <Brightness4 />,
-    <GameIcon />,
-  ];
-  const drawerContent = (
-    <div role="presentation" onClick={onClose} onKeyDown={onClose}>
-      {toolbarPlaceholder}
-      <List>
-        {['Home', 'Stash', 'YumeHub', 'PlayGround'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{icons[index]}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+  const menuList = (
+    <List>
+      {menuConfigs.map(menu => (
+        <ListItem key={menu.name} button component={AdapterLink} to={menu.path}>
+          <ListItemIcon>
+            <menu.icon />
+          </ListItemIcon>
+          <ListItemText primary={menu.name} />
+        </ListItem>
+      ))}
+    </List>
   );
 
   return (
@@ -45,12 +45,12 @@ function MenuDrawer(props) {
           variant="temporary"
           open={open}
           onClose={onClose}
-          // ModalProps={{
-          //   keepMounted: true, // Better open performance on mobile.
-          // }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
           {...otherProps}
         >
-          {drawerContent}
+          {menuList}
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation="js">
@@ -60,7 +60,8 @@ function MenuDrawer(props) {
           onClose={onClose}
           {...otherProps}
         >
-          {drawerContent}
+          {toolbarPlaceholder}
+          {menuList}
         </Drawer>
       </Hidden>
     </Fragment>

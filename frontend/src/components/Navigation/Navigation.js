@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import Octicon, { ThreeBars } from '@primer/octicons-react';
+import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { getLoginURL } from '../../utils';
 import { string, func, shape } from '../../types';
@@ -44,7 +44,7 @@ function Navigation({ user, dispatch, title, onMenuClick, ...otherProps }) {
           aria-label="Menu"
           onClick={onMenuClick}
         >
-          <Octicon className={s.typeIcon} icon={ThreeBars} size={20} />
+          <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={s.title}>
           {title}
