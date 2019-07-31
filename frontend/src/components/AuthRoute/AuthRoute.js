@@ -2,13 +2,12 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bool, elementType } from 'prop-types';
-import { getLoginURL } from '../../utils';
+import SignIn from './SignIn';
 
 function AuthRoute({ signedIn, component: Component, ...rest }) {
   function RedirectComponent(props) {
     if (!signedIn) {
-      window.location.href = getLoginURL();
-      return null;
+      return <SignIn />;
     }
 
     return <Component {...props} />;

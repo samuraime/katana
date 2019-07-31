@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+  min-height: 50vh;
+}
+
+.title {
+  margin-bottom: 2rem !important;
+}
+
+.icon {
+  margin-right: 1rem;
+}
