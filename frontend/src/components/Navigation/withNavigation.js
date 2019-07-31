@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navigation from './Navigation';
 import MenuDrawer from './MenuDrawer';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -24,19 +24,22 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     // padding: theme.spacing(3),
-    maxWidth: '100%',
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -drawerWidth,
+    },
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
+    [theme.breakpoints.up('sm')]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    },
   },
   toolbar: theme.mixins.toolbar,
 }));
