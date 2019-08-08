@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import AuthRoute from './components/AuthRoute';
 import AppLayout from './components/AppLayout';
 import Home from './pages/Home';
+import Blog from './pages/Blog';
 import Playground from './pages/Playground';
 import Stash from './pages/Stash';
 import Yume from './pages/Yume';
@@ -16,6 +17,7 @@ function NonIndex() {
   return (
     <AppLayout>
       <Switch>
+        <Route path="/blog" component={Blog} />
         <Route path="/playground" component={Playground} />
         <Route path="/stash" component={Stash} />
         <AuthRoute path="/yume" component={Yume} />

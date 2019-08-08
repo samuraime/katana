@@ -1,0 +1,27 @@
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
+const Article = new mongoose.Schema({
+  markdown: { type: String, default: '' },
+  content: { type: String, default: '' },
+  type: String,
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  public: { type: Boolean, default: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+});
+
+Article.statics = {
+  list(options = {}) {
+    const { page = 0, perPage = 10, ...criteria } = options;
+    return this.find(criteria)
+      .sort({ createdAt: -1 })
+      .limit(perPage)
+      .skip(perPage * page)
+      .populate('author')
+      .exec();
+  },
+};
+
+module.exports = mongoose.model('Article', Article);
