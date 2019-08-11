@@ -7,9 +7,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import HomeIcon from '@material-ui/icons/Home';
-import Brightness4 from '@material-ui/icons/Brightness4';
-import CloudCircleIcon from '@material-ui/icons/CloudCircle';
-import GameIcon from '@material-ui/icons/Games';
+// import BlogIcon from '@material-ui/icons/Subject';
+import YumeHubIcon from '@material-ui/icons/Brightness4';
+import StashIcon from '@material-ui/icons/CloudDownload';
+// import PlayGroundIcon from '@material-ui/icons/Games';
 import { bool, func, node } from 'prop-types';
 
 const AdapterLink = React.forwardRef((props, ref) => (
@@ -18,9 +19,10 @@ const AdapterLink = React.forwardRef((props, ref) => (
 
 const menuConfigs = [
   { name: 'Home', path: '/', icon: HomeIcon },
-  { name: 'Stash', path: '/stash', icon: CloudCircleIcon },
-  { name: 'YumeHub', path: '/yume', icon: Brightness4 },
-  { name: 'PlayGround', path: '/playground', icon: GameIcon },
+  // { name: 'Blog', path: '/blog', icon: BlogIcon },
+  { name: 'Stash', path: '/stash', icon: StashIcon },
+  { name: 'YumeHub', path: '/yume', icon: YumeHubIcon },
+  // { name: 'PlayGround', path: '/playground', icon: PlayGroundIcon },
 ];
 
 function MenuDrawer(props) {

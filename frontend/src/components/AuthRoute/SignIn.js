@@ -10,7 +10,7 @@ function SignIn() {
   return (
     <Paper className={s.root}>
       <Typography variant="h5" component="h3" className={s.title}>
-        Please sign in first.
+        Please sign in
       </Typography>
       <Button href={getLoginURL()} variant="contained" color="default">
         <Octicon className={s.icon} icon={MarkGithub} size={20} />

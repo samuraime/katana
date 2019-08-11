@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const Article = new mongoose.Schema({
-  markdown: { type: String, default: '' },
-  content: { type: String, default: '' },
-  type: String,
+  title: String,
+  markdown: String,
+  content: String,
+  categories: [String],
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   public: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },

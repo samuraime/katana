@@ -18,7 +18,8 @@ export const postYume = yume => http.post('/api/yumes', { body: yume });
 export const putYume = yume => http.put('/api/yumes', { body: yume });
 export const deleteYume = id => http.delete(`/api/yumes/${id}`);
 
-export const getArticle = () => http.get('/api/articles');
+export const getArticles = () => http.get('/api/articles');
+export const getArticle = id => http.get(`/api/articles/${id}`);
 export const postArticle = article =>
   http.post('/api/articles', { body: article });
 export const putArticle = article =>

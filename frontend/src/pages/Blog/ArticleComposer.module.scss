@@ -1,4 +1,6 @@
 .root {
+  display: flex;
+  flex-direction: column;
   max-width: 768px;
   margin: auto;
 }

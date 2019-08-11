@@ -17,6 +17,32 @@ code {
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: Inter UI,sans-serif;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ol, ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 button {
   border: none;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.mono-font {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo,Courier, monospace;
 }
