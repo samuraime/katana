@@ -1,8 +1,8 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_doc"] }] */
 
-const mongoose = require('mongoose');
-const Yume = require('../models/Yume');
-const User = require('../models/User');
+import mongoose from 'mongoose';
+import Yume from '../models/Yume';
+import User from '../models/User';
 
 const list = async ctx => {
   const { page, perPage } = ctx.query;
@@ -137,7 +137,7 @@ const unstar = async ctx => {
   };
 };
 
-module.exports = {
+export default {
   list,
   create,
   remove,

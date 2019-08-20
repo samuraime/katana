@@ -8,4 +8,4 @@ const authGuard = async (ctx, next) => {
   await next();
 };
 
-module.exports = authGuard;
+export default authGuard;

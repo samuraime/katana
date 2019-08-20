@@ -1,5 +1,5 @@
-const qs = require('querystring');
-const fetch = require('node-fetch');
+import qs from 'querystring';
+import fetch from 'node-fetch';
 
 const request = method => (endpoint, options = {}) => {
   const { headers, body, query, restOptions } = options;
@@ -22,7 +22,7 @@ const request = method => (endpoint, options = {}) => {
   });
 };
 
-module.exports = {
+export default {
   get: request('GET'),
   post: request('POST'),
   put: request('PUT'),

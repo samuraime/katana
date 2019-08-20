@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_doc"] }] */
 
-const mongoose = require('mongoose');
-const Article = require('../models/Article');
+import mongoose from 'mongoose';
+import Article from '../models/Article';
 
 const list = async ctx => {
   const { page, perPage } = ctx.query;
@@ -63,7 +63,7 @@ const remove = async ctx => {
   ctx.body = article;
 };
 
-module.exports = {
+export default {
   list,
   get,
   create,

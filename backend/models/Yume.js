@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -31,4 +31,4 @@ Yume.statics = {
   },
 };
 
-module.exports = mongoose.model('Yume', Yume);
+export default mongoose.model('Yume', Yume);

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ArchiveSchema = new mongoose.Schema({
   name: String,
@@ -21,4 +21,4 @@ ArchiveSchema.statics = {
   },
 };
 
-module.exports = mongoose.model('Archive', ArchiveSchema);
+export default mongoose.model('Archive', ArchiveSchema);

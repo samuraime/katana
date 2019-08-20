@@ -1,5 +1,5 @@
-const path = require('path');
-const winston = require('winston');
+import path from 'path';
+import winston from 'winston';
 
 const logger = new winston.Logger({
   transports: ['error', 'warn', 'info'].map(
@@ -12,4 +12,4 @@ const logger = new winston.Logger({
   ),
 });
 
-module.exports = logger;
+export default logger;

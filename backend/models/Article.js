@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -25,4 +25,4 @@ Article.statics = {
   },
 };
 
-module.exports = mongoose.model('Article', Article);
+export default mongoose.model('Article', Article);

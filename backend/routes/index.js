@@ -1,11 +1,11 @@
-const qs = require('querystring');
-const Router = require('koa-router');
-const http = require('../utils/http');
-const config = require('../config');
-const { github } = require('../config/auth');
-const { githubSuperUserIDs } = require('../constants');
-const User = require('../models/User');
-const SPA = require('../middlewares/SPA');
+import qs from 'querystring';
+import Router from 'koa-router';
+import http from '../utils/http';
+import config from '../config';
+import { github } from '../config/auth';
+import { githubSuperUserIDs } from '../constants';
+import User from '../models/User';
+import SPA from '../middlewares/SPA';
 
 const router = new Router();
 
@@ -86,4 +86,4 @@ router.get('/auth/github/callback', async ctx => {
 
 router.get('/*', SPA);
 
-module.exports = router;
+export default router;

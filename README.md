@@ -15,7 +15,7 @@
   - [ ] TDD
   - [x] CI / CD
   - [x] only use react funcional component
-  - [ ] responsive design
+  - [x] responsive design
   - [ ] spliting code
   - [ ] try locale (language, timezone)
   - [ ] try PWA
@@ -27,6 +27,8 @@
   - `yarn start:fe`
   - `yarn start:be`
 - `yarn build`
+  - `yarn build:fe`
+  - `yarn build:be`
 - `yarn deploy`
 - `yarn test`
   - `yarn test:fe`

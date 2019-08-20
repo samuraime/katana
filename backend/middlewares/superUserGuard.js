@@ -8,4 +8,4 @@ const superUserGuard = async (ctx, next) => {
   await next();
 };
 
-module.exports = superUserGuard;
+export default superUserGuard;

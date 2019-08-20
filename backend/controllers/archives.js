@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const qiniu = require('../config/qiniu');
-const upload = require('./upload');
+import mongoose from 'mongoose';
+import qiniu from '../config/qiniu';
+import upload from './upload';
 
 const Archive = mongoose.model('Archive');
 
@@ -50,7 +50,7 @@ const create = async ctx => {
   ctx.response.body = archive;
 };
 
-module.exports = {
+export default {
   list,
   find,
   update,

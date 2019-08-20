@@ -1,3 +1,3 @@
-module.exports = {
-  githubSuperUserIDs: [2203205],
-};
+/* eslint-disable import/prefer-default-export */
+
+export const githubSuperUserIDs = [2203205];

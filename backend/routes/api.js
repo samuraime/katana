@@ -1,15 +1,15 @@
-const Router = require('koa-router');
-const body = require('koa-body');
-// const koaJwt = require('koa-jwt');
-// const config = require('../config');
-const user = require('../controllers/user');
-const archives = require('../controllers/archives');
-const articles = require('../controllers/articles');
-const upload = require('../controllers/upload');
-const yumes = require('../controllers/yumes');
-const APIError = require('../middlewares/APIError');
-const authGuard = require('../middlewares/authGuard');
-const superUserGuard = require('../middlewares/superUserGuard');
+import Router from 'koa-router';
+import body from 'koa-body';
+// import koaJwt from 'koa-jwt';
+// import config from '../config';
+import user from '../controllers/user';
+import archives from '../controllers/archives';
+import articles from '../controllers/articles';
+import upload from '../controllers/upload';
+import yumes from '../controllers/yumes';
+import APIError from '../middlewares/APIError';
+import authGuard from '../middlewares/authGuard';
+import superUserGuard from '../middlewares/superUserGuard';
 
 const router = new Router({ prefix: '/api' });
 
@@ -52,4 +52,4 @@ router.post('/articles', articles.create);
 router.put('/articles', articles.update);
 router.delete('/articles/:id', articles.remove);
 
-module.exports = router;
+export default router;

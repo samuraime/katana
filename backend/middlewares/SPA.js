@@ -1,6 +1,6 @@
-const fs = require('fs');
-const serialize = require('serialize-javascript');
-const config = require('../config');
+import fs from 'fs';
+import serialize from 'serialize-javascript';
+import config from '../config';
 
 let entryHTML;
 
@@ -43,4 +43,4 @@ function SPA(ctx) {
   ctx.type = 'text/html';
 }
 
-module.exports = SPA;
+export default SPA;

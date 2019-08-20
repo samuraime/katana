@@ -1,17 +1,11 @@
-const fs = require('fs');
-const { join } = require('path');
-const mongoose = require('mongoose');
-const config = require('../config');
+import mongoose from 'mongoose';
+import config from '../config';
+import '../models/Archive';
+import '../models/Article';
+import '../models/User';
+import '../models/Yume';
 
 mongoose.Promise = global.Promise;
-
-// load all models
-const models = join(__dirname, '../models');
-fs.readdirSync(models)
-  .filter(file => ~file.search(/^[^.].*\.js$/)) // eslint-disable-line
-  .forEach(file => {
-    require(join(models, file)); // eslint-disable-line
-  });
 
 const connect = () => {
   // reconnect only when initial connect successfully
@@ -30,4 +24,4 @@ const connect = () => {
     });
 };
 
-module.exports = connect;
+export default connect;

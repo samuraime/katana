@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   key: 'koa:sess' /** (string) cookie key (default is koa:sess) */,
   /** (number || 'session') maxAge in ms (default is 1 days) */
   /** 'session' will result in a cookie that expires when session/browser is closed */

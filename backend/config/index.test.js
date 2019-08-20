@@ -1,4 +1,4 @@
-const config = require('./');
+import config from '.';
 
 it('should contains necessary config', () => {
   expect(config).toHaveProperty('env');

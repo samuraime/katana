@@ -1,6 +1,7 @@
-const qiniu = require('qiniu');
-const { accessKey, secretKey, policy } = require('../config/qiniu');
+import qiniu from 'qiniu';
+import qiniuConfig from '../config/qiniu';
 
+const { accessKey, secretKey, policy } = qiniuConfig;
 const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
 
 const getToken = ctx => {
@@ -27,7 +28,7 @@ const destory = key => {
   });
 };
 
-module.exports = {
+export default {
   destory,
   getToken,
 };

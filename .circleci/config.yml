@@ -75,18 +75,23 @@ jobs:
       - run:
           name: Build Frontend
           command: |
-            yarn build
+            yarn build:fe
       - run:
           name: Upload CDN
           command: |
             yarn cdn
+      - run:
+          name: Build Backend
+          command: |
+            yarn build:be
+            cp ./backend/package.json ./backend/build/package.json
       - persist_to_workspace:
           # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is 
           # taken to be the root directory of the workspace.
           root: ./
           # Must be relative path from root
           paths:
-            - backend
+            - backend/build/
             - frontend/build/*.*
 
   deploy:
@@ -108,6 +113,7 @@ jobs:
           name: Prepare Production Project
           command: |
             cd backend
+            mv ./build/* ./
             yarn install --production
             cd ..
             tar -cvf dist.tar backend frontend/build/*.*

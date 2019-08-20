@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 function getUser(ctx) {
   const { user } = ctx.session;
@@ -35,7 +35,7 @@ const signout = ctx => {
   ctx.status = 204;
 };
 
-module.exports = {
+export default {
   login,
   logout,
   autoLogin,

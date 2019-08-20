@@ -1,4 +1,4 @@
-const logger = require('../utils/logger');
+import logger from '../utils/logger';
 
 const handle = async (ctx, next) => {
   try {
@@ -19,4 +19,4 @@ const handle = async (ctx, next) => {
   }
 };
 
-module.exports = handle;
+export default handle;

@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   env: process.env.NODE_ENV || 'production',
   db: process.env.DB,
   port: process.env.PORT,
