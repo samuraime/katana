@@ -79,7 +79,7 @@ jobs:
       - run:
           name: Upload CDN
           command: |
-            yarn cdn
+            yarn deploy:cdn
       - run:
           name: Build Backend
           command: |

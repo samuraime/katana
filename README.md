@@ -2,10 +2,10 @@
 
 ## Target
 
-  - homepage (includes introduction, resume and QA about me)
+  - homepage
   - yumehub
+  - file stash
   - playground (includes tech implements, physical animation, etc)
-  - articles
 
 ## Tech Plan
   
@@ -14,11 +14,12 @@
   - [ ] focus on software engineering
   - [ ] TDD
   - [x] CI / CD
-  - [x] only use react funcional component
+  - [x] funcional react component only
   - [x] responsive design
   - [ ] spliting code
   - [ ] try locale (language, timezone)
   - [ ] try PWA
+  - [x] ESM in frontend and backend
 
 ## Scripts
 
@@ -29,10 +30,10 @@
 - `yarn build`
   - `yarn build:fe`
   - `yarn build:be`
-- `yarn deploy`
 - `yarn test`
   - `yarn test:fe`
   - `yarn test:be`
+- `yarn deploy:fe`
 
 ## License
 
