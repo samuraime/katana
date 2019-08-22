@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bool, elementType } from 'prop-types';
+import { useSelector } from 'react-redux';
+import { elementType } from 'prop-types';
 import SignIn from './SignIn';
 
-function AuthRoute({ signedIn, component: Component, ...rest }) {
+function AuthRoute({ component: Component, ...rest }) {
+  const signedIn = useSelector(({ user }) => user.signedIn);
+
   function RedirectComponent(props) {
     if (!signedIn) {
       return <SignIn />;
@@ -18,13 +20,6 @@ function AuthRoute({ signedIn, component: Component, ...rest }) {
 
 AuthRoute.propTypes = {
   component: elementType.isRequired,
-  signedIn: bool.isRequired,
 };
 
-function mapStateToProps({ user }) {
-  return {
-    signedIn: user.signedIn,
-  };
-}
-
-export default connect(mapStateToProps)(AuthRoute);
+export default AuthRoute;

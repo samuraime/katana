@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -30,9 +29,11 @@ function getAppBarTitleByPathName(pathname) {
   return appBarTitleMap[match[0]];
 }
 
-function Navigation({ user, dispatch, onMenuClick, location, className }) {
+function Navigation({ onMenuClick, location, className }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -99,18 +100,9 @@ function Navigation({ user, dispatch, onMenuClick, location, className }) {
 }
 
 Navigation.propTypes = {
-  user: shape({ name: string }).isRequired,
   onMenuClick: func.isRequired,
-  dispatch: func.isRequired,
   location: shape({ pathname: string }).isRequired,
   className: string.isRequired,
 };
 
-function mapStateToProps({ user }) {
-  return { user };
-}
-
-export default compose(
-  withRouter,
-  connect(mapStateToProps)
-)(Navigation);
+export default withRouter(Navigation);

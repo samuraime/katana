@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { func, arrayOf, User, Yume as YumeType } from '../../types';
+import { useSelector, useDispatch } from 'react-redux';
 import yumeActions from '../../store/yume/actions';
 import YumeCard from './YumeCard';
 import YumeMaker from './YumeMaker';
 import s from './Yume.module.scss';
 
-function Yume({ yumes, dispatch, user }) {
+function Yume() {
+  const dispatch = useDispatch();
+  const yumes = useSelector(({ yume }) => yume.yumes);
+  const user = useSelector(state => state.user);
+
   useEffect(() => {
     dispatch(yumeActions.getYumes());
   }, [dispatch]);
@@ -40,17 +43,4 @@ function Yume({ yumes, dispatch, user }) {
   );
 }
 
-Yume.propTypes = {
-  yumes: arrayOf(YumeType).isRequired,
-  user: User.isRequired,
-  dispatch: func.isRequired,
-};
-
-function mapStateToProps({ yume, user }) {
-  return {
-    yumes: yume.yumes,
-    user,
-  };
-}
-
-export default connect(mapStateToProps)(Yume);
+export default Yume;
