@@ -104,6 +104,11 @@ jobs:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: ./
+      - run:
+          name: Prepare Backend Build
+          command: |
+            mv ./backend ./backend-build
+            mv ./backend-build/build ./backend
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "backend/package.json" }}
@@ -113,7 +118,6 @@ jobs:
           name: Prepare Production Project
           command: |
             cd backend
-            mv ./build/* ./
             yarn install --production
             cd ..
             tar -cvf dist.tar backend frontend/build/*.*
