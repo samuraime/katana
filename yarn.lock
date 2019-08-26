@@ -10329,10 +10329,10 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qiniu-browser@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/qiniu-browser/-/qiniu-browser-0.1.2.tgz#5a43c43c50ab937bf638db649ac4e95dc5307cde"
-  integrity sha512-zfHU5IhR8JrbBEZdFdOUOYckZ0gOquOvLOXl8oJ6RrmF+4rcsNJEfWHOLvlam3nwVNuegkQp2RSMXCEE4UAv+Q==
+qiniu-browser@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/qiniu-browser/-/qiniu-browser-0.1.3.tgz#b63bad49509ffcd2a99361cd744499dd07471b44"
+  integrity sha512-AZH3ASyZDeq5Nfro2LoNvRgVPnYpTHg2PxaZOr2ILlTH5lrxmejsBxt0OZYm9psYqCowiU414efhDr0QCiaMYw==
 
 qiniu@^7.1.0, qiniu@^7.2.1:
   version "7.2.2"
