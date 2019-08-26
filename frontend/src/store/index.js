@@ -10,4 +10,10 @@ const store = createStore(
 
 preloadState(store);
 
+if (module.hot) {
+  module.hot.accept('./reducer', () => {
+    store.replaceReducer(rootReducer);
+  });
+}
+
 export default store;
