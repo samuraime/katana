@@ -1,8 +1,17 @@
-import mongoose from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
-const { Schema } = mongoose;
+export interface UserDocument extends Document {
+  githubID: number;
+  avatar: string;
+  email: string;
+  login: string;
+  name: string;
+  superUser: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
   githubID: Number,
   avatar: String,
   email: String,
@@ -13,4 +22,4 @@ const UserSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.model('User', UserSchema);
+export default model<UserDocument>('User', userSchema);

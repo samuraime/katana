@@ -1,4 +1,6 @@
-const authGuard = async (ctx, next) => {
+import { Middleware } from 'koa';
+
+const authGuard: Middleware = async (ctx, next) => {
   const { user } = ctx.session;
   if (!user) {
     ctx.throw(403);

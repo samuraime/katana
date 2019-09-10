@@ -1,8 +1,24 @@
 import qs from 'querystring';
 import fetch from 'node-fetch';
 
-const request = method => (endpoint, options = {}) => {
-  const { headers, body, query, restOptions } = options;
+enum HttpMethod {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
+
+interface RequestOptions {
+  headers?: Record<string, string>;
+  body?: Record<string, string>;
+  query?: Record<string, string>;
+}
+
+const request = (method: HttpMethod) => (
+  endpoint: string,
+  options: RequestOptions = {}
+) => {
+  const { headers, body, query, ...restOptions } = options;
   const finalOptions = {
     ...restOptions,
     method,
@@ -11,7 +27,7 @@ const request = method => (endpoint, options = {}) => {
       'Content-Type': 'application/json',
       ...headers,
     },
-    body: body || JSON.stringify(body),
+    body: body ? JSON.stringify(body) : null,
   };
   const resource = query ? `${endpoint}?${qs.stringify(query)}` : endpoint;
   return fetch(resource, finalOptions).then(res => {
@@ -23,8 +39,8 @@ const request = method => (endpoint, options = {}) => {
 };
 
 export default {
-  get: request('GET'),
-  post: request('POST'),
-  put: request('PUT'),
-  delete: request('DELETE'),
+  get: request(HttpMethod.GET),
+  post: request(HttpMethod.POST),
+  put: request(HttpMethod.PUT),
+  delete: request(HttpMethod.DELETE),
 };

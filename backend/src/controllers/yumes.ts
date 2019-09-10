@@ -1,10 +1,10 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_doc"] }] */
 
+import { Middleware } from 'koa';
 import mongoose from 'mongoose';
 import Yume from '../models/Yume';
-import User from '../models/User';
 
-const list = async ctx => {
+const list: Middleware = async ctx => {
   const { page, perPage } = ctx.query;
   const yumes = await Yume.list({
     page: +page - 1,
@@ -14,7 +14,7 @@ const list = async ctx => {
   ctx.body = yumes;
 };
 
-const create = async ctx => {
+const create: Middleware = async ctx => {
   // TODO validate
   if (!ctx.request.body.text) {
     ctx.throw(400);
@@ -29,7 +29,7 @@ const create = async ctx => {
   ctx.body = yumeWithDreamer;
 };
 
-const remove = async ctx => {
+const remove: Middleware = async ctx => {
   // TODO validate
   const yume = await Yume.findById(ctx.params.id);
   if (ctx.session.user._id !== yume.dreamer.toString()) {
@@ -41,108 +41,108 @@ const remove = async ctx => {
   ctx.body = yume;
 };
 
-const posts = async ctx => {
-  // const { page, perPage } = ctx.query;
-  const { posts: yumes } = await User.findById(ctx.session.user._id, {
-    posts: true,
-  })
-    .populate({
-      path: 'posts',
-      populate: {
-        path: 'dreamer',
-      },
-    })
-    .exec();
-  ctx.body = yumes.map(yume => ({
-    ...yume._doc,
-    starred: true,
-    thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
-  }));
-};
+// const posts: Middleware = async ctx => {
+//   // const { page, perPage } = ctx.query;
+//   const { posts: yumes } = await User.findById(ctx.session.user._id, {
+//     posts: true,
+//   })
+//     .populate({
+//       path: 'posts',
+//       populate: {
+//         path: 'dreamer',
+//       },
+//     })
+//     .exec();
+//   ctx.body = yumes.map(yume => ({
+//     ...yume._doc,
+//     starred: true,
+//     thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
+//   }));
+// };
 
-const starred = async ctx => {
-  // const { page, perPage } = ctx.query;
-  const { stars: yumes } = await User.findById(ctx.session.user._id, {
-    stars: true,
-  })
-    .populate({
-      path: 'stars',
-      populate: {
-        path: 'dreamer',
-      },
-    })
-    .exec();
-  ctx.body = yumes.map(yume => ({
-    ...yume._doc,
-    starred: true,
-    thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
-  }));
-};
+// const starred: Middleware = async ctx => {
+//   // const { page, perPage } = ctx.query;
+//   const { stars: yumes } = await User.findById(ctx.session.user._id, {
+//     stars: true,
+//   })
+//     .populate({
+//       path: 'stars',
+//       populate: {
+//         path: 'dreamer',
+//       },
+//     })
+//     .exec();
+//   ctx.body = yumes.map(yume => ({
+//     ...yume._doc,
+//     starred: true,
+//     thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
+//   }));
+// };
 
-const star = async ctx => {
-  const { id } = ctx.params;
-  const [yume] = await Promise.all([
-    Yume.findByIdAndUpdate(
-      id,
-      {
-        $inc: {
-          stars: 1,
-        },
-      },
-      {
-        new: true,
-        select: {
-          stars: true,
-        },
-      }
-    ),
-    User.findByIdAndUpdate(ctx.session.user._id, {
-      $addToSet: {
-        stars: mongoose.Types.ObjectId(id),
-      },
-    }),
-  ]);
-  ctx.body = {
-    stars: yume.stars,
-    starred: true,
-  };
-};
+// const star: Middleware = async ctx => {
+//   const { id } = ctx.params;
+//   const [yume] = await Promise.all([
+//     Yume.findByIdAndUpdate(
+//       id,
+//       {
+//         $inc: {
+//           stars: 1,
+//         },
+//       },
+//       {
+//         new: true,
+//         select: {
+//           stars: true,
+//         },
+//       }
+//     ),
+//     User.findByIdAndUpdate(ctx.session.user._id, {
+//       $addToSet: {
+//         stars: mongoose.Types.ObjectId(id),
+//       },
+//     }),
+//   ]);
+//   ctx.body = {
+//     stars: yume.stars,
+//     starred: true,
+//   };
+// };
 
-const unstar = async ctx => {
-  const { id } = ctx.params;
-  const [yume] = await Promise.all([
-    Yume.findByIdAndUpdate(
-      id,
-      {
-        $inc: {
-          stars: -1,
-        },
-      },
-      {
-        new: true,
-        select: {
-          stars: true,
-        },
-      }
-    ),
-    User.findByIdAndUpdate(ctx.session.user._id, {
-      $pull: {
-        stars: mongoose.Types.ObjectId(id),
-      },
-    }),
-  ]);
-  ctx.body = {
-    stars: yume.stars,
-    starred: false,
-  };
-};
+// const unstar: Middleware = async ctx => {
+//   const { id } = ctx.params;
+//   const [yume] = await Promise.all([
+//     Yume.findByIdAndUpdate(
+//       id,
+//       {
+//         $inc: {
+//           stars: -1,
+//         },
+//       },
+//       {
+//         new: true,
+//         select: {
+//           stars: true,
+//         },
+//       }
+//     ),
+//     User.findByIdAndUpdate(ctx.session.user._id, {
+//       $pull: {
+//         stars: mongoose.Types.ObjectId(id),
+//       },
+//     }),
+//   ]);
+//   ctx.body = {
+//     stars: yume.stars,
+//     starred: false,
+//   };
+// };
 
 export default {
   list,
   create,
   remove,
-  posts,
-  starred,
-  star,
-  unstar,
+  // posts,
+  // starred,
+  // star,
+  // unstar,
 };

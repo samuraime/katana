@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 import config from '../config';
-import '../models/Archive';
-import '../models/Article';
-import '../models/User';
-import '../models/Yume';
 
 mongoose.Promise = global.Promise;
 

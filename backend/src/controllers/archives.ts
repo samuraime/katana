@@ -1,15 +1,11 @@
-import mongoose from 'mongoose';
+import { Middleware } from 'koa';
+import Archive from '../models/Archive';
 import qiniu from '../config/qiniu';
 import upload from './upload';
 
-const Archive = mongoose.model('Archive');
-
-const list = async ctx => {
-  const { per_page: limit = 10000, page = 0, name } = ctx.query;
-  const criteria = { limit, page };
-  if (name) {
-    criteria.name = name;
-  }
+const list: Middleware = async ctx => {
+  const { per_page: perPage = 10000, page = 0, name } = ctx.query;
+  const criteria = { perPage, page, name };
   const archives = await Archive.list(criteria);
   ctx.body = archives.map(a => ({
     ...a.toObject(),
@@ -17,27 +13,27 @@ const list = async ctx => {
   }));
 };
 
-const find = async ctx => {
+const find: Middleware = async ctx => {
   const { id } = ctx.params;
   const archive = await Archive.findById(id);
   ctx.response.body = archive;
 };
 
-const update = async ctx => {
+const update: Middleware = async ctx => {
   const { id } = ctx.params;
   const updateData = ctx.request.body;
   await Archive.findByIdAndUpdate(id, updateData);
   ctx.response.body = true;
 };
 
-const destory = async ctx => {
+const destory: Middleware = async ctx => {
   const { id } = ctx.params;
   const archive = await Archive.findByIdAndRemove(id);
   await upload.destory(archive.hash);
   ctx.body = archive;
 };
 
-const create = async ctx => {
+const create: Middleware = async ctx => {
   const { name, size, type, key, hash } = ctx.request.body;
   const archive = new Archive({
     name,

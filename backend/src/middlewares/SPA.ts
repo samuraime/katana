@@ -1,8 +1,14 @@
 import fs from 'fs';
+import { Middleware } from 'koa';
 import serialize from 'serialize-javascript';
 import config from '../config';
 
-let entryHTML;
+interface PreloadState {
+  // TODO: SessionUser
+  user: any;
+}
+
+let entryHTML: string;
 
 function getEntryHTML() {
   if (entryHTML) {
@@ -12,12 +18,12 @@ function getEntryHTML() {
   return fs.readFileSync(config.frontendEntry, 'utf8');
 }
 
-function getPreloadStateScript(state) {
+function getPreloadStateScript(state: PreloadState) {
   const serialized = serialize(state, { isJSON: true });
   return `window.__PRELOADED_STATE__=${serialized};`;
 }
 
-function getPreloadStateHTML(state) {
+function getPreloadStateHTML(state: PreloadState) {
   const html = getEntryHTML();
   const script = getPreloadStateScript(state);
 
@@ -27,7 +33,7 @@ function getPreloadStateHTML(state) {
   );
 }
 
-function SPA(ctx) {
+const SPA: Middleware = ctx => {
   const { user } = ctx.session;
   const state = {
     user: user ? { ...user, id: user._id } : null, // eslint-disable-line no-underscore-dangle
@@ -41,6 +47,6 @@ function SPA(ctx) {
 
   ctx.body = getPreloadStateHTML(state);
   ctx.type = 'text/html';
-}
+};
 
 export default SPA;

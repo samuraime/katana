@@ -1,8 +1,33 @@
-import mongoose from 'mongoose';
+import { Document, model, Model, Schema } from 'mongoose';
+import { UserDocument } from './User';
+import { SearchCriteria } from '../types';
 
-const { Schema } = mongoose;
+interface YumeDocument extends Document {
+  text: string;
+  interpretation: string;
+  images: string[];
+  tags: string[];
+  stars: number;
+  stargazers: UserDocument[];
+  dreamer: UserDocument;
+  location: {
+    name: string;
+    longitude: number;
+    latitude: number;
+  };
+  public: boolean;
+  createdAt: Date;
+}
 
-const Yume = new mongoose.Schema({
+interface YumeModel extends Model<YumeDocument> {
+  list: (criteria: YumeSearchCriteria) => Promise<YumeDocument[]>;
+}
+
+interface YumeSearchCriteria extends SearchCriteria {
+  public?: boolean;
+}
+
+const yumeSchema = new Schema({
   text: { type: String, default: '' },
   interpretation: { type: String, default: '' },
   images: [String],
@@ -19,8 +44,8 @@ const Yume = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-Yume.statics = {
-  list(options = {}) {
+yumeSchema.statics = {
+  list(options: YumeSearchCriteria = {}) {
     const { page = 0, perPage = 10, ...criteria } = options;
     return this.find(criteria)
       .sort({ createdAt: -1 })
@@ -31,4 +56,4 @@ Yume.statics = {
   },
 };
 
-export default mongoose.model('Yume', Yume);
+export default model<YumeDocument, YumeModel>('Yume', yumeSchema);

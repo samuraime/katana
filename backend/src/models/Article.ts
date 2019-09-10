@@ -1,8 +1,27 @@
-import mongoose from 'mongoose';
+import { Document, model, Model, Schema } from 'mongoose';
+import { UserDocument } from './User';
+import { SearchCriteria } from '../types';
 
-const { Schema } = mongoose;
+interface ArticleDocument extends Document {
+  title: string;
+  markdown: string;
+  content: string;
+  categories: string[];
+  author: UserDocument;
+  public: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-const Article = new mongoose.Schema({
+interface ArticleModel extends Model<ArticleDocument> {
+  list: (criteria: ArticleSearchCriteria) => Promise<ArticleDocument[]>;
+}
+
+interface ArticleSearchCriteria extends SearchCriteria {
+  public?: boolean;
+}
+
+const articleSchema = new Schema({
   title: String,
   markdown: String,
   content: String,
@@ -13,8 +32,8 @@ const Article = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-Article.statics = {
-  list(options = {}) {
+articleSchema.statics = {
+  list(options: ArticleSearchCriteria = {}) {
     const { page = 0, perPage = 10, ...criteria } = options;
     return this.find(criteria)
       .sort({ createdAt: -1 })
@@ -25,4 +44,4 @@ Article.statics = {
   },
 };
 
-export default mongoose.model('Article', Article);
+export default model<ArticleDocument, ArticleModel>('Article', articleSchema);

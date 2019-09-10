@@ -1,9 +1,10 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id", "_doc"] }] */
 
+import { Middleware } from 'koa';
 import mongoose from 'mongoose';
 import Article from '../models/Article';
 
-const list = async ctx => {
+const list: Middleware = async ctx => {
   const { page, perPage } = ctx.query;
   const articles = await Article.list({
     page: +page - 1,
@@ -13,7 +14,7 @@ const list = async ctx => {
   ctx.body = articles;
 };
 
-const get = async ctx => {
+const get: Middleware = async ctx => {
   const { id } = ctx.params;
   // TODO validate
   if (!ctx.params.id) {
@@ -25,7 +26,7 @@ const get = async ctx => {
   ctx.body = article;
 };
 
-const create = async ctx => {
+const create: Middleware = async ctx => {
   // TODO validate
   if (!ctx.request.body.content || !ctx.request.body.markdown) {
     ctx.throw(400);
@@ -39,7 +40,7 @@ const create = async ctx => {
   ctx.body = article;
 };
 
-const update = async ctx => {
+const update: Middleware = async ctx => {
   // TODO validate
   const { body } = ctx.request;
   if (!body.id || !body.content || !body.markdown) {
@@ -51,7 +52,7 @@ const update = async ctx => {
   ctx.body = article;
 };
 
-const remove = async ctx => {
+const remove: Middleware = async ctx => {
   // TODO validate
   const article = await Article.findById(ctx.params.id);
   if (ctx.session.user._id !== article.author.toString()) {

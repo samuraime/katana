@@ -31,8 +31,8 @@ router.get('/user', user.getUser);
 router.use(authGuard);
 
 router.get('/signout', user.signout);
-router.post('/logout', user.logout);
-router.post('/autologin', user.autoLogin);
+// router.post('/logout', user.logout);
+// router.post('/autologin', user.autoLogin);
 router.get('/yumes', yumes.list);
 router.post('/yumes', yumes.create);
 router.delete('/yumes/:id', yumes.remove);

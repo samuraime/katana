@@ -1,6 +1,21 @@
-import mongoose from 'mongoose';
+import { Document, model, Model, Schema } from 'mongoose';
+import { SearchCriteria } from '../types';
 
-const ArchiveSchema = new mongoose.Schema({
+interface ArchiveDocument extends Document {
+  name: string;
+  size: number;
+  type: string;
+  key: string;
+  hash: string;
+  updatedAt: Date;
+  createdAt: Date;
+}
+
+interface ArchiveModel extends Model<ArchiveDocument> {
+  list: (criteria: SearchCriteria) => Promise<ArchiveDocument[]>;
+}
+
+const archiveSchema = new Schema({
   name: String,
   size: Number,
   type: String,
@@ -10,15 +25,15 @@ const ArchiveSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-ArchiveSchema.statics = {
-  list(options = {}) {
-    const { page = 0, limit = 1000, ...criteria } = options;
+archiveSchema.statics = {
+  list(options: SearchCriteria = {}) {
+    const { page = 0, perPage = 10000, ...criteria } = options;
     return this.find(criteria)
       .sort({ createdAt: -1 })
-      .limit(limit)
-      .skip(limit * page)
+      .limit(perPage)
+      .skip(perPage * page)
       .exec();
   },
 };
 
-export default mongoose.model('Archive', ArchiveSchema);
+export default model<ArchiveDocument, ArchiveModel>('Archive', archiveSchema);

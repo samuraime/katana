@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import qs from 'querystring';
 import Router from 'koa-router';
 import http from '../utils/http';

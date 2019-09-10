@@ -1,6 +1,7 @@
+import { Middleware } from 'koa';
 import logger from '../utils/logger';
 
-const handle = async (ctx, next) => {
+const handle: Middleware = async (ctx, next) => {
   try {
     await next();
   } catch (e) {
