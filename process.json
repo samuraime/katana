@@ -6,12 +6,12 @@
     "SITE_HOME": "https://samuraime.com",
     "PORT": 3001,
     "DB": "mongodb://localhost/katana",
-    "JWT_SECRET": "renshengrumengyizunhaileijiangyue",
-    "APP_KEYS": "samuraime katana mimosa",
-    "GITHUB_CLIENT_ID": "1752e2ae747620a7a5a8",
-    "GITHUB_CLIENT_SECRET": "c7d7bf08d5611b37c895d74c890d6369d4da5702",
-    "QINIU_ACCESS_KEY": "yTXU8GEW2t1nXqNwr6nm6PkqlhDeKZtDBx8hIs46",
-    "QINIU_SECRET_KEY": "VQ2teEPE7yLE-3xZa7lu4MpppyU2ChmWhC80rxmM"
+    "JWT_SECRET": "",
+    "APP_KEYS": "key1 key2",
+    "GITHUB_CLIENT_ID": "",
+    "GITHUB_CLIENT_SECRET": "",
+    "QINIU_ACCESS_KEY": "",
+    "QINIU_SECRET_KEY": ""
   },
   "engines": {
     "node": ">=8.0"
