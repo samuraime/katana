@@ -1,4 +1,4 @@
-# Katana [![CircleCI](https://circleci.com/gh/samuraime/katana.svg?style=shield)](https://circleci.com/gh/samuraime/katana) [![GitHub Actions](https://github.com/samuraime/katana/workflows/Main%20workflow/badge.svg)](https://github.com/samuraime/katana/actions) [![Coverage Status](https://coveralls.io/repos/github/samuraime/katana/badge.svg?branch=master)](https://coveralls.io/github/samuraime/katana?branch=master)
+# Katana [![GitHub Actions](https://github.com/samuraime/katana/workflows/Main%20workflow/badge.svg)](https://github.com/samuraime/katana/actions) [![CircleCI](https://circleci.com/gh/samuraime/katana.svg?style=shield)](https://circleci.com/gh/samuraime/katana) [![Coverage Status](https://coveralls.io/repos/github/samuraime/katana/badge.svg?branch=master)](https://coveralls.io/github/samuraime/katana?branch=master) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## Target
 
