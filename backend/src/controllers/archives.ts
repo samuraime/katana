@@ -4,8 +4,8 @@ import qiniu from '../config/qiniu';
 import upload from './upload';
 
 const list: Middleware = async ctx => {
-  const { per_page: perPage = 10000, page = 0, name } = ctx.query;
-  const criteria = { perPage, page, name };
+  const { per_page: perPage = 10000, page = 0 } = ctx.query;
+  const criteria = { perPage, page };
   const archives = await Archive.list(criteria);
   ctx.body = archives.map(a => ({
     ...a.toObject(),
