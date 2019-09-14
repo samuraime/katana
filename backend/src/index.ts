@@ -6,8 +6,7 @@ import session from 'koa-session';
 import cors from 'kcors';
 import config from './config';
 import connectMongo from './utils/connectMongo';
-import apiRouter from './routes/api';
-import webRouter from './routes';
+import routes from './routes';
 
 connectMongo();
 
@@ -32,10 +31,7 @@ app.use(cors());
 
 app.use(session(app));
 
-// apiRouter first, webRouter match all other routes
-app.use(apiRouter.routes());
-app.use(apiRouter.allowedMethods());
-app.use(webRouter.routes());
+app.use(routes);
 
 app.listen(config.port);
 console.log(`Listening on port ${config.port}`);

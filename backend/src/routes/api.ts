@@ -11,7 +11,7 @@ import APIError from '../middlewares/APIError';
 import authGuard from '../middlewares/authGuard';
 import superUserGuard from '../middlewares/superUserGuard';
 
-const router = new Router({ prefix: '/api' });
+const router = new Router();
 
 router.use(body());
 
