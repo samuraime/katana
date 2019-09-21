@@ -15,8 +15,12 @@ const list: Middleware = async ctx => {
 
 const find: Middleware = async ctx => {
   const { id } = ctx.params;
-  const archive = await Archive.findById(id);
-  ctx.response.body = archive;
+  try {
+    const archive = await Archive.findById(id);
+    ctx.response.body = archive;
+  } catch (e) {
+    ctx.status = 404;
+  }
 };
 
 const update: Middleware = async ctx => {

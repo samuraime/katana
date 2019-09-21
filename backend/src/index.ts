@@ -33,5 +33,7 @@ app.use(session(app));
 
 app.use(routes);
 
-app.listen(config.port);
+const server = app.listen(config.port);
 console.log(`Listening on port ${config.port}`);
+
+export default server;

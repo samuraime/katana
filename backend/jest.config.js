@@ -4,11 +4,11 @@ module.exports = {
       tsConfig: 'tsconfig.json',
     },
   },
-  moduleFileExtensions: ['js', 'ts'],
+  setupFiles: ['dotenv/config'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  testMatch: ['**/src/**/*.test.(ts|js)'],
+  testMatch: ['**/__tests__/**/*.test.(ts|js)'],
   testEnvironment: 'node',
   preset: 'ts-jest',
 };
