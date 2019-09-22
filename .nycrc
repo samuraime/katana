@@ -1,0 +1,11 @@
+{
+  "extension": [".js", ".ts"],
+  "include": [
+    "frontend/src",
+    "backend/src"
+  ],
+  "exclude": [
+    "**/*.test.js",
+    "**/*.test.ts"
+  ]
+}
