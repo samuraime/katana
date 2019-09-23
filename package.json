@@ -21,8 +21,9 @@
     "test": "yarn test:fe && yarn test:be",
     "test:fe": "CI=true yarn workspace frontend test --coverage --coverageReporters=json",
     "test:be": "yarn workspace backend test --coverage --coverageReporters=json",
+    "coverage": "yarn coverage:merge && yarn coverage:report",
     "coverage:merge": "rm -Rf coverage && mkdir coverage && cp frontend/coverage/coverage-final.json coverage/frontend.json && cp backend/coverage/coverage-final.json coverage/backend.json",
-    "coverage:report": "yarn test && yarn coverage:merge && nyc report --reporter=text-lcov -t coverage | coveralls"
+    "coverage:report": "nyc report --reporter=lcov --temp-dir=coverage"
   },
   "husky": {
     "hooks": {
