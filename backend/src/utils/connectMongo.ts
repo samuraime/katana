@@ -11,6 +11,7 @@ const connect = () => {
     reconnectInterval: 1000,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   });
 };
 

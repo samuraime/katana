@@ -26,8 +26,12 @@ const find: Middleware = async ctx => {
 const update: Middleware = async ctx => {
   const { id } = ctx.params;
   const updateData = ctx.request.body;
-  await Archive.findByIdAndUpdate(id, updateData);
-  ctx.response.body = true;
+  const archive = await Archive.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    { new: true }
+  );
+  ctx.response.body = archive;
 };
 
 const destory: Middleware = async ctx => {
