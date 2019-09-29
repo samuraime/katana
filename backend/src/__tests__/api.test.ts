@@ -37,23 +37,32 @@ afterAll(async () => {
   await server.close();
 });
 
-describe('/api', () => {
+describe('GET /api', () => {
   it('should response 404', async () => {
     const res = await request(server).get('/api');
     expect(res.status).toBe(404);
   });
 });
 
-describe('/user', () => {
+describe('GET /api/user', () => {
   it('should response empty user info', async () => {
     const res = await request(server).get('/api/user');
-    expect(res.body).toMatchObject({});
+    expect(Object.keys(res.body).length).toBe(0);
   });
   it('should response logined user info', async () => {
     const res = await request(server)
       .get('/api/user')
       .set('Cookie', userCookies);
     expect(res.body).toHaveProperty('name');
+  });
+});
+
+describe('GET /api/signout', () => {
+  it('should remove logined user info', async () => {
+    const res = await request(server)
+      .get('/api/signout')
+      .set('Cookie', userCookies);
+    expect(res.status).toBe(204);
   });
 });
 
@@ -64,8 +73,7 @@ describe('GET /api/archives', () => {
   });
 });
 
-// eslint-disable-next-line no-template-curly-in-string
-describe('GET /api/archives/${id}', () => {
+describe('GET /api/archives/:id', () => {
   it('should response 404 when it encounter a fake id', async () => {
     const res = await request(server).get('/api/archives/fakeid');
     expect(res.status).toBe(404);
@@ -89,7 +97,7 @@ describe('POST /api/archives', () => {
   });
 });
 
-describe('PUT /api/archives', () => {
+describe('PUT /api/archives/:id', () => {
   const archive = {
     hash: 'FiDShRv4UUKfecXNlpotyqoPbziO',
     name: 'samuraime.svg',
@@ -117,7 +125,7 @@ describe('PUT /api/archives', () => {
   });
 });
 
-describe('DELETE /api/archives', () => {
+describe('DELETE /api/archives/:id', () => {
   const archive = {
     hash: 'FiDShRv4UUKfecXNlpotyqoPbziO',
     name: 'samuraime.svg',
@@ -134,7 +142,7 @@ describe('DELETE /api/archives', () => {
       .set('Accept', 'application/json');
     id = res.body._id; // eslint-disable-line
   });
-  it('should update an archive document', async () => {
+  it('should delete this archive document', async () => {
     // TODO: need to set a qiniu secrets
     const res = await request(server)
       .delete(`/api/archives/${id}`)
@@ -155,6 +163,57 @@ describe('GET /api/yumes', () => {
       .get('/api/yumes')
       .set('Cookie', userCookies);
     expect(Array.isArray(res.body)).toBe(true);
+  });
+});
+
+describe('POST /api/yumes', () => {
+  const yume = {
+    text: 'a nightmare',
+    interpretation: 'string',
+    images: ['https://cdn.samuraime.com/fake.png'],
+    tags: ['nightmare'],
+    public: true,
+  };
+  it('should response 403 when user is not logined', async () => {
+    const res = await request(server)
+      .post('/api/yumes')
+      .send(yume);
+    expect(res.status).toBe(403);
+  });
+  it('should response created yume', async () => {
+    const res = await request(server)
+      .post('/api/yumes')
+      .send(yume)
+      .set('Cookie', userCookies);
+    expect(res.body).toMatchObject(yume);
+  });
+});
+
+describe('DELETE /api/yumes/:id', () => {
+  const yume = {
+    text: 'a nightmare',
+    interpretation: 'string',
+    images: ['https://cdn.samuraime.com/fake.png'],
+    tags: ['nightmare'],
+    public: true,
+  };
+  let id: string;
+
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/yumes')
+      .send(yume)
+      .set('Cookie', userCookies)
+      .set('Accept', 'application/json');
+    id = res.body._id; // eslint-disable-line
+  });
+  it('should delete this yume', async () => {
+    const res = await request(server)
+      .delete(`/api/yumes/${id}`)
+      .set('Cookie', userCookies)
+      .set('Accept', 'application/json');
+
+    expect(res.body).toMatchObject(yume);
   });
 });
 
