@@ -44,6 +44,19 @@ describe('/api', () => {
   });
 });
 
+describe('/user', () => {
+  it('should response empty user info', async () => {
+    const res = await request(server).get('/api/user');
+    expect(res.body).toMatchObject({});
+  });
+  it('should response logined user info', async () => {
+    const res = await request(server)
+      .get('/api/user')
+      .set('Cookie', userCookies);
+    expect(res.body).toHaveProperty('name');
+  });
+});
+
 describe('GET /api/archives', () => {
   it('should response an array', async () => {
     const res = await request(server).get('/api/archives');
