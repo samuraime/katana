@@ -7,6 +7,6 @@ const router = new Router();
 
 router.use('/api', api.routes());
 router.use('/auth', auth.routes(), api.allowedMethods());
-router.use('/*', SPA);
+router.get('/*', SPA);
 
 export default router.routes();

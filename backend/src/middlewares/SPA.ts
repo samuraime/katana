@@ -1,11 +1,11 @@
 import fs from 'fs';
 import { Middleware } from 'koa';
 import serialize from 'serialize-javascript';
+import { UserDocument } from '../models/User';
 import config from '../config';
 
 interface PreloadState {
-  // TODO: SessionUser
-  user: any;
+  user: UserDocument | null;
 }
 
 let entryHTML: string;
@@ -35,7 +35,7 @@ function getPreloadStateHTML(state: PreloadState) {
 
 const SPA: Middleware = ctx => {
   const { user } = ctx.session;
-  const state = {
+  const state: PreloadState = {
     user: user ? { ...user, id: user._id } : null, // eslint-disable-line no-underscore-dangle
   };
 

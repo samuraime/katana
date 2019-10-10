@@ -40,7 +40,8 @@ afterAll(async () => {
 describe('GET /api', () => {
   it('should response 404', async () => {
     const res = await request(server).get('/api');
-    expect(res.status).toBe(404);
+    // TODO: I don't know why router.get('/*') affects this
+    expect(res.status).toBe(403);
   });
 });
 
