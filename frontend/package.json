@@ -23,7 +23,6 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/styles": "^4.2.0",
     "@primer/octicons-react": "^9.1.1",
-    "add": "^2.0.6",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "github-markdown-css": "^3.0.1",
