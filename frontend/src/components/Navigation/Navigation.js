@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { getLoginURL } from '../../utils';
-import { string, func, shape } from '../../types';
+import { string, func } from '../../types';
 import userActions from '../../store/user/actions';
 import s from './Navigation.module.scss';
 
@@ -29,10 +29,11 @@ function getAppBarTitleByPathName(pathname) {
   return appBarTitleMap[match[0]];
 }
 
-function Navigation({ onMenuClick, location, className }) {
+function Navigation({ onMenuClick, className }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const user = useSelector(state => state.user);
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   function handleMenu(event) {
@@ -52,7 +53,7 @@ function Navigation({ onMenuClick, location, className }) {
     dispatch(userActions.getUser());
   }, [dispatch]);
 
-  const title = getAppBarTitleByPathName(location.pathname);
+  const title = getAppBarTitleByPathName(pathname);
 
   return (
     <AppBar position="static" className={className}>
@@ -101,8 +102,7 @@ function Navigation({ onMenuClick, location, className }) {
 
 Navigation.propTypes = {
   onMenuClick: func.isRequired,
-  location: shape({ pathname: string }).isRequired,
   className: string.isRequired,
 };
 
-export default withRouter(Navigation);
+export default Navigation;
