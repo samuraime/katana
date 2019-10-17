@@ -13,12 +13,11 @@ import Yume from './pages/Yume';
 import NotFound from './pages/NotFound';
 import theme from './styles/theme';
 
-function NonIndex() {
+function AppLayoutPage() {
   return (
     <AppLayout>
       <Switch>
         <Route path="/blog" component={Blog} />
-        <Route path="/playground" component={Playground} />
         <Route path="/stash" component={Stash} />
         <AuthRoute path="/yume" component={Yume} />
         <Route component={NotFound} />
@@ -34,7 +33,8 @@ function App({ store }) {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route component={NonIndex} />
+            <Route path="/playground" component={Playground} />
+            <Route component={AppLayoutPage} />
           </Switch>
         </Router>
       </Provider>
