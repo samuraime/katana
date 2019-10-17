@@ -11225,6 +11225,11 @@ redux-actions@^2.6.5:
     reduce-reducers "^0.4.3"
     to-camel-case "^1.0.0"
 
+redux-promise-middleware@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/redux-promise-middleware/-/redux-promise-middleware-6.1.1.tgz#0c26358712c2d5be3698faf7aaf53e7a7dc888dd"
+  integrity sha512-h/qDMWG+QzT/1LucCJt6S1A9T5+bCVUI3a0yGQb5XOanNzjvFe5sRdPbfQgYUShc0uWG8cLu8QxpkAj9xCBH8Q==
+
 redux@^4.0.1:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
