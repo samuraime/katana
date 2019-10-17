@@ -25,13 +25,12 @@ export default ({
   const { payload } = action;
 
   if (!(payload instanceof Promise)) {
-    next(action);
-    return;
+    return next(action);
   }
 
   next(getAction(action, pending));
 
-  action.payload
+  return action.payload
     .then(result => {
       next(getAction(action, fulfill, result));
     })

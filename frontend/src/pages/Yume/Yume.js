@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import yumeActions from '../../store/yume/actions';
 import YumeCard from './YumeCard';
@@ -9,6 +9,7 @@ function Yume() {
   const dispatch = useDispatch();
   const yumes = useSelector(({ yume }) => yume.yumes);
   const user = useSelector(state => state.user);
+  const [makerKey, setMakerKey] = useState(0);
 
   useEffect(() => {
     dispatch(yumeActions.getYumes());
@@ -25,12 +26,19 @@ function Yume() {
   }
 
   function handleSubmit(yume) {
-    dispatch(yumeActions.createYume(yume));
+    dispatch(yumeActions.createYume(yume)).then(() => {
+      // reset YumeMaker
+      setMakerKey(makerKey ? 0 : 1);
+    });
   }
 
   return (
     <div className={s.root}>
-      <YumeMaker className={s.yumeMaker} onSubmit={handleSubmit} />
+      <YumeMaker
+        key={makerKey}
+        className={s.yumeMaker}
+        onSubmit={handleSubmit}
+      />
       {yumes.map(yume => (
         <YumeCard
           key={yume.id}
