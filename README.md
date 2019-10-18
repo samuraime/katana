@@ -21,6 +21,10 @@
   - [ ] try PWA
   - [x] ESM in frontend and backend
 
+## Practice Notes
+
+  [See here](./NOTES.md)
+
 ## Scripts
 
 - `yarn install`
