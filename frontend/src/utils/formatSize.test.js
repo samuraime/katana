@@ -1,13 +1,13 @@
-import formatSize from '../../utils/formatSize';
+import formatSize from './formatSize';
 
 describe('formatSize', () => {
-  test('should throw error', () => {
+  it('should throw error', () => {
     expect(() => formatSize('hah')).toThrow();
     expect(() => formatSize({})).toThrow();
     expect(() => formatSize(false)).toThrow();
   });
 
-  test('should return correct formatted value', () => {
+  it('should return correct formatted value', () => {
     expect(formatSize(0)).toBe('0B');
     expect(formatSize(1024)).toBe('1.00KB');
     expect(formatSize(1234)).toBe('1.21KB');
