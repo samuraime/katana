@@ -9,6 +9,7 @@
 ### Directory structure for test code?
 
 Tests for components, functions, etc. should be placed with source code.
+Easy to reference source code.
 Test for main flow should be placed to `__tests__`.
 
 ```
