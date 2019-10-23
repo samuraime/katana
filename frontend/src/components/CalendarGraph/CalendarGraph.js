@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import getCalendarDays from './getCalendarDays';
 
-function CalendarGraph({ start, end, color }) {
+function CalendarGraph({ start, end, color, ...props }) {
   const weeks = getCalendarDays(start, end);
   const size = 12;
   const gap = 3;
@@ -11,7 +11,7 @@ function CalendarGraph({ start, end, color }) {
   const height = offset * 7 - gap;
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`} {...props}>
       <g>
         {weeks.map((days, weekIndex) => (
           <g
