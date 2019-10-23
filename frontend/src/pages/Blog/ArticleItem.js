@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Article } from '../../types';
-import { dateEn } from '../../utils/date';
+import formatDate from '../../utils/date';
 import s from './ArticleItem.module.scss';
 
 function ArticleItem({ article, ...otherProps }) {
   const { id, title, createdAt } = article;
+  const formatEnDate = useMemo(() => formatDate('en'), []);
 
   return (
     <article className={s.root} {...otherProps}>
       <div className={s.meta}>
-        <time className="mono-font">{dateEn(createdAt)}</time>
+        <time className="mono-font">{formatEnDate(createdAt)}</time>
         {/* <ul className={s.categories}>
           {categories.map((category) => (
             <li key={category} className={s.categoryItem}>
