@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import yumeActions from '../../store/yume/actions';
 import YumeCard from './YumeCard';
+import YumeCalendar from './YumeCalendar';
 import YumeMaker from './YumeMaker';
 import s from './Yume.module.scss';
 
@@ -34,6 +35,7 @@ function Yume() {
 
   return (
     <div className={s.root}>
+      <YumeCalendar />
       <YumeMaker
         key={makerKey}
         className={s.yumeMaker}
