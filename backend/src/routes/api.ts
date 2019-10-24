@@ -34,6 +34,7 @@ router.get('/signout', user.signout);
 // router.post('/logout', user.logout);
 // router.post('/autologin', user.autoLogin);
 router.get('/yumes', yumes.list);
+router.get('/yumes/calendar', yumes.getCalendar);
 router.post('/yumes', yumes.create);
 router.delete('/yumes/:id', yumes.remove);
 // router.get('/yumes/starred', yumes.starred);

@@ -60,3 +60,8 @@ export const Yume = shape({
   public: bool,
   createdAt: string,
 });
+
+export const YumeRecord = shape({
+  createdAt: string.isRequired,
+  type: string,
+});

@@ -9,11 +9,13 @@ import s from './Yume.module.scss';
 function Yume() {
   const dispatch = useDispatch();
   const yumes = useSelector(({ yume }) => yume.yumes);
+  const calendarRecords = useSelector(({ yume }) => yume.calendarRecords);
   const user = useSelector(state => state.user);
   const [makerKey, setMakerKey] = useState(0);
 
   useEffect(() => {
     dispatch(yumeActions.getYumes());
+    dispatch(yumeActions.getYumeCalendar());
   }, [dispatch]);
 
   function getDeteleHandler(yume) {
@@ -35,7 +37,7 @@ function Yume() {
 
   return (
     <div className={s.root}>
-      <YumeCalendar />
+      <YumeCalendar className={s.yumeCalendar} records={calendarRecords} />
       <YumeMaker
         key={makerKey}
         className={s.yumeMaker}

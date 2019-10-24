@@ -137,10 +137,29 @@ const remove: Middleware = async ctx => {
 //   };
 // };
 
+const getCalendar: Middleware = async ctx => {
+  const { page, perPage } = ctx.query;
+  const end = new Date();
+  const start = new Date(end);
+  start.setFullYear(end.getFullYear() - 1);
+  const records = await Yume.find({
+    createdAt: {
+      $gte: start,
+      $lte: end,
+    },
+  })
+    .sort({ createdAt: -1 })
+    .limit(1000)
+    .select({ type: true, createdAt: true });
+  // .exec();
+  ctx.body = records;
+};
+
 export default {
   list,
   create,
   remove,
+  getCalendar,
   // posts,
   // starred,
   // star,

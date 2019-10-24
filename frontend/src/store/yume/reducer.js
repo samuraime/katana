@@ -3,6 +3,7 @@ import { handleActions } from 'redux-actions';
 
 const initialState = {
   yumes: [],
+  calendarRecords: [],
 };
 
 const reducer = handleActions(
@@ -35,6 +36,12 @@ const reducer = handleActions(
       return {
         ...state,
         yumes: state.yumes.filter(({ id }) => id !== payload.id),
+      };
+    },
+    GET_YUME_CALENDAR_SUCCESS(state, { payload }) {
+      return {
+        ...state,
+        calendarRecords: payload,
       };
     },
   },

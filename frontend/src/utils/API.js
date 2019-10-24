@@ -17,6 +17,7 @@ export const getYumes = () => http.get('/api/yumes');
 export const postYume = yume => http.post('/api/yumes', { body: yume });
 export const putYume = yume => http.put('/api/yumes', { body: yume });
 export const deleteYume = id => http.delete(`/api/yumes/${id}`);
+export const getYumeCalendarRecords = () => http.get(`/api/yumes/calendar`);
 
 export const getArticles = () => http.get('/api/articles');
 export const getArticle = id => http.get(`/api/articles/${id}`);
