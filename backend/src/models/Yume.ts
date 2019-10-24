@@ -6,6 +6,7 @@ interface YumeDocument extends Document {
   text: string;
   interpretation: string;
   images: string[];
+  type: string;
   tags: string[];
   stars: number;
   stargazers: UserDocument[];
@@ -31,6 +32,7 @@ const yumeSchema = new Schema({
   text: { type: String, default: '' },
   interpretation: { type: String, default: '' },
   images: [String],
+  type: { type: String, default: 'normal' },
   tags: [String],
   stars: { type: Number, default: 0 },
   stargazers: [{ type: Schema.Types.ObjectId, ref: 'User' }],

@@ -19,10 +19,10 @@ function YumeCalendar({ records, ...props }) {
 
   const colorFn = useCallback(
     date => {
-      const found = records.find(
-        record => formatDate(record.createdAt) === formatDate(date)
-      );
-      const type = found ? found.type : '';
+      const found = records.find(record => {
+        return formatDate(record.createdAt) === formatDate(date);
+      });
+      const type = found ? found.type || 'normal' : '';
       return getColor(type);
     },
     [records]
