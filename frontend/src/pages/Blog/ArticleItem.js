@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Article } from '../../types';
-import formatDate from '../../utils/date';
+import { format } from '../../utils/date';
 import s from './ArticleItem.module.scss';
 
 function ArticleItem({ article, ...otherProps }) {
   const { id, title, createdAt } = article;
-  const formatEnDate = useMemo(() => formatDate('en'), []);
+  const formatEnDate = useMemo(() => format('en'), []);
 
   return (
     <article className={s.root} {...otherProps}>

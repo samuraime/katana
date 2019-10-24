@@ -7,7 +7,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
 import HomeIcon from '@material-ui/icons/Home';
-// import BlogIcon from '@material-ui/icons/Subject';
+import BlogIcon from '@material-ui/icons/Subject';
 import YumeHubIcon from '@material-ui/icons/Brightness4';
 import StashIcon from '@material-ui/icons/CloudDownload';
 // import PlayGroundIcon from '@material-ui/icons/Games';
@@ -19,7 +19,7 @@ const AdapterLink = React.forwardRef((props, ref) => (
 
 const menuConfigs = [
   { name: 'Home', path: '/', icon: HomeIcon },
-  // { name: 'Blog', path: '/blog', icon: BlogIcon },
+  { name: 'Blog', path: '/blog', icon: BlogIcon },
   { name: 'Stash', path: '/stash', icon: StashIcon },
   { name: 'YumeHub', path: '/yume', icon: YumeHubIcon },
   // { name: 'PlayGround', path: '/playground', icon: PlayGroundIcon },
