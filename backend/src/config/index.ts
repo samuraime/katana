@@ -9,7 +9,7 @@ export default {
     __dirname,
     process.env.CI
       ? '../../../frontend/public/index.html'
-      : '../../../frontend/build/index.html'
+      : '../../frontend/build/index.html'
   ),
   jwtSecret: process.env.JWT_SECRET,
   home: process.env.SITE_HOME, // https://samuraime.com
