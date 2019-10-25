@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import marked from 'marked';
 import classnames from 'classnames';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import s from './ArticleComposer.module.scss';
-import { postArticle } from '../../utils/API';
+import { getArticle, putArticle, postArticle } from '../../utils/API';
 import 'github-markdown-css';
 
 function ArticleComposer() {
   const [title, setTitle] = useState('');
   const [markdown, setMarkdown] = useState('');
-  const [content, setContent] = useState('');
+  const [html, setHTML] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
   const history = useHistory();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      getArticle(id).then(article => {
+        setTitle(article.title);
+        setMarkdown(article.draft || article.markdown);
+        setPreviewMode(false);
+      });
+    }
+  }, [id]);
 
   function handleTitleChange(event) {
     setTitle(event.target.value);
@@ -29,19 +40,30 @@ function ArticleComposer() {
     const { checked } = event.target;
     setPreviewMode(checked);
     if (checked) {
-      setContent(marked(markdown));
+      setHTML(marked(markdown));
     }
   }
 
-  function handleSubmit() {
-    postArticle({
+  function save(isPublish) {
+    const saveArticle = id ? putArticle : postArticle;
+    return saveArticle({
+      id,
       title,
-      markdown,
-      content: marked(markdown),
+      markdown: isPublish ? markdown : undefined,
+      draft: isPublish ? '' : markdown,
+      html: isPublish ? marked(markdown) : undefined,
       categories: ['essay'],
-    }).then(() => {
-      history.push({ pathname: '/blog' });
     });
+  }
+
+  async function handleSave() {
+    const saved = await save(false);
+    history.replace({ pathname: `/blog/${saved.id}/edit` });
+  }
+
+  async function handleSubmit() {
+    await save(true);
+    history.push({ pathname: '/blog' });
   }
 
   return (
@@ -69,7 +91,7 @@ function ArticleComposer() {
       {previewMode ? (
         <div
           className={classnames('markdown-body', s.previewBody)}
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       ) : (
         <TextField
@@ -85,6 +107,9 @@ function ArticleComposer() {
         />
       )}
       <div className={s.alignRight}>
+        <Button variant="contained" color="secondary" onClick={handleSave}>
+          Save Draft
+        </Button>
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Submit
         </Button>

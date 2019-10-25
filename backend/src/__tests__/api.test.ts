@@ -265,7 +265,7 @@ describe('POST /api/articles', () => {
     title: 'I have a dream',
     markdown: '# I have a dream',
     draft: '# I have a dream',
-    content: '<h1>I have a dram</h1>',
+    html: '<h1>I have a dram</h1>',
     categories: ['eassy'],
   };
   it('should response 403 when user is not super user', async () => {
@@ -278,7 +278,7 @@ describe('POST /api/articles', () => {
   it('should throw error when there is no necessory data', async () => {
     const res = await request(server)
       .post('/api/articles')
-      .send({ ...article, markdown: undefined })
+      .send({ ...article, markdown: undefined, draft: undefined })
       .set('Cookie', userCookies);
     expect(res.status).toBeGreaterThanOrEqual(400);
   });
@@ -296,7 +296,7 @@ describe('GET /api/articles/:id', () => {
     title: 'I have a dream',
     markdown: '# I have a dream',
     draft: '# I have a dream',
-    content: '<h1>I have a dram</h1>',
+    html: '<h1>I have a dram</h1>',
     categories: ['eassy'],
   };
   let id: string;
@@ -323,14 +323,14 @@ describe('UPDATE /api/articles/:id', () => {
     title: 'I have a dream',
     markdown: '# I have a dream',
     draft: '# I have a dream',
-    content: '<h1>I have a dram</h1>',
+    html: '<h1>I have a dram</h1>',
     categories: ['eassy'],
   };
   const updated = {
     title: 'I have a nightmare',
     markdown: '# I have a nightmare',
     draft: '# I have a nightmare',
-    content: '<h1>I have a nightmare</h1>',
+    html: '<h1>I have a nightmare</h1>',
     categories: ['nightmare'],
   };
   let id: string;
@@ -359,7 +359,7 @@ describe('DELETE /api/articles/:id', () => {
     title: 'I have a dream',
     markdown: '# I have a dream',
     draft: '# I have a dream',
-    content: '<h1>I have a dram</h1>',
+    html: '<h1>I have a dram</h1>',
     categories: ['eassy'],
   };
   let id: string;

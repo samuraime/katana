@@ -6,10 +6,20 @@ import Article from '../models/Article';
 
 const list: Middleware = async ctx => {
   const { page, perPage } = ctx.query;
+  const { user } = ctx.session;
+  const isSuperUser = !!user && user.superUser;
+  // TODO: refactor
+  const condition = isSuperUser
+    ? undefined
+    : {
+        draft: { $eq: '' },
+      };
+
   const articles = await Article.list({
     page: +page - 1,
     perPage: +perPage,
     public: true,
+    ...condition,
   });
   ctx.body = articles;
 };
@@ -21,8 +31,8 @@ const get: Middleware = async ctx => {
 };
 
 const create: Middleware = async ctx => {
-  // TODO validate
-  if (!ctx.request.body.content || !ctx.request.body.markdown) {
+  const { html, markdown, draft } = ctx.request.body;
+  if (!html && !markdown && !draft) {
     ctx.throw(400);
     return;
   }
@@ -35,10 +45,10 @@ const create: Middleware = async ctx => {
 };
 
 const update: Middleware = async ctx => {
-  // TODO validate
-  const { body } = ctx.request;
   const { id } = ctx.params;
-  if (!id || !body.content || !body.markdown) {
+  const { body } = ctx.request;
+  const { markdown, draft } = body;
+  if (!markdown && !draft) {
     ctx.throw(400);
     return;
   }

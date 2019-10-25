@@ -17,7 +17,7 @@ export default function ArticleList() {
     <div className={s.root}>
       {isSuperUser && (
         <div className={s.compose}>
-          <Link to="/blog/composer">Compose</Link>
+          <Link to="/blog/compose">Compose</Link>
         </div>
       )}
       {articles.map(article => (

@@ -6,7 +6,7 @@ interface ArticleDocument extends Document {
   title: string;
   markdown: string;
   draft: string;
-  content: string;
+  html: string;
   categories: string[];
   author: UserDocument;
   public: boolean;
@@ -26,7 +26,7 @@ const articleSchema = new Schema({
   title: String,
   markdown: String,
   draft: String,
-  content: String,
+  html: String,
   categories: [String],
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   public: { type: Boolean, default: true },

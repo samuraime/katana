@@ -24,5 +24,5 @@ export const getArticle = id => http.get(`/api/articles/${id}`);
 export const postArticle = article =>
   http.post('/api/articles', { body: article });
 export const putArticle = article =>
-  http.put('/api/articles', { body: article });
+  http.put(`/api/articles/${article.id}`, { body: article });
 export const deleteArticle = id => http.delete(`/api/articles/${id}`);

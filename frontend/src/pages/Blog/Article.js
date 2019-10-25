@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTitle } from '../../hooks';
 import { getArticle } from '../../utils/API';
-import { shape, string } from '../../types';
 import s from './Article.module.scss';
 
-function Article({ match }) {
+function Article() {
   const [article, setArticle] = useState(null);
-  const { id } = match.params;
+  const isSuperUser = useSelector(({ user }) => user.superUser);
+  const { id } = useParams();
 
   useEffect(() => {
     if (!id) {
@@ -22,16 +24,17 @@ function Article({ match }) {
     return null;
   }
 
-  const { content } = article;
+  const { html } = article;
   return (
-    <article className={s.root} dangerouslySetInnerHTML={{ __html: content }} />
+    <div className={s.root}>
+      {isSuperUser && (
+        <div className={s.edit}>
+          <Link to={`/blog/${id}/edit`}>edit</Link>
+        </div>
+      )}
+      <article dangerouslySetInnerHTML={{ __html: html }} />
+    </div>
   );
 }
-
-Article.propTypes = {
-  match: shape({
-    params: shape({ id: string }),
-  }).isRequired,
-};
 
 export default Article;

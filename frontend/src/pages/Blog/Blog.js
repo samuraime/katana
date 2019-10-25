@@ -9,7 +9,10 @@ function Blog() {
   return (
     <Switch>
       <Route exact path="/blog" component={ArticleList} />
-      <AuthRoute path="/blog/composer" component={ArticleComposer} />
+      <AuthRoute
+        path={['/blog/compose', '/blog/:id/edit']}
+        component={ArticleComposer}
+      />
       <Route path="/blog/:id" component={Article} />
     </Switch>
   );
