@@ -218,6 +218,129 @@ describe('DELETE /api/yumes/:id', () => {
   });
 });
 
+describe('GET /api/articles', () => {
+  it('should response an array', async () => {
+    const res = await request(server).get('/api/articles');
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+});
+
+describe('POST /api/articles', () => {
+  const article = {
+    title: 'I have a dream',
+    markdown: '# I have a dream',
+    draft: '# I have a dream',
+    content: '<h1>I have a dram</h1>',
+    categories: ['eassy'],
+  };
+  it('should response 403 when user is not super user', async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', userCookies);
+    expect(res.status).toBe(403);
+  });
+  it('should response created article', async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', superUserCookies);
+    expect(res.body).toMatchObject(article);
+  });
+});
+
+describe('GET /api/articles/:id', () => {
+  const article = {
+    title: 'I have a dream',
+    markdown: '# I have a dream',
+    draft: '# I have a dream',
+    content: '<h1>I have a dram</h1>',
+    categories: ['eassy'],
+  };
+  let id: string;
+
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+    id = res.body._id; // eslint-disable-line
+  });
+  it('should delete this article successfully', async () => {
+    const res = await request(server)
+      .get(`/api/articles/${id}`)
+      .set('Accept', 'application/json');
+
+    expect(res.body).toMatchObject(article);
+  });
+});
+
+describe('UPDATE /api/articles/:id', () => {
+  const article = {
+    title: 'I have a dream',
+    markdown: '# I have a dream',
+    draft: '# I have a dream',
+    content: '<h1>I have a dram</h1>',
+    categories: ['eassy'],
+  };
+  const updated = {
+    title: 'I have a nightmare',
+    markdown: '# I have a nightmare',
+    draft: '# I have a nightmare',
+    content: '<h1>I have a nightmare</h1>',
+    categories: ['nightmare'],
+  };
+  let id: string;
+
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+    id = res.body._id; // eslint-disable-line
+  });
+  it('should delete this article successfully', async () => {
+    const res = await request(server)
+      .put(`/api/articles/${id}`)
+      .send({ ...updated, id })
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+
+    expect(res.status).toBe(200);
+    expect(res.body).toMatchObject(updated);
+  });
+});
+
+describe('DELETE /api/articles/:id', () => {
+  const article = {
+    title: 'I have a dream',
+    markdown: '# I have a dream',
+    draft: '# I have a dream',
+    content: '<h1>I have a dram</h1>',
+    categories: ['eassy'],
+  };
+  let id: string;
+
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+    id = res.body._id; // eslint-disable-line
+  });
+  it('should delete this article successfully', async () => {
+    const res = await request(server)
+      .delete(`/api/articles/${id}`)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+
+    expect(res.body).toMatchObject(article);
+  });
+});
+
 describe('/api/upload/token', () => {
   it('should response 403 when user is not a super user', async () => {
     const res = await request(server)

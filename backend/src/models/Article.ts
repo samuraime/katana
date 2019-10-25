@@ -5,6 +5,7 @@ import { SearchCriteria } from '../types';
 interface ArticleDocument extends Document {
   title: string;
   markdown: string;
+  draft: string;
   content: string;
   categories: string[];
   author: UserDocument;
@@ -24,6 +25,7 @@ interface ArticleSearchCriteria extends SearchCriteria {
 const articleSchema = new Schema({
   title: String,
   markdown: String,
+  draft: String,
   content: String,
   categories: [String],
   author: { type: Schema.Types.ObjectId, ref: 'User' },

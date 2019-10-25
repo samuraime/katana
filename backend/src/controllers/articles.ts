@@ -43,12 +43,13 @@ const create: Middleware = async ctx => {
 const update: Middleware = async ctx => {
   // TODO validate
   const { body } = ctx.request;
-  if (!body.id || !body.content || !body.markdown) {
+  const { id } = ctx.params;
+  if (!id || !body.content || !body.markdown) {
     ctx.throw(400);
     return;
   }
 
-  const article = await Article.findByIdAndUpdate(body.id, body);
+  const article = await Article.findByIdAndUpdate(id, body, { new: true });
   ctx.body = article;
 };
 

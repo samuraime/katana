@@ -50,7 +50,7 @@ router.put('/archives/:id', archives.update);
 router.delete('/archives/:id', archives.destory);
 router.post('/archives', archives.create);
 router.post('/articles', articles.create);
-router.put('/articles', articles.update);
+router.put('/articles/:id', articles.update);
 router.delete('/articles/:id', articles.remove);
 
 export default router;
