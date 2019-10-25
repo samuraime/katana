@@ -175,17 +175,25 @@ describe('POST /api/yumes', () => {
     tags: ['nightmare'],
     public: true,
   };
-  it('should response 403 when user is not logined', async () => {
+  it('should response 403 when user is not super user', async () => {
     const res = await request(server)
       .post('/api/yumes')
+      .set('Cookie', userCookies)
       .send(yume);
     expect(res.status).toBe(403);
+  });
+  it('should throw when there is no content', async () => {
+    const res = await request(server)
+      .post('/api/yumes')
+      .set('Cookie', superUserCookies)
+      .send({ ...yume, text: undefined });
+    expect(res.status).toBe(400);
   });
   it('should response created yume', async () => {
     const res = await request(server)
       .post('/api/yumes')
-      .send(yume)
-      .set('Cookie', userCookies);
+      .set('Cookie', superUserCookies)
+      .send(yume);
     expect(res.body).toMatchObject(yume);
   });
 });
@@ -204,17 +212,44 @@ describe('DELETE /api/yumes/:id', () => {
     const res = await request(server)
       .post('/api/yumes')
       .send(yume)
-      .set('Cookie', userCookies)
+      .set('Cookie', superUserCookies)
       .set('Accept', 'application/json');
     id = res.body._id; // eslint-disable-line
   });
   it('should delete this yume', async () => {
     const res = await request(server)
       .delete(`/api/yumes/${id}`)
-      .set('Cookie', userCookies)
+      .set('Cookie', superUserCookies)
       .set('Accept', 'application/json');
 
     expect(res.body).toMatchObject(yume);
+  });
+});
+
+describe('GET /api/yumes/calendar', () => {
+  const yume = {
+    text: 'a nightmare',
+    interpretation: 'string',
+    images: ['https://cdn.samuraime.com/fake.png'],
+    tags: ['nightmare'],
+    type: 'nightmare',
+    public: true,
+  };
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/yumes')
+      .send(yume)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+  });
+
+  it('should return calendar', async () => {
+    const res = await request(server)
+      .get('/api/yumes/calendar')
+      .set('Accept', 'application/json')
+      .set('Cookie', userCookies);
+
+    expect(res.body.length).toBeGreaterThanOrEqual(1);
   });
 });
 
@@ -239,6 +274,13 @@ describe('POST /api/articles', () => {
       .send(article)
       .set('Cookie', userCookies);
     expect(res.status).toBe(403);
+  });
+  it('should throw error when there is no necessory data', async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send({ ...article, markdown: undefined })
+      .set('Cookie', userCookies);
+    expect(res.status).toBeGreaterThanOrEqual(400);
   });
   it('should response created article', async () => {
     const res = await request(server)
@@ -308,7 +350,6 @@ describe('UPDATE /api/articles/:id', () => {
       .set('Cookie', superUserCookies)
       .set('Accept', 'application/json');
 
-    expect(res.status).toBe(200);
     expect(res.body).toMatchObject(updated);
   });
 });

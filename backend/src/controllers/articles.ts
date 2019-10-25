@@ -16,12 +16,6 @@ const list: Middleware = async ctx => {
 
 const get: Middleware = async ctx => {
   const { id } = ctx.params;
-  // TODO validate
-  if (!ctx.params.id) {
-    ctx.throw(400);
-    return;
-  }
-
   const article = await Article.findById(id);
   ctx.body = article;
 };

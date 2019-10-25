@@ -35,17 +35,17 @@ router.get('/signout', user.signout);
 // router.post('/autologin', user.autoLogin);
 router.get('/yumes', yumes.list);
 router.get('/yumes/calendar', yumes.getCalendar);
+
+// SUPER USER
+router.use(superUserGuard);
+
+router.get('/upload/token', upload.getToken);
 router.post('/yumes', yumes.create);
 router.delete('/yumes/:id', yumes.remove);
 // router.get('/yumes/starred', yumes.starred);
 // router.get('/yumes/posts', yumes.posts);
 // router.put('/yume/starred/:id', yumes.star);
 // router.delete('/yume/starred/:id', yumes.unstar);
-
-// SUPER USER
-router.use(superUserGuard);
-
-router.get('/upload/token', upload.getToken);
 router.put('/archives/:id', archives.update);
 router.delete('/archives/:id', archives.destory);
 router.post('/archives', archives.create);

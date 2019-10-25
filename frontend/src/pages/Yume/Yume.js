@@ -38,11 +38,13 @@ function Yume() {
   return (
     <div className={s.root}>
       <YumeCalendar className={s.yumeCalendar} records={calendarRecords} />
-      <YumeMaker
-        key={makerKey}
-        className={s.yumeMaker}
-        onSubmit={handleSubmit}
-      />
+      {user.superUser && (
+        <YumeMaker
+          key={makerKey}
+          className={s.yumeMaker}
+          onSubmit={handleSubmit}
+        />
+      )}
       {yumes.map(yume => (
         <YumeCard
           key={yume.id}
