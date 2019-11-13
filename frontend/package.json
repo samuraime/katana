@@ -16,7 +16,16 @@
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.stories.js",
+      "!src/serviceWorker.js",
+      "!src/setupProxy.js"
+    ]
   },
   "dependencies": {
     "@material-ui/core": "^4.2.0",
@@ -41,6 +50,7 @@
     "redux-promise-middleware": "^6.1.1"
   },
   "devDependencies": {
+    "@storybook/react": "^5.2.6",
     "@testing-library/react": "^9.3.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
