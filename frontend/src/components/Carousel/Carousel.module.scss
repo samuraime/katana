@@ -1,0 +1,18 @@
+.scene {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.carousel {
+  position: relative;
+  transform-style: preserve-3d;
+  transition-property: transform;
+}
+
+.element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
