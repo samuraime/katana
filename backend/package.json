@@ -5,10 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "yarn build && yarn watch",
-    "watch": "concurrently 'yarn watch:ts' 'yarn watch:node'",
-    "watch:ts": "tsc -w",
-    "watch:node": "nodemon -r ../node_modules/dotenv/config ./build/index.js",
+    "start": "nodemon -r ../node_modules/dotenv/config --exec ts-node src",
     "build": "tsc",
     "postbuild": "cp package.json build/package.json",
     "test": "jest"
@@ -42,6 +39,7 @@
     "nodemon": "^1.11.0",
     "supertest": "^4.0.2",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.5.2",
     "typescript": "^3.5.3"
   },
   "dependencies": {
