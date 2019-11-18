@@ -9,8 +9,15 @@ interface ArticleDocument extends Document {
   categories: string[];
   author: UserDocument;
   public: boolean;
+  file?: GitHubFileInfo;
   createdAt: Date;
   updatedAt: Date;
+}
+
+interface GitHubFileInfo {
+  name: string;
+  path: string;
+  sha: string;
 }
 
 interface ArticleModel extends Model<ArticleDocument> {
@@ -29,6 +36,11 @@ const articleSchema = new Schema({
   categories: [String],
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   public: { type: Boolean, default: true },
+  file: {
+    name: String,
+    path: String,
+    sha: String,
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

@@ -1,20 +1,20 @@
 import qs from 'querystring';
 import fetch from 'node-fetch';
 
-enum HttpMethod {
+export enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
 
-interface HttpRequestOptions {
+export interface HttpRequestOptions {
   headers?: Record<string, string>;
 }
 
-const request = (method: HttpMethod) => (
+export const request = (method: HttpMethod) => (
   endpoint: string,
-  params: Record<string, any>,
+  params?: Record<string, any>,
   options: HttpRequestOptions = {}
 ) => {
   const { headers, ...restOptions } = options;
@@ -30,6 +30,7 @@ const request = (method: HttpMethod) => (
     body: isGet ? undefined : JSON.stringify(params),
   };
   const resource = isGet ? `${endpoint}?${qs.stringify(params)}` : endpoint;
+
   return fetch(resource, finalOptions).then(res => {
     if (res.headers.get('content-type').includes('application/json')) {
       return res.json();

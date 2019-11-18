@@ -309,7 +309,7 @@ describe('GET /api/articles/:id', () => {
       .set('Accept', 'application/json');
     id = res.body._id; // eslint-disable-line
   });
-  it('should delete this article successfully', async () => {
+  it('should get created article successfully', async () => {
     const res = await request(server)
       .get(`/api/articles/${id}`)
       .set('Accept', 'application/json');
@@ -343,7 +343,7 @@ describe('UPDATE /api/articles/:id', () => {
       .set('Accept', 'application/json');
     id = res.body._id; // eslint-disable-line
   });
-  it('should delete this article successfully', async () => {
+  it('should update this article successfully', async () => {
     const res = await request(server)
       .put(`/api/articles/${id}`)
       .send({ ...updated, id })
@@ -373,6 +373,50 @@ describe('DELETE /api/articles/:id', () => {
     id = res.body._id; // eslint-disable-line
   });
   it('should delete this article successfully', async () => {
+    const res = await request(server)
+      .delete(`/api/articles/${id}`)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+
+    expect(res.body).toMatchObject(article);
+  });
+});
+
+describe('POST UPDATE DELETE /api/articles/:id', () => {
+  const article = {
+    title: 'I have a nightmare',
+    markdown: '# I have a nightmare',
+    draft: '# I have a nightmare',
+    html: '<h1>I have a nightmare</h1>',
+    categories: ['nightmare'],
+  };
+  const updated = {
+    title: 'I have a nightmare',
+    markdown: '# I have a nightmare',
+    draft: '# I have a nightmare',
+    html: '<h1>I have a nightmare</h1>',
+    categories: ['nightmare'],
+  };
+  let id: string;
+
+  beforeAll(async () => {
+    const res = await request(server)
+      .post('/api/articles')
+      .send(article)
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+    id = res.body._id; // eslint-disable-line
+  });
+  it('should update article to blog repo successfully', async () => {
+    const res = await request(server)
+      .put(`/api/articles/${id}`)
+      .send({ ...updated, id, isPublish: true })
+      .set('Cookie', superUserCookies)
+      .set('Accept', 'application/json');
+
+    expect(res.body).toHaveProperty('file');
+  });
+  it('should delete article from blog repo successfully', async () => {
     const res = await request(server)
       .delete(`/api/articles/${id}`)
       .set('Cookie', superUserCookies)

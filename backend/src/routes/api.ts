@@ -49,8 +49,8 @@ router.delete('/yumes/:id', yumes.remove);
 router.put('/archives/:id', archives.update);
 router.delete('/archives/:id', archives.remove);
 router.post('/archives', archives.create);
-router.post('/articles', articles.create);
-router.put('/articles/:id', articles.update);
+router.post('/articles', articles.update);
+router.put('/articles/:id*', articles.update);
 router.delete('/articles/:id', articles.remove);
 
 export default router;

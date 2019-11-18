@@ -7,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import s from './ArticleComposer.module.scss';
-import { getArticle, putArticle, postArticle } from '../../utils/API';
+import { getArticle, putArticle } from '../../utils/API';
 import 'github-markdown-css';
 
 function ArticleComposer() {
@@ -45,13 +45,13 @@ function ArticleComposer() {
   }
 
   function save(isPublish) {
-    const saveArticle = id ? putArticle : postArticle;
-    return saveArticle({
+    return putArticle({
       id,
       title,
-      markdown: isPublish ? markdown : undefined,
+      markdown,
       draft: isPublish ? '' : markdown,
-      html: isPublish ? marked(markdown) : undefined,
+      html: isPublish ? marked(markdown) : '',
+      isPublish,
       categories: ['essay'],
     });
   }
