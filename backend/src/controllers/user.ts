@@ -31,12 +31,12 @@ const getUser: Middleware = ctx => {
 //   };
 // };
 
-const signout: Middleware = ctx => {
+const signOut: Middleware = ctx => {
   ctx.session.user = null;
   ctx.status = 204;
 };
 
 export default {
   getUser,
-  signout,
+  signOut,
 };

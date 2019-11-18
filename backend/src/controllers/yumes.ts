@@ -4,7 +4,7 @@ import { Middleware } from 'koa';
 import mongoose from 'mongoose';
 import Yume from '../models/Yume';
 
-const list: Middleware = async ctx => {
+const index: Middleware = async ctx => {
   const { page, perPage } = ctx.query;
   const yumes = await Yume.list({
     page: +page - 1,
@@ -155,7 +155,7 @@ const getCalendar: Middleware = async ctx => {
 };
 
 export default {
-  list,
+  index,
   create,
   remove,
   getCalendar,

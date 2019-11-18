@@ -4,7 +4,7 @@ import { Middleware } from 'koa';
 import mongoose from 'mongoose';
 import Article from '../models/Article';
 
-const list: Middleware = async ctx => {
+const index: Middleware = async ctx => {
   const { page, perPage } = ctx.query;
   const { user } = ctx.session;
   const isSuperUser = !!user && user.superUser;
@@ -70,7 +70,7 @@ const remove: Middleware = async ctx => {
 };
 
 export default {
-  list,
+  index,
   get,
   create,
   update,

@@ -6,11 +6,11 @@ const getToken: Middleware = ctx => {
   };
 };
 
-const destory = async (key: string) => {
+const remove = async (key: string) => {
   return { key };
 };
 
 export default {
-  destory,
+  remove,
   getToken,
 };

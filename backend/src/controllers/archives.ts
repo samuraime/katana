@@ -3,7 +3,7 @@ import Archive from '../models/Archive';
 import qiniu from '../config/qiniu';
 import upload from './upload';
 
-const list: Middleware = async ctx => {
+const index: Middleware = async ctx => {
   const { per_page: perPage = 10000, page = 0 } = ctx.query;
   const criteria = { perPage, page };
   const archives = await Archive.list(criteria);
@@ -13,7 +13,7 @@ const list: Middleware = async ctx => {
   }));
 };
 
-const find: Middleware = async ctx => {
+const get: Middleware = async ctx => {
   const { id } = ctx.params;
   try {
     const archive = await Archive.findById(id);
@@ -34,10 +34,10 @@ const update: Middleware = async ctx => {
   ctx.response.body = archive;
 };
 
-const destory: Middleware = async ctx => {
+const remove: Middleware = async ctx => {
   const { id } = ctx.params;
   const archive = await Archive.findByIdAndRemove(id);
-  await upload.destory(archive.hash);
+  await upload.remove(archive.hash);
   ctx.body = archive;
 };
 
@@ -55,9 +55,9 @@ const create: Middleware = async ctx => {
 };
 
 export default {
-  list,
-  find,
+  index,
+  get,
   update,
   create,
-  destory,
+  remove,
 };

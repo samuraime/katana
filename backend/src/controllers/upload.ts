@@ -13,7 +13,7 @@ const getToken: Middleware = ctx => {
   };
 };
 
-const destory = (key: string) => {
+const remove = (key: string) => {
   const bucket = policy.scope;
   const config = new qiniu.conf.Config();
   // config.zone = qiniu.zone.Zone_z0;
@@ -30,6 +30,6 @@ const destory = (key: string) => {
 };
 
 export default {
-  destory,
+  remove,
   getToken,
 };
