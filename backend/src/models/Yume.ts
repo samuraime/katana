@@ -1,6 +1,5 @@
 import { Document, model, Model, Schema } from 'mongoose';
 import { UserDocument } from './User';
-import { SearchCriteria } from '../types';
 
 interface YumeDocument extends Document {
   text: string;

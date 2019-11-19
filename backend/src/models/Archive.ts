@@ -1,5 +1,4 @@
 import { Document, model, Model, Schema } from 'mongoose';
-import { SearchCriteria } from '../types';
 
 interface ArchiveDocument extends Document {
   name: string;
