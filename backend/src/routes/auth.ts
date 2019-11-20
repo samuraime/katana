@@ -53,16 +53,18 @@ router.get('/github/callback', async ctx => {
 
   const { access_token: accessToken } = await http.post(
     'https://github.com/login/oauth/access_token',
-    {
-      query: params,
-    }
+    params
   );
 
-  const githubUser: GitHubUser = await http.get('https://api.github.com/user', {
-    headers: {
-      Authorization: `token ${accessToken}`,
-    },
-  });
+  const githubUser: GitHubUser = await http.get(
+    'https://api.github.com/user',
+    null,
+    {
+      headers: {
+        Authorization: `token ${accessToken}`,
+      },
+    }
+  );
 
   const { id: githubID, avatar_url: avatar, email, login, name } = githubUser;
 

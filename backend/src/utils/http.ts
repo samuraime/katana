@@ -8,17 +8,17 @@ enum HttpMethod {
   DELETE = 'DELETE',
 }
 
-interface RequestOptions {
+interface HttpRequestOptions {
   headers?: Record<string, string>;
-  body?: Record<string, string>;
-  query?: Record<string, string>;
 }
 
 const request = (method: HttpMethod) => (
   endpoint: string,
-  options: RequestOptions = {}
+  params: Record<string, any>,
+  options: HttpRequestOptions = {}
 ) => {
-  const { headers, body, query, ...restOptions } = options;
+  const { headers, ...restOptions } = options;
+  const isGet = method === HttpMethod.GET;
   const finalOptions = {
     ...restOptions,
     method,
@@ -27,9 +27,9 @@ const request = (method: HttpMethod) => (
       'Content-Type': 'application/json',
       ...headers,
     },
-    body: body ? JSON.stringify(body) : null,
+    body: isGet ? undefined : JSON.stringify(params),
   };
-  const resource = query ? `${endpoint}?${qs.stringify(query)}` : endpoint;
+  const resource = isGet ? `${endpoint}?${qs.stringify(params)}` : endpoint;
   return fetch(resource, finalOptions).then(res => {
     if (res.headers.get('content-type').includes('application/json')) {
       return res.json();
