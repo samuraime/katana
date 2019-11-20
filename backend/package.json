@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r ../node_modules/dotenv/config --exec ts-node src",
+    "start": "nodemon -r ../node_modules/dotenv/config --ext js,ts --exec ts-node src",
     "build": "tsc",
     "postbuild": "cp package.json build/package.json",
     "test": "jest"
