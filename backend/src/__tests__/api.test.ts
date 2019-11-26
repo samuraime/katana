@@ -2,6 +2,7 @@
 
 jest.mock('../routes/auth.ts');
 jest.mock('../controllers/upload.ts');
+jest.mock('../services/github/content.ts');
 
 import mongoose from 'mongoose';
 import request from 'supertest';
@@ -236,7 +237,7 @@ describe('GET /api/yumes/calendar', () => {
     public: true,
   };
   beforeAll(async () => {
-    const res = await request(server)
+    await request(server)
       .post('/api/yumes')
       .send(yume)
       .set('Cookie', superUserCookies)
