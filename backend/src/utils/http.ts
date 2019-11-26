@@ -31,10 +31,16 @@ export const request = (method: HttpMethod) => (
   };
   const resource = isGet ? `${endpoint}?${qs.stringify(params)}` : endpoint;
 
-  return fetch(resource, finalOptions).then(res => {
+  return fetch(resource, finalOptions).then(async res => {
     if (res.headers.get('content-type').includes('application/json')) {
-      return res.json();
+      const parsedBody = await res.json();
+      if (!res.ok) {
+        throw new Error(parsedBody.message || res.statusText);
+      }
+
+      return parsedBody;
     }
+
     return res.text();
   });
 };
