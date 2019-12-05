@@ -32,6 +32,11 @@ interface GitHubFileLink {
   html: string;
 }
 
+declare interface GitHubFileResponse {
+  content?: GitHubFile;
+  commit: GitHubCommit;
+}
+
 declare interface GitHubCommit {
   sha: string;
   node_id: string;

@@ -40,11 +40,6 @@ const update: Middleware = async ctx => {
     return;
   }
 
-  const yume = await Article.create({
-    ...ctx.request.body,
-    dreamer: mongoose.Types.ObjectId(ctx.session.user._id),
-  });
-
   const article = id
     ? await Article.findByIdAndUpdate(
         id,

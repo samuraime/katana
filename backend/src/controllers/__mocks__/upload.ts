@@ -6,7 +6,7 @@ const getToken: Middleware = ctx => {
   };
 };
 
-const remove = async (key: string) => {
+const remove = async (key: string): Promise<any> => {
   return { key };
 };
 

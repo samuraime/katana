@@ -3,7 +3,7 @@ import config from '../config';
 
 mongoose.Promise = global.Promise;
 
-const connect = () => {
+const connect = (): Promise<typeof mongoose> => {
   // reconnect only when initial connect successfully
   return mongoose.connect(config.db, {
     autoReconnect: true,

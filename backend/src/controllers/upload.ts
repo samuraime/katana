@@ -13,7 +13,7 @@ const getToken: Middleware = ctx => {
   };
 };
 
-const remove = (key: string) => {
+const remove = (key: string): Promise<any> => {
   const bucket = policy.scope;
   const config = new qiniu.conf.Config();
   // config.zone = qiniu.zone.Zone_z0;

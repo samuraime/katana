@@ -8,7 +8,7 @@ interface UpdateParams extends CreateParams {
   sha?: string;
 }
 
-async function update(path: string, params: UpdateParams) {
+async function update(): Promise<GitHubFileResponse> {
   return {
     content: {
       name: 'hello.txt',
@@ -26,7 +26,7 @@ interface DeleteParams {
   committer?: GitHubCommitter;
 }
 
-async function remove(path: string, params: DeleteParams): Promise<null> {
+async function remove(): Promise<null> {
   return null;
 }
 

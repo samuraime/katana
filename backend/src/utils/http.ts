@@ -16,7 +16,7 @@ export const request = (method: HttpMethod) => (
   endpoint: string,
   params?: Record<string, any>,
   options: HttpRequestOptions = {}
-) => {
+): Promise<any> => {
   const { headers, ...restOptions } = options;
   const isGet = method === HttpMethod.GET;
   const finalOptions = {

@@ -10,7 +10,7 @@ interface PreloadState {
 
 let entryHTML: string;
 
-function getEntryHTML() {
+function getEntryHTML(): string {
   if (entryHTML) {
     return entryHTML;
   }
@@ -18,12 +18,12 @@ function getEntryHTML() {
   return fs.readFileSync(config.frontendEntry, 'utf8');
 }
 
-function getPreloadStateScript(state: PreloadState) {
+function getPreloadStateScript(state: PreloadState): string {
   const serialized = serialize(state, { isJSON: true });
   return `window.__PRELOADED_STATE__=${serialized};`;
 }
 
-function getPreloadStateHTML(state: PreloadState) {
+function getPreloadStateHTML(state: PreloadState): string {
   const html = getEntryHTML();
   const script = getPreloadStateScript(state);
 

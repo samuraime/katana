@@ -6,7 +6,7 @@
 import { HttpMethod, HttpRequestOptions, request } from '../../utils/http';
 import config from '../../config/blog';
 
-function base64(string: string) {
+function base64(string: string): string {
   return Buffer.from(string).toString('base64');
 }
 
@@ -15,7 +15,7 @@ const makeRequest = (method: HttpMethod) => (
   path: string,
   params?: Record<string, any>,
   options?: HttpRequestOptions
-) => {
+): Promise<any> => {
   const uri = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`;
   const headers = {
     Accept: 'application/vnd.github.v3+json',
@@ -31,11 +31,6 @@ const contentRequest = {
   put: makeRequest(HttpMethod.PUT),
   delete: makeRequest(HttpMethod.DELETE),
 };
-
-interface GitHubFileResponse {
-  content?: GitHubFile;
-  commit: GitHubCommit;
-}
 
 function index(path: string): Promise<GitHubFile[]> {
   return contentRequest.get(path);
