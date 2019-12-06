@@ -48,7 +48,7 @@ declare interface GitHubCommit {
 }
 
 declare interface GitHubCommitter {
-  date?: Date;
+  date?: Date | string;
   name: string;
   email: string;
 }
