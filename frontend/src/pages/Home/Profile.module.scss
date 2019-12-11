@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: #fff;
+  margin-right: 1rem;
+  flex: none;
+}
+
+.avatarImage {
+  width: 3rem;
+  height: 3rem;
+}
+
+.content {
+  flex: 1 auto;
+}

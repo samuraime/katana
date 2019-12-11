@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import store from './store';
 import App from './App';
-import './styles/index.css';
+import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 
 function render() {

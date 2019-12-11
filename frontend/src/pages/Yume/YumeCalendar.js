@@ -5,11 +5,11 @@ import { YumeRecord, arrayOf } from '../../types';
 
 const getColor = key => {
   const colorMap = {
-    normal: '#7bc96f',
+    normal: '#fff',
     nightmare: '#000',
   };
 
-  return colorMap[key] || '#ebedf0';
+  return colorMap[key] || '#fff';
 };
 
 function YumeCalendar({ records, ...props }) {

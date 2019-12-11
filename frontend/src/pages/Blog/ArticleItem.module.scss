@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .root {
   max-width: 768px;
   margin: 0 auto 4rem;
@@ -10,6 +12,10 @@
   font-size: 14px;
 }
 
+.time {
+  font-family: $font-mono;
+}
+
 .categories {
   display: flex;
 }
@@ -19,16 +25,13 @@
 }
 
 .categoryItemLink {
-  color: #6a737d;
 }
 
 .title {
   font-size: 20px;
-  color: #24292e;
   margin-bottom: 1.5rem;
 
   &:hover {
-    color: #0366d6;
   }
 }
 

@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.event {
+  padding: .5rem 1rem;
+  margin: .5rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background: $surface-1;
+  line-height: 1.5;
+
+  &:hover {
+    background: $surface-2;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.connector {
+  margin: 0 .25rem;
+}
+
+.title {
+  margin-left: 1rem;
+}

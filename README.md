@@ -13,13 +13,14 @@
 
   - [ ] focus on software engineering
   - [ ] TDD
-  - [x] CI / CD
+  - [x] CI / CD (CircleCI & GitHub Action)
   - [x] funcional react component only
   - [x] responsive design
+  - [ ] material ui implemented by myself
   - [ ] spliting code
   - [ ] try locale (language, timezone)
   - [ ] try PWA
-  - [x] ESM in frontend and backend
+  - [x] ESM in frontend and backend (TypeScript)
 
 ## Practice Notes
 

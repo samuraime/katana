@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classnames from 'classnames';
 import { node } from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Navigation from '../Navigation';
 import MenuDrawer from '../Navigation/MenuDrawer';
 
@@ -64,7 +65,7 @@ function AppLayout({ children }) {
   const toolbarPlaceholder = <div className={classes.toolbar} />;
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Navigation onMenuClick={handleToggle} className={classes.appBar} />
       <div className={classes.contentRoot}>
         <MenuDrawer
@@ -84,7 +85,7 @@ function AppLayout({ children }) {
           {children}
         </main>
       </div>
-    </div>
+    </Box>
   );
 }
 

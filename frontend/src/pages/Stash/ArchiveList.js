@@ -13,9 +13,9 @@ export default function ArchiveList({
   ...otherProps
 }) {
   return (
-    <div {...otherProps}>
+    <ul {...otherProps}>
       {archives.map(archive => (
-        <div key={archive.id} className={s.item}>
+        <li key={archive.id} className={s.item}>
           <Octicon
             className={s.typeIcon}
             icon={getIcon(archive.name)}
@@ -30,6 +30,8 @@ export default function ArchiveList({
               href={getDownloadLink(archive.key || archive.hash)}
               download={archive.name}
               className={s.download}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Octicon icon={CloudDownload} size={20} />
             </a>
@@ -43,9 +45,9 @@ export default function ArchiveList({
               </button>
             )}
           </div>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 

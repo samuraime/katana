@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx'] }],
+    'react/jsx-props-no-spreading': 0,
     'react/jsx-wrap-multilines': [
       2,
       {

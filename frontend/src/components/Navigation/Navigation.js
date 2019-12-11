@@ -56,7 +56,7 @@ function Navigation({ onMenuClick, className }) {
   const title = getAppBarTitleByPathName(pathname);
 
   return (
-    <AppBar position="static" className={className}>
+    <AppBar color="default" position="static" className={className}>
       <Toolbar variant="dense">
         <IconButton
           className={s.menu}

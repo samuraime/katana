@@ -6,16 +6,18 @@
   align-items: center;
   height: 10rem;
   padding: 1rem;
-  border: 2px dashed $border-gray-color;
+  border: 2px dashed #eee;
   text-align: center;
-  transition: border .3s;
+  transition: all .3s;
+  cursor: pointer;
 }
 
 .dropZoneHover {
   border: 2px dashed #333;
+  background: $surface-1;
 }
 
 .uploaderList {
   margin-top: 1rem;
-  border: 1px solid $border-gray-color;
+  border: 1px solid #eee;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Home from './Home';
 
-test('<Home /> should render correctly', () => {
-  const home = shallow(<Home />);
-
-  expect(home.text()).toContain('samurai');
+describe('Home', () => {
+  it('should render correctly', () => {
+    expect(() => render(<Home />)).not.toThrowError();
+  });
 });

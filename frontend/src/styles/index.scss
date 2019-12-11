@@ -1,0 +1,46 @@
+@import './variables.scss';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-regular;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: $background;
+  color: $background-text;
+}
+
+code {
+  font-family: $font-mono;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+ol, ul {
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+button {
+  border: none;
+}
+
+a {
+  color: $text-secondary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: $text-primary;
+  }
+}

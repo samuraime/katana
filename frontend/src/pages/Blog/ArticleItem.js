@@ -11,7 +11,7 @@ function ArticleItem({ article, ...otherProps }) {
   return (
     <article className={s.root} {...otherProps}>
       <div className={s.meta}>
-        <time className="mono-font">{formatEnDate(createdAt)}</time>
+        <time className={s.time}>{formatEnDate(createdAt)}</time>
         {/* <ul className={s.categories}>
           {categories.map((category) => (
             <li key={category} className={s.categoryItem}>
