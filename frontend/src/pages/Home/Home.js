@@ -1,6 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import Timeline from './Timeline';
+import Surface from '../../components/Surface';
 import samurai from '../../assets/images/samurai.png';
 import s from './Home.module.scss';
 
@@ -31,6 +32,12 @@ function Home() {
           </ul>
         }
       />
+      <Surface className={s.intro}>
+        <p>
+          一个心心念念回到长安的秦人, 常自夸为赵二狗, 附会作秦王后裔. 初学耕田,
+          后以码为梦(或以梦为马), 凭一手 JavaScript 空手套白狼.
+        </p>
+      </Surface>
       <Timeline events={timelineEvents} />
     </main>
   );
