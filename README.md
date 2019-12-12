@@ -16,7 +16,7 @@
   - [x] CI / CD (CircleCI & GitHub Action)
   - [x] funcional react component only
   - [x] responsive design
-  - [ ] material ui implemented by myself
+  - [ ] dark mode material design
   - [ ] spliting code
   - [ ] try locale (language, timezone)
   - [ ] try PWA
