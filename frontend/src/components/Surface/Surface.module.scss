@@ -1,0 +1,7 @@
+@import '../../styles/variables.scss';
+
+@each $elevation, $color in $elevation-colors {
+  .elevation#{$elevation} {
+    background-color: $color;
+  }
+}
