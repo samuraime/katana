@@ -8,7 +8,7 @@ function Timeline({ events, ...otherProps }) {
       {events.map(event => (
         <li key={event.start} className={s.event}>
           <span>{event.start}</span>
-          <span className={s.connector}> ~ </span>
+          <span> ~ </span>
           <span>{event.end}</span>
           <span className={s.title}>{event.title}</span>
         </li>

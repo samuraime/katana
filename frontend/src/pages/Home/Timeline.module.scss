@@ -4,22 +4,15 @@
   padding: .5rem 1rem;
   margin: .5rem 0;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: pre;
   text-overflow: ellipsis;
   background: $surface-1;
   line-height: 1.5;
+  font-family: $font-mono;
 
   &:hover {
     background: $surface-2;
   }
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.connector {
-  margin: 0 .25rem;
 }
 
 .title {

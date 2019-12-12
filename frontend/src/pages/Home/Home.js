@@ -7,7 +7,7 @@ import s from './Home.module.scss';
 const socialMedias = [{ name: 'GitHub', link: 'https://github.com/samuraime' }];
 
 const timelineEvents = [
-  { start: '2019-04', end: 'now', title: 'ThoughtWorks' },
+  { start: '2019-04', end: '       ', title: 'ThoughtWorks' },
   { start: '2017-10', end: '2018-11', title: 'Meitu' },
   { start: '2017-02', end: '2017-09', title: 'Weipaitang' },
   // { start: '2015-12', end: '2017-02', title: 'Chenju' },
