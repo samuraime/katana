@@ -26,12 +26,14 @@ jobs:
         run: yarn deploy:cdn
       - name: Prepare artifacts
         run: |
-          mv ./backend ./backend-build
-          mv ./backend-build/build ./backend
-          cd backend
+          mkdir prebuild
+          mv backend/build prebuild
+          cd prebuild/build
           yarn install --production
-          cd ..
-          tar -cvf dist.tar backend frontend/build/*.*
+          cd ../..
+          rm -rf backend
+          mv prebuild backend
+          tar -cvf dist.tar backend/build frontend/build/*.*
       - name: Deploy
         env:
           SSH_USER: ${{ secrets.SSH_USER }}

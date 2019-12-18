@@ -1,6 +1,6 @@
 {
   "name": "katana",
-  "script": "./backend/index.js",
+  "script": "./backend/build/index.js",
   "env": {
     "NODE_ENV": "production",
     "SITE_HOME": "https://samuraime.com",
