@@ -14,7 +14,7 @@
     "start:be": "PORT=8000 yarn workspace backend start",
     "build": "concurrently 'yarn build:fe' 'yarn build:be'",
     "build:fe": "PUBLIC_URL=https://cdn.samuraime.com/katana yarn workspace frontend build",
-    "postbuild:fe": "sed -i'' -e 's|cdn.samuraime.com/katana/index.html|samuraime.com/index.html|g' ./frontend/build/*.{js,json}",
+    "postbuild:fe": "scripts/pwa.sh",
     "build:be": "yarn workspace backend build",
     "build:fe:local": "PUBLIC_URL=http://localhost:8000 yarn workspace frontend build",
     "deploy:cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p katana/ -r --use-path ./frontend/build",
