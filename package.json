@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "katana",
+  "homepage": "https://samuraime.com",
   "workspaces": [
     "backend",
     "frontend"
