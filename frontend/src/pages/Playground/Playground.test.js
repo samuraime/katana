@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Playground from './Playground';
 
 describe('Page Playground', () => {
   it('should be renderred correctly', () => {
-    const home = shallow(<Playground />);
+    const { getByText } = render(<Playground />);
 
-    expect(home.text()).toEqual('Playground');
+    expect(getByText('Playground')).toBeDefined();
   });
 });
