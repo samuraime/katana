@@ -1,6 +1,6 @@
 import React from 'react';
 // import classnames from 'classnames';
-import formatSize from '../../utils/formatSize';
+import formatSize from './utils/formatSize';
 import { Archive } from '../../types';
 // import { UPLOADING, ERROR, DONE } from '../../constants/upload';
 import s from './UploaderItem.module.scss';

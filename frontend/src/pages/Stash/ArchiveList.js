@@ -3,8 +3,8 @@ import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
 import List, { ListItem } from '../../components/List';
 import { bool, func, arrayOf, Archive } from '../../types';
 import { getDownloadLink } from '../../utils';
-import getIconComponent from './getIconComponent';
-import formatSize from '../../utils/formatSize';
+import getIconComponent from './utils/getIconComponent';
+import formatSize from './utils/formatSize';
 import s from './ArchiveList.module.scss';
 
 export default function ArchiveList({
