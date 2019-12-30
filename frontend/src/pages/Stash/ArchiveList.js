@@ -1,5 +1,6 @@
 import React from 'react';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
+import List, { ListItem } from '../../components/List';
 import { bool, func, arrayOf, Archive } from '../../types';
 import { getDownloadLink } from '../../utils';
 import getIcon from '../../utils/icon';
@@ -13,9 +14,9 @@ export default function ArchiveList({
   ...otherProps
 }) {
   return (
-    <ul {...otherProps}>
+    <List {...otherProps}>
       {archives.map(archive => (
-        <li key={archive.id} className={s.item}>
+        <ListItem key={archive.id} className={s.item}>
           <Octicon
             className={s.typeIcon}
             icon={getIcon(archive.name)}
@@ -45,9 +46,9 @@ export default function ArchiveList({
               </button>
             )}
           </div>
-        </li>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 }
 

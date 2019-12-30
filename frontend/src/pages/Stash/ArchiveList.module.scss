@@ -6,10 +6,17 @@
   justify-content: space-between;
   padding: .25rem .5rem .25rem 1rem;
   margin: .5rem 0;
-  background: $surface-1;
 
   &:hover {
     background: $surface-2;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 
