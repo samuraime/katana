@@ -43,7 +43,7 @@ const extIconMap = getExtIconMap();
  * @param {string} filename
  * @return {ElementType}
  */
-export default function getIcon(filename) {
+export default function getIconComponent(filename) {
   const ext = extname(filename);
   return extIconMap[ext] || File;
 }
