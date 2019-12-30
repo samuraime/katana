@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import NotFound from './NotFound';
 
 it('NotFound should be renderred correctly', () => {
-  const home = shallow(<NotFound />);
+  const { getByText } = render(<NotFound />);
 
-  expect(home.text()).toEqual('NotFound');
+  expect(getByText('Not Found')).toBeDefined();
 });

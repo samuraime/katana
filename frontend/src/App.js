@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { object } from 'prop-types';
 import { ThemeProvider } from '@material-ui/styles';
@@ -30,13 +30,11 @@ function App({ store }) {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/playground" component={Playground} />
-            <Route component={AppLayoutPage} />
-          </Switch>
-        </Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/playground" component={Playground} />
+          <Route component={AppLayoutPage} />
+        </Switch>
       </Provider>
     </ThemeProvider>
   );
