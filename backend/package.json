@@ -23,7 +23,6 @@
     "@types/koa-static": "^4.0.1",
     "@types/mongodb-memory-server": "^2.3.0",
     "@types/mongoose": "^5.5.32",
-    "@types/node-fetch": "^2.5.3",
     "@types/serialize-javascript": "^1.5.0",
     "@types/supertest": "^2.0.8",
     "@types/winston": "^2.4.4",
@@ -53,8 +52,9 @@
     "koa-router": "^7.2.0",
     "koa-session": "^5.12.3",
     "koa-static": "^5.0.0",
+    "ky": "^0.16.1",
+    "ky-universal": "^0.3.0",
     "mongoose": "^5.7.11",
-    "node-fetch": "^2.6.0",
     "qiniu": "^7.1.0",
     "serialize-javascript": "^2.1.1",
     "winston": "^2.3.1"

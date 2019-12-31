@@ -3,41 +3,27 @@
  * @TODO catch GitHub API error
  */
 
-import { HttpMethod, HttpRequestOptions, request } from '../../utils/http';
+import ky from 'ky-universal';
 import config from '../../config/blog';
 
 function base64(string: string): string {
   return Buffer.from(string).toString('base64');
 }
 
-// TODO: refactor this
-const makeRequest = (method: HttpMethod) => (
-  path: string,
-  params?: Record<string, any>,
-  options?: HttpRequestOptions
-): Promise<any> => {
-  const uri = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${path}`;
-  const headers = {
+const contentRequest = ky.extend({
+  prefixUrl: `https://api.github.com/repos/${config.owner}/${config.repo}/contents/`,
+  headers: {
     Accept: 'application/vnd.github.v3+json',
     Authorization: `token ${config.token}`,
-  };
-
-  return request(method)(uri, params, { headers, ...options });
-};
-
-const contentRequest = {
-  get: makeRequest(HttpMethod.GET),
-  post: makeRequest(HttpMethod.POST),
-  put: makeRequest(HttpMethod.PUT),
-  delete: makeRequest(HttpMethod.DELETE),
-};
+  },
+});
 
 function index(path: string): Promise<GitHubFile[]> {
-  return contentRequest.get(path);
+  return contentRequest.get(path).json();
 }
 
 function get(path: string): Promise<GitHubFile> {
-  return contentRequest.get(path);
+  return contentRequest.get(path).json();
 }
 
 interface CreateParams {
@@ -50,10 +36,14 @@ function create(
   path: string,
   params: CreateParams
 ): Promise<GitHubFileResponse> {
-  return contentRequest.put(path, {
-    ...params,
-    content: base64(params.content),
-  });
+  return contentRequest
+    .put(path, {
+      json: {
+        ...params,
+        content: base64(params.content),
+      },
+    })
+    .json();
 }
 
 interface UpdateParams extends CreateParams {
@@ -64,10 +54,14 @@ function update(
   path: string,
   params: UpdateParams
 ): Promise<GitHubFileResponse> {
-  return contentRequest.put(path, {
-    ...params,
-    content: base64(params.content),
-  });
+  return contentRequest
+    .put(path, {
+      json: {
+        ...params,
+        content: base64(params.content),
+      },
+    })
+    .json();
 }
 
 interface DeleteParams {
@@ -80,7 +74,11 @@ function remove(
   path: string,
   params: DeleteParams
 ): Promise<GitHubFileResponse> {
-  return contentRequest.delete(path, params);
+  return contentRequest
+    .delete(path, {
+      json: params,
+    })
+    .json();
 }
 
 export default {

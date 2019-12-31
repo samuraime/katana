@@ -2,7 +2,7 @@
 
 import qs from 'querystring';
 import Router from 'koa-router';
-import http from '../utils/http';
+import http from 'ky-universal';
 import config from '../config';
 import { github } from '../config/auth';
 import { githubSuperUserIDs } from '../constants';
@@ -51,20 +51,19 @@ router.get('/github/callback', async ctx => {
     state,
   };
 
-  const { access_token: accessToken } = await http.post(
-    'https://github.com/login/oauth/access_token',
-    params
-  );
+  const { access_token: accessToken } = await http
+    .post('https://github.com/login/oauth/access_token', {
+      json: params,
+    })
+    .json();
 
-  const githubUser: GitHubUser = await http.get(
-    'https://api.github.com/user',
-    null,
-    {
+  const githubUser: GitHubUser = await http
+    .get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${accessToken}`,
       },
-    }
-  );
+    })
+    .json();
 
   const { id: githubID, avatar_url: avatar, email, login, name } = githubUser;
 
