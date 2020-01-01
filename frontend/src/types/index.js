@@ -33,17 +33,6 @@ export const Archive = shape({
   hash: string,
 });
 
-export const Article = shape({
-  title: string,
-  markdown: string,
-  content: string,
-  categories: arrayOf(string),
-  author: User,
-  public: bool,
-  createdAt: string,
-  updatedAt: string,
-});
-
 export const Yume = shape({
   id: string,
   text: string,

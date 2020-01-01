@@ -18,7 +18,6 @@ function getAppBarTitleByPathName(pathname) {
   const appBarTitleMap = {
     stash: 'Stash',
     yume: 'YumeHub',
-    blog: 'Blog',
   };
   const match = pathname.match(/\w+/);
 

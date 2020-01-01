@@ -12,7 +12,6 @@
     "GITHUB_CLIENT_SECRET": "",
     "QINIU_ACCESS_KEY": "",
     "QINIU_SECRET_KEY": "",
-    "BLOG_REPO_ACCESS_TOKEN": ""
   },
   "engines": {
     "node": ">=8.0"
