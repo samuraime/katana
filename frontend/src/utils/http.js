@@ -1,12 +1,5 @@
-const queryString = query => {
-  const searchParams = new URLSearchParams();
-  Object.entries(query).forEach(([key, value]) => {
-    searchParams.set(key, value);
-  });
-  return searchParams.toString();
-};
+import ky from 'ky-universal';
 
-// eslint-disable-next-line no-underscore-dangle
 const normalize = object => {
   if (typeof object !== 'object' || object === null) {
     return object;
@@ -28,34 +21,23 @@ const normalize = object => {
   return normalized;
 };
 
-const request = method => (endpoint, options = {}) => {
-  const { headers, body, query, restOptions } = options;
-  const finalOptions = {
-    ...restOptions,
-    method,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: typeof body === 'object' ? JSON.stringify(body) : body,
-  };
-  const resource = query ? `${endpoint}?${queryString(query)}` : endpoint;
-  return fetch(resource, finalOptions).then(async res => {
-    // TODO: use robust way
-    const hasContent = res.status !== 204;
-    const data = hasContent ? await res.json() : null;
-    if (!res.ok) {
-      const { message } = data;
-      throw new Error(message || res.statusText);
-    }
-    return normalize(data);
-  });
-};
+const requestMethods = ['get', 'post', 'put', 'delete'];
 
-export default {
-  get: request('GET'),
-  post: request('POST'),
-  put: request('PUT'),
-  delete: request('DELETE'),
-};
+const http = {};
+
+const kyInstance = ky.extend({
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
+
+requestMethods.forEach(method => {
+  http[method] = async (input, options) => {
+    const response = kyInstance[method](input, options);
+    const data = await response.json();
+    return normalize(data);
+  };
+});
+
+export default http;
