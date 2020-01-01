@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useTitle } from '../../hooks';
+import { Helmet } from 'react-helmet';
 import { getArticle } from '../../utils/API';
 import s from './Article.module.scss';
 
@@ -18,15 +18,16 @@ function Article() {
     getArticle(id).then(setArticle);
   }, [id]);
 
-  useTitle(article ? article.title : '');
-
   if (!article) {
     return null;
   }
 
-  const { html } = article;
+  const { title, html } = article;
   return (
     <div className={s.root}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       {isSuperUser && (
         <div className={s.edit}>
           <Link to={`/blog/${id}/edit`}>edit</Link>
