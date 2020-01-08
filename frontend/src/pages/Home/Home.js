@@ -22,7 +22,7 @@ function Home() {
   return (
     <main className={s.root}>
       <Helmet>
-        <meta name="description" content={description} />
+        <meta name="description" content={`SamuraiMe, ${description}`} />
       </Helmet>
       <Profile
         avatar={samurai}
