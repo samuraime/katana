@@ -1,6 +1,8 @@
+@import '../../styles/variables.scss';
+
 .root {
   width: 100%;
-  max-width: 1000px;
+  max-width: $small;
   margin: auto;
 }
 
