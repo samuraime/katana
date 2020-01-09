@@ -2,7 +2,6 @@ import { handleActions } from 'redux-actions';
 
 const initialState = {
   title: '',
-  notifications: [],
 };
 
 const reducer = handleActions(
@@ -11,12 +10,6 @@ const reducer = handleActions(
       return {
         ...state,
         title: payload.title,
-      };
-    },
-    ADD_NOTIFICATION(state, { payload }) {
-      return {
-        ...state,
-        notifications: [...state.notifications, payload],
       };
     },
   },
