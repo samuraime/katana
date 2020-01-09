@@ -3,14 +3,18 @@ import { createPromise } from 'redux-promise-middleware';
 import rootReducer from './reducer';
 import preloadState from './preloadState';
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(
-    createPromise({
-      promiseTypeSuffixes: ['PENDING', 'SUCCESS', 'FAILURE'],
-    })
-  )
-);
+export function createAppStore() {
+  return createStore(
+    rootReducer,
+    applyMiddleware(
+      createPromise({
+        promiseTypeSuffixes: ['PENDING', 'SUCCESS', 'FAILURE'],
+      })
+    )
+  );
+}
+
+const store = createAppStore();
 
 preloadState(store);
 

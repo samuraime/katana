@@ -25,10 +25,9 @@ const reducer = handleActions(
         signedIn: !!payload.id,
       };
     },
-    GET_USER_FAILURE(state, { payload }) {
+    GET_USER_FAILURE(state) {
       return {
         ...state,
-        ...payload,
         signedIn: false,
       };
     },
