@@ -5,8 +5,8 @@ import { YumeRecord, arrayOf } from '../../types';
 
 const getColor = key => {
   const colorMap = {
-    normal: '#fff',
-    nightmare: '#000',
+    normal: '#7bc96f',
+    nightmare: '#666',
   };
 
   return colorMap[key] || '#fff';
