@@ -6,7 +6,7 @@ export const noop = () => {};
  * @param {string} key
  * @return {string}
  */
-export const getDownloadLink = key => {
+export const getDownloadURL = key => {
   return `${DOWNLOAD_DOMAIN}/${key}`;
 };
 

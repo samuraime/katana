@@ -2,7 +2,7 @@ import React from 'react';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
 import List, { ListItem } from '../../components/List';
 import { bool, func, arrayOf, Archive } from '../../types';
-import { getDownloadLink } from '../../utils';
+import { getDownloadURL } from '../../utils';
 import getIconComponent from './utils/getIconComponent';
 import formatSize from './utils/formatSize';
 import s from './ArchiveList.module.scss';
@@ -28,7 +28,7 @@ export default function ArchiveList({
           </div>
           <div className={s.actions}>
             <a
-              href={getDownloadLink(archive.key || archive.hash)}
+              href={getDownloadURL(archive.key || archive.hash)}
               download={archive.name}
               className={s.download}
               target="_blank"
