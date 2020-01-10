@@ -5,6 +5,7 @@ import { getUser, signOut } from '../../utils/API';
 
 jest.mock('../../utils/API');
 
+// need to wait fulfilled and rejected actions
 const nextFrame = () => new Promise(resolve => setTimeout(resolve));
 
 const mockUser = {
@@ -44,16 +45,19 @@ describe('userActions.getUser', () => {
     expect(store.getState().user.signedIn).toBe(true);
   });
 
-  // it('should set `signedIn` to false if request fail', async () => {
-  //   getUser.mockRejectedValueOnce();
-  //   const store = createAppStore();
+  it('should set `signedIn` to false if request fail', async () => {
+    getUser.mockRejectedValueOnce();
+    const store = createAppStore();
 
-  //   store.dispatch(actions.init(mockUser));
-  //   store.dispatch(actions.getUser());
-  //   await nextFrame();
+    store.dispatch(actions.init(mockUser));
+    store.dispatch(actions.getUser()).catch(() => {
+      // https://pburtchaell.gitbook.io/redux-promise-middleware/guides/rejected-promises
+      // swallow the error of rejected Promsie
+    });
+    await nextFrame();
 
-  //   expect(store.getState().user.signedIn).toBe(false);
-  // });
+    expect(store.getState().user.signedIn).toBe(false);
+  });
 });
 
 describe('userActions.signOut', () => {
