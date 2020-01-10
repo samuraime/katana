@@ -23,14 +23,13 @@ const reducer = handleActions(
     },
     UPDATE_YUME_SUCCESS(state, { payload }) {
       const index = state.yumes.findIndex(({ id }) => id === payload.id);
-      return {
-        ...state,
+      return update(state, {
         yumes: {
           [index]: {
             $merge: payload,
           },
         },
-      };
+      });
     },
     DELETE_YUME_SUCCESS(state, { payload }) {
       return {
