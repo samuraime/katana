@@ -1,4 +1,4 @@
-# Katana [![GitHub Actions](https://github.com/samuraime/katana/workflows/Main%20workflow/badge.svg)](https://github.com/samuraime/katana/actions) [![CircleCI](https://circleci.com/gh/samuraime/katana.svg?style=shield)](https://circleci.com/gh/samuraime/katana) [![Coverage Status](https://coveralls.io/repos/github/samuraime/katana/badge.svg?branch=master)](https://coveralls.io/github/samuraime/katana?branch=master) [![eslint Airbnb](https://badgen.net/badge/eslint/Airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+# Katana [![GitHub Actions](https://github.com/samuraime/katana/workflows/Main%20workflow/badge.svg)](https://github.com/samuraime/katana/actions) [![Coverage Status](https://coveralls.io/repos/github/samuraime/katana/badge.svg?branch=master)](https://coveralls.io/github/samuraime/katana?branch=master) [![eslint Airbnb](https://badgen.net/badge/eslint/Airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ## Target
 
@@ -13,7 +13,7 @@
 
   - [ ] focus on software engineering
   - [ ] TDD [WIP]
-  - [x] CI / CD (CircleCI & GitHub Action)
+  - [x] CI / CD (GitHub Action)
   - [x] insist on non-ejected create-react-app
   - [x] funcional react component only
   - [ ] spliting code
