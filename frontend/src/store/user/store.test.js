@@ -2,11 +2,9 @@ import { createAppStore } from '..';
 import actions from './actions';
 import reducer from './reducer';
 import { getUser, signOut } from '../../utils/API';
+import { nextFrame } from '../promiseMiddlewareTestHelper';
 
 jest.mock('../../utils/API');
-
-// need to wait fulfilled and rejected actions
-const nextFrame = () => new Promise(resolve => setTimeout(resolve));
 
 const mockUser = {
   avatar: 'https://avatars1.githubusercontent.com/u/2203205?v=4',

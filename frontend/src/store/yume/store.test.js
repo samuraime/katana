@@ -7,6 +7,7 @@ import {
   deleteYume,
   getYumeCalendarRecords,
 } from '../../utils/API';
+import { nextFrame } from '../promiseMiddlewareTestHelper';
 
 jest.mock('../../utils/API');
 
@@ -15,9 +16,6 @@ let store;
 beforeAll(() => {
   store = createAppStore();
 });
-
-// need to wait fulfilled and rejected actions
-const nextFrame = () => new Promise(resolve => setTimeout(resolve));
 
 const mockYume = {
   id: '5db05a7948fe41bad9bae52a',
