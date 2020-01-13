@@ -1,11 +1,12 @@
 import React from 'react';
 import { upload as uploadFile } from 'qiniu-browser';
 import Octicon, { CloudUpload } from '@primer/octicons-react';
+import Surface from '../../components/Surface';
+import FilePicker from '../../components/FilePicker';
 import stashActions from '../../store/stash/actions';
 import { getUploadToken } from '../../utils/API';
 import { func, arrayOf, Archive } from '../../types';
 import { READY } from '../../constants/upload';
-import DnD from './DragAndDrop';
 import UploaderItem from './UploaderItem';
 import s from './Uploader.module.scss';
 
@@ -79,14 +80,15 @@ function Uploader({ archives, dispatch, ...otherProps }) {
 
   return (
     <div {...otherProps}>
-      <DnD
+      <FilePicker
+        elementType={Surface}
         className={s.dropZone}
         hoverClassName={s.dropZoneHover}
         onChange={handleChange}
       >
         <Octicon icon={CloudUpload} size={100} />
-        <p>Drop your files here!</p>
-      </DnD>
+        <p>Drop files here!</p>
+      </FilePicker>
       {!!archives.length && (
         <div className={s.uploaderList}>
           {archives.map(archive => (

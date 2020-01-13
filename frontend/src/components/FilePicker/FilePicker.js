@@ -1,9 +1,8 @@
 import React, { createElement, useState, useRef } from 'react';
 import classnames from 'classnames';
 import { string, bool, func, node, oneOfType } from '../../types';
-import s from './DragAndDrop.module.scss';
 
-export default function DragAndDrop({
+export default function FilePicker({
   elementType,
   className,
   hoverClassName,
@@ -49,7 +48,7 @@ export default function DragAndDrop({
   const ghostInput = (
     <input
       ref={inputRef}
-      className={s.fileInput}
+      style={{ display: 'none' }}
       type="file"
       multiple={multiple}
       onChange={handleChange}
@@ -59,7 +58,7 @@ export default function DragAndDrop({
   return createElement(elementType, props, ghostInput, children);
 }
 
-DragAndDrop.propTypes = {
+FilePicker.propTypes = {
   elementType: oneOfType([string, func]),
   className: string,
   hoverClassName: string,
@@ -68,7 +67,7 @@ DragAndDrop.propTypes = {
   onChange: func,
 };
 
-DragAndDrop.defaultProps = {
+FilePicker.defaultProps = {
   elementType: 'div',
   className: '',
   hoverClassName: '',
