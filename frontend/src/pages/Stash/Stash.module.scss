@@ -2,25 +2,18 @@
 
 .root {
   max-width: $small;
+  width: 100%;
   margin: auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   white-space: nowrap;
 }
 
 .uploader {
-  flex: 2;
   width: 100%;
-  min-width: 300px;
-  margin: 1rem;
+  margin: 1rem auto;
   cursor: pointer;
 }
 
 .archiveList {
-  flex: 3;
   width: 100%;
-  min-width: 300px;
-  min-height: 10rem;
-  margin: 1rem;
+  margin: 1rem auto;
 }

@@ -7,7 +7,7 @@ import stashActions from '../../store/stash/actions';
 import { getUploadToken } from '../../utils/API';
 import { func, arrayOf, Archive } from '../../types';
 import { READY } from '../../constants/upload';
-import UploaderItem from './UploaderItem';
+import UploaderList from './UploaderList';
 import s from './Uploader.module.scss';
 
 const { appendArchives, createArchive, updateArchiveProgress } = stashActions;
@@ -74,9 +74,9 @@ function Uploader({ archives, dispatch, ...otherProps }) {
     uploadArchives(newArchives, dispatch);
   };
 
-  const handleRetry = archive => () => {
-    upload(archive, dispatch);
-  };
+  // const handleRetry = archive => {
+  //   upload(archive, dispatch);
+  // };
 
   return (
     <div {...otherProps}>
@@ -89,17 +89,11 @@ function Uploader({ archives, dispatch, ...otherProps }) {
         <Octicon icon={CloudUpload} size={100} />
         <p>Drop files here!</p>
       </FilePicker>
-      {!!archives.length && (
-        <div className={s.uploaderList}>
-          {archives.map(archive => (
-            <UploaderItem
-              key={archive.tempKey}
-              archive={archive}
-              onRetry={handleRetry(archive)}
-            />
-          ))}
-        </div>
-      )}
+      <UploaderList
+        className={s.uploaderList}
+        files={archives}
+        // onRetry={handleRetry}
+      />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 // import classnames from 'classnames';
+import { ListItem } from '../../components/List';
 import formatSize from './utils/formatSize';
 import { Archive } from '../../types';
 // import { UPLOADING, ERROR, DONE } from '../../constants/upload';
@@ -8,7 +9,7 @@ import s from './UploaderItem.module.scss';
 export default function UploaderItem({ archive }) {
   const { name, size, uploaded } = archive;
   return (
-    <div className={s.root}>
+    <ListItem className={s.root}>
       <div
         className={s.progress}
         style={{ width: `${(uploaded / size) * 100}%` }}
@@ -22,7 +23,7 @@ export default function UploaderItem({ archive }) {
         </span>
       </div>
       {/* status === ERROR && <button type="button">retry</button> */}
-    </div>
+    </ListItem>
   );
 }
 
