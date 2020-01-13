@@ -32,6 +32,7 @@ const wrapFile = file => {
 
 const upload = (archive, dispatch) => {
   const uploadPromise = uploadFile(archive.originalFile, {
+    host: 'https://upload.qbox.me',
     token: async () => {
       const { token } = await getUploadToken();
       return token;
