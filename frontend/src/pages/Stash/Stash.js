@@ -9,7 +9,6 @@ function Stash() {
   const dispatch = useDispatch();
   const isSuperUser = useSelector(({ user }) => user.superUser);
   const archives = useSelector(({ stash }) => stash.archives);
-  const uploaderArchives = useSelector(({ stash }) => stash.uploaderArchives);
 
   useEffect(() => {
     dispatch(stashActions.getArchives());
@@ -25,7 +24,7 @@ function Stash() {
     <div className={s.root}>
       {isSuperUser && (
         <Uploader
-          archives={uploaderArchives}
+          archives={archives}
           className={s.uploader}
           dispatch={dispatch}
         />

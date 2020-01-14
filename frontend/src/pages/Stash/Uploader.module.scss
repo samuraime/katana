@@ -1,6 +1,6 @@
 @import '../../styles/variables.scss';
 
-.dropZone {
+.root {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +16,4 @@
 .dropZoneHover {
   border: 2px dashed $gray-200;
   background: $surface-2;
-}
-
-.uploaderList {
-  margin: 1rem auto;
 }

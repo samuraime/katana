@@ -4,11 +4,10 @@ import { UPLOADING, DONE, ERROR } from '../../constants/upload';
 
 const initialState = {
   archives: [],
-  uploaderArchives: [],
 };
 
 const findIndexByTempKey = (state, key) =>
-  state.uploaderArchives.findIndex(({ tempKey }) => tempKey === key);
+  state.archives.findIndex(({ tempKey }) => tempKey === key);
 
 const reducer = handleActions(
   {
@@ -27,13 +26,13 @@ const reducer = handleActions(
     APPEND_ARCHIVES(state, { payload }) {
       return {
         ...state,
-        uploaderArchives: payload.concat(state.uploaderArchives),
+        archives: payload.concat(state.archives),
       };
     },
     CREATE_ARCHIVE_PENDING(state, { meta }) {
       const index = findIndexByTempKey(state, meta.tempKey);
       return update(state, {
-        uploaderArchives: {
+        archives: {
           [index]: {
             $merge: {
               status: UPLOADING,
@@ -45,25 +44,22 @@ const reducer = handleActions(
     CREATE_ARCHIVE_SUCCESS(state, { payload, meta }) {
       const index = findIndexByTempKey(state, meta.tempKey);
       const uploadedArchive = {
-        ...state.uploaderArchives[index],
+        ...state.archives[index],
         status: DONE,
         ...payload,
       };
       return update(state, {
-        uploaderArchives: {
+        archives: {
           [index]: {
             $set: uploadedArchive,
           },
-        },
-        archives: {
-          $unshift: [uploadedArchive],
         },
       });
     },
     CREATE_ARCHIVE_FAILURE(state, { meta }) {
       const index = findIndexByTempKey(state, meta.tempKey);
       return update(state, {
-        uploaderArchives: {
+        archives: {
           [index]: {
             $merge: {
               status: ERROR,
@@ -75,7 +71,7 @@ const reducer = handleActions(
     UPDATE_ARCHIVE_PROGRESS(state, { payload }) {
       const index = findIndexByTempKey(state, payload.tempKey);
       return update(state, {
-        uploaderArchives: {
+        archives: {
           [index]: {
             $merge: payload,
           },
