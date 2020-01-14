@@ -3,5 +3,9 @@
 @each $elevation, $color in $elevation-colors {
   .elevation#{$elevation} {
     background-color: $color;
+
+    &:hover {
+      background-color: map-get($elevation-hover-colors, $elevation);
+    }
   }
 }
