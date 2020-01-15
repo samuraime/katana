@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.root {
+  width: 100%;
+  max-width: $small;
+  min-height: 50vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
