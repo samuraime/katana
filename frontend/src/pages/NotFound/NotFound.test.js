@@ -1,9 +1,17 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import NotFound from './NotFound';
 
-it('NotFound should be renderred correctly', () => {
-  const renderComponent = () => render(<NotFound />);
+describe('Page NotFound', () => {
+  it('renders without crashing', () => {
+    const renderComponent = () =>
+      render(
+        <Router>
+          <NotFound />
+        </Router>
+      );
 
-  expect(renderComponent).not.toThrowError();
+    expect(renderComponent).not.toThrowError();
+  });
 });
