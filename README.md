@@ -11,17 +11,19 @@
   
   The repo should represent my current technical pursuing.
 
-  - [ ] focus on software engineering
+  - [ ] Focus on software engineering
   - [ ] TDD [WIP]
   - [x] CI / CD (GitHub Action)
-  - [x] insist on non-ejected create-react-app
-  - [x] funcional react component only
-  - [ ] spliting code
-  - [x] try PWA [WIP]
+  - [x] Insist on non-ejected create-react-app (also insist on client side rendering)
+  - [x] Funcional react component only
+  - [x] Try PWA [WIP]
+  - [ ] Try locale (language, timezone)
+  - [ ] Spliting code
   - [x] ES Moudle on both frontend and backend (TypeScript)
-  - [ ] try locale (language, timezone)
-  - [x] responsive design
-  - [ ] dark mode material design [WIP]
+  - [x] Responsive design
+  - [ ] Dark mode material design [WIP]
+  - [ ] CSS in JS
+  - [ ] Accessibility with at least keyboard
 
 ## Practice Notes
 
