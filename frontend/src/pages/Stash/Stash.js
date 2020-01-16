@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Container from '../../components/Container';
 import stashActions from '../../store/stash/actions';
 import Uploader from './Uploader';
 import ArchiveList from './ArchiveList';
@@ -21,7 +22,7 @@ function Stash() {
   };
 
   return (
-    <div className={s.root}>
+    <Container className={s.root}>
       {isSuperUser && (
         <Uploader
           archives={archives}
@@ -35,7 +36,7 @@ function Stash() {
         deletable={isSuperUser}
         onDelete={handleDelete}
       />
-    </div>
+    </Container>
   );
 }
 

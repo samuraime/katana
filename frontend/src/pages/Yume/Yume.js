@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Container from '../../components/Container';
 import yumeActions from '../../store/yume/actions';
 import YumeCard from './YumeCard';
 import YumeCalendar from './YumeCalendar';
@@ -36,7 +37,7 @@ function Yume() {
   }
 
   return (
-    <div className={s.root}>
+    <Container>
       <YumeCalendar className={s.yumeCalendar} records={calendarRecords} />
       {user.superUser && (
         <YumeMaker
@@ -53,7 +54,7 @@ function Yume() {
           onDelete={getDeteleHandler(yume)}
         />
       ))}
-    </div>
+    </Container>
   );
 }
 

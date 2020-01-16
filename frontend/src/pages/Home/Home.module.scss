@@ -1,11 +1,7 @@
 @import '../../styles/variables.scss';
 
 .root {
-  max-width: $small;
-  margin: auto;
   min-height: 100vh;
-  padding: 1rem;
-  color: $text-light;
 }
 
 .intro {

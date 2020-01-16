@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     width: `calc(100% - ${drawerWidth}px)`,
-    padding: '1rem',
     flexGrow: 1,
     [theme.breakpoints.up('sm')]: {
       transition: theme.transitions.create('margin', {

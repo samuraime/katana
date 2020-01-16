@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Profile from './Profile';
 import Timeline from './Timeline';
+import Container from '../../components/Container';
 import Surface from '../../components/Surface';
 import samurai from '../../assets/images/samurai.png';
 import s from './Home.module.scss';
@@ -20,7 +21,7 @@ const description =
 
 function Home() {
   return (
-    <main className={s.root}>
+    <Container className={s.root}>
       <Helmet>
         <meta name="description" content={`SamuraiMe, ${description}`} />
       </Helmet>
@@ -41,7 +42,7 @@ function Home() {
         <p>{description}</p>
       </Surface>
       <Timeline events={timelineEvents} />
-    </main>
+    </Container>
   );
 }
 
