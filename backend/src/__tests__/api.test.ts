@@ -1,11 +1,11 @@
 /* eslint-disable import/first */
 
 jest.mock('../routes/auth.ts');
-jest.mock('../controllers/upload.ts');
 
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import qiniu, { callback as qiniuCallback } from 'qiniu';
 import app from '../app';
 
 const server = app.listen();
@@ -142,9 +142,19 @@ describe('DELETE /api/archives/:id', () => {
       .set('Cookie', superUserCookies)
       .set('Accept', 'application/json');
     id = res.body._id; // eslint-disable-line
+
+    // TODO: find a better mock method
+    qiniu.rs.BucketManager.prototype.delete = (
+      bucket: string,
+      key: string,
+      callback: qiniuCallback
+    ): void => {
+      setTimeout(() => {
+        callback(null);
+      });
+    };
   });
   it('should delete this archive document', async () => {
-    // TODO: need to set a qiniu secrets
     const res = await request(server)
       .delete(`/api/archives/${id}`)
       .set('Cookie', superUserCookies)

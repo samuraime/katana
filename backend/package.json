@@ -55,7 +55,7 @@
     "ky": "^0.16.1",
     "ky-universal": "^0.3.0",
     "mongoose": "^5.7.11",
-    "qiniu": "^7.1.0",
+    "qiniu": "^7.3.0",
     "serialize-javascript": "^2.1.1",
     "winston": "^2.3.1"
   },

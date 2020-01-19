@@ -37,7 +37,7 @@ const update: Middleware = async ctx => {
 const remove: Middleware = async ctx => {
   const { id } = ctx.params;
   const archive = await Archive.findByIdAndRemove(id);
-  await upload.remove(archive.hash);
+  await upload.remove(archive.key);
   ctx.body = archive;
 };
 
