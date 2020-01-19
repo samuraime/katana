@@ -35,10 +35,24 @@ describe('GET /', () => {
     const res = await request(server).get('/stash');
     expect(res.status).toBe(200);
   });
+
+  it('should rendered by cached HTML', async () => {
+    const res = await request(server).get('/stash');
+    expect(res.status).toBe(200);
+  });
+
   it('should response HTML that includes preload state', async () => {
     const res = await request(server)
       .get('/')
       .set('Cookie', userCookies);
     expect(res.text).toMatch(/window\.__PRELOADED_STATE__={.+}/);
+  });
+});
+
+describe('GET /preloadState.js', () => {
+  it('should response script', async () => {
+    const res = await request(server).get('/preloadState.js');
+    expect(res.status).toBe(200);
+    expect(res.type).toBe('application/javascript');
   });
 });
