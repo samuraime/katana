@@ -18,7 +18,6 @@ const create: Middleware = async ctx => {
   // TODO validate
   if (!ctx.request.body.text) {
     ctx.throw(400);
-    return;
   }
 
   const yume = await Yume.create({
@@ -34,7 +33,6 @@ const remove: Middleware = async ctx => {
   const yume = await Yume.findById(ctx.params.id);
   if (ctx.session.user._id !== yume.dreamer.toString()) {
     ctx.throw(403);
-    return;
   }
 
   await yume.remove();
