@@ -2,6 +2,11 @@ import { DOWNLOAD_DOMAIN } from '../constants/upload';
 
 export const noop = () => {};
 
+export const delay = ms =>
+  new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+
 /**
  * @param {string} key
  * @return {string}

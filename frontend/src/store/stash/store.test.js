@@ -1,9 +1,17 @@
+import { upload } from 'qiniu-browser';
 import { createAppStore } from '..';
 import actions from './actions';
-import { getArchives, deleteArchive } from '../../utils/API';
+import {
+  getArchives,
+  deleteArchive,
+  postArchive,
+  getUploadToken,
+} from '../../utils/API';
+import { delay } from '../../utils';
 import { nextFrame } from '../promiseMiddlewareTestHelper';
 
 jest.mock('../../utils/API');
+jest.mock('qiniu-browser');
 
 let store;
 
@@ -96,5 +104,88 @@ describe('stashActions.appendArchives', () => {
     const updatedArchives = store.getState().stash.archives;
     expect(updatedArchives.find(({ id }) => id === 'temp_id_1')).toBeDefined();
     expect(updatedArchives.find(({ id }) => id === 'temp_id_2')).toBeDefined();
+  });
+});
+
+describe('stashActions.appendNewArchives', () => {
+  it('should fail to append new archives', async () => {
+    getUploadToken.mockResolvedValueOnce({ token: 'token' });
+    upload.mockImplementationOnce((file, options) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          options.onProgress(10);
+          resolve({
+            key: 'TEST/1RXFKKGDV0C',
+            hash: 'FukVE6cK9fOs4O8tNzqd6OjAxZBe',
+          });
+        });
+      });
+    });
+    postArchive.mockRejectedValueOnce({ message: 'Oops' });
+
+    const files = [
+      new File(['I will be an error'], 'error.txt', {
+        type: 'text/plain',
+      }),
+    ];
+    store.dispatch(actions.appendNewArchives(files));
+    await delay();
+    await delay();
+    const newArchive = store.getState().stash.archives.find(archive => {
+      return archive.name === 'error.txt';
+    });
+
+    expect(newArchive).toBeDefined();
+    expect(newArchive.status).toBe('ERROR');
+  });
+
+  it('should append new archives successfully', async () => {
+    getUploadToken.mockResolvedValueOnce({ token: 'token' });
+    upload.mockImplementationOnce((file, options) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          options.onProgress(10);
+          resolve({
+            key: 'TEST/1RXFKKGDV0C',
+            hash: 'FukVE6cK9fOs4O8tNzqd6OjAxZBe',
+          });
+        });
+      });
+    });
+    postArchive.mockResolvedValueOnce({
+      id: '5e2eefbe2b0ddaad36f9b686',
+      name: 'demacia.txt',
+      size: 12,
+      type: 'text/plain',
+      key: 'TEST/1RXFKKGDV0C',
+      hash: 'FukVE6cK9fOs4O8tNzqd6OjAxZBe',
+      updatedAt: '2020-01-27T14:12:14.243Z',
+      createdAt: '2020-01-27T14:12:14.243Z',
+    });
+
+    const files = [
+      new File(['I am content'], 'demacia.txt', {
+        type: 'text/plain',
+      }),
+    ];
+    store.dispatch(actions.appendNewArchives(files));
+    let newArchive = store.getState().stash.archives.find(archive => {
+      return archive.name === 'demacia.txt';
+    });
+
+    expect(newArchive).toBeDefined();
+    expect(newArchive.status).toBe('UPLOADING');
+
+    await delay();
+    await delay();
+    newArchive = store.getState().stash.archives.find(archive => {
+      return (
+        archive.name === 'demacia.txt' &&
+        archive.hash === 'FukVE6cK9fOs4O8tNzqd6OjAxZBe'
+      );
+    });
+
+    expect(newArchive).toBeDefined();
+    expect(newArchive.status).toBe('DONE');
   });
 });

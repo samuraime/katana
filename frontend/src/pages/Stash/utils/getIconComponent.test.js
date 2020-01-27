@@ -19,5 +19,6 @@ describe('getIconComponent', () => {
     expect(getIconComponent('test.md')).toBe(File);
     expect(getIconComponent('test.txt')).toBe(File);
     expect(getIconComponent('test.zip')).toBe(FileZip);
+    expect(getIconComponent('test')).toBe(File);
   });
 });

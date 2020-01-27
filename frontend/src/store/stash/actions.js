@@ -42,7 +42,9 @@ const appendNewArchives = newFiles => (dispatch, getState) => {
       },
     });
 
-    dispatch(actions.createArchive(promise, archive));
+    dispatch(actions.createArchive(promise, archive)).catch(() => {
+      // swallow
+    });
   });
 };
 
