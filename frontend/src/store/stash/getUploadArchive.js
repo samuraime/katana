@@ -1,4 +1,4 @@
-import { READY } from '../../../constants/upload';
+import { READY } from '../../constants/upload';
 
 export function getTempId({ size, name, lastModified }) {
   return `${name}-${size}-${lastModified}`;

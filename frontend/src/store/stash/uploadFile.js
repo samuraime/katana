@@ -1,6 +1,6 @@
 import { upload } from 'qiniu-browser';
-import { getUploadToken } from '../../../utils/API';
-import { UPLOAD_HOST } from '../../../constants/upload';
+import { getUploadToken } from '../../utils/API';
+import { UPLOAD_HOST } from '../../constants/upload';
 
 export default function uploadFile(file, { onProgress }) {
   return upload(file, {
