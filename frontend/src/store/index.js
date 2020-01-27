@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createPromise } from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
 import rootReducer from './reducer';
 import preloadState from './preloadState';
 
@@ -9,7 +10,8 @@ export function createAppStore() {
     applyMiddleware(
       createPromise({
         promiseTypeSuffixes: ['PENDING', 'SUCCESS', 'FAILURE'],
-      })
+      }),
+      thunk
     )
   );
 }
