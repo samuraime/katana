@@ -35,7 +35,8 @@ export default function FilePicker({
   };
 
   const handleChange = e => {
-    onChange(e, e.target.files);
+    const files = Array.from(e.target.files);
+    onChange(e, files);
   };
 
   const props = {

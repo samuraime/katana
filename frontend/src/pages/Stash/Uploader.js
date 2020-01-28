@@ -9,8 +9,7 @@ import s from './Uploader.module.scss';
 
 function Uploader({ className, archives, dispatch, ...otherProps }) {
   const handleChange = (e, files) => {
-    const newFiles = Array.from(files);
-    dispatch(stashActions.appendNewArchives(newFiles));
+    dispatch(stashActions.appendNewArchives(files));
   };
 
   return (
