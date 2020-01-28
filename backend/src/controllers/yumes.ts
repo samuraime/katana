@@ -39,102 +39,6 @@ const remove: Middleware = async ctx => {
   ctx.body = yume;
 };
 
-// const posts: Middleware = async ctx => {
-//   // const { page, perPage } = ctx.query;
-//   const { posts: yumes } = await User.findById(ctx.session.user._id, {
-//     posts: true,
-//   })
-//     .populate({
-//       path: 'posts',
-//       populate: {
-//         path: 'dreamer',
-//       },
-//     })
-//     .exec();
-//   ctx.body = yumes.map(yume => ({
-//     ...yume._doc,
-//     starred: true,
-//     thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
-//   }));
-// };
-
-// const starred: Middleware = async ctx => {
-//   // const { page, perPage } = ctx.query;
-//   const { stars: yumes } = await User.findById(ctx.session.user._id, {
-//     stars: true,
-//   })
-//     .populate({
-//       path: 'stars',
-//       populate: {
-//         path: 'dreamer',
-//       },
-//     })
-//     .exec();
-//   ctx.body = yumes.map(yume => ({
-//     ...yume._doc,
-//     starred: true,
-//     thumbupped: yume.thumbuppers.includes(ctx.session.user._id),
-//   }));
-// };
-
-// const star: Middleware = async ctx => {
-//   const { id } = ctx.params;
-//   const [yume] = await Promise.all([
-//     Yume.findByIdAndUpdate(
-//       id,
-//       {
-//         $inc: {
-//           stars: 1,
-//         },
-//       },
-//       {
-//         new: true,
-//         select: {
-//           stars: true,
-//         },
-//       }
-//     ),
-//     User.findByIdAndUpdate(ctx.session.user._id, {
-//       $addToSet: {
-//         stars: mongoose.Types.ObjectId(id),
-//       },
-//     }),
-//   ]);
-//   ctx.body = {
-//     stars: yume.stars,
-//     starred: true,
-//   };
-// };
-
-// const unstar: Middleware = async ctx => {
-//   const { id } = ctx.params;
-//   const [yume] = await Promise.all([
-//     Yume.findByIdAndUpdate(
-//       id,
-//       {
-//         $inc: {
-//           stars: -1,
-//         },
-//       },
-//       {
-//         new: true,
-//         select: {
-//           stars: true,
-//         },
-//       }
-//     ),
-//     User.findByIdAndUpdate(ctx.session.user._id, {
-//       $pull: {
-//         stars: mongoose.Types.ObjectId(id),
-//       },
-//     }),
-//   ]);
-//   ctx.body = {
-//     stars: yume.stars,
-//     starred: false,
-//   };
-// };
-
 const getCalendar: Middleware = async ctx => {
   const end = new Date();
   const start = new Date(end);
@@ -157,8 +61,4 @@ export default {
   create,
   remove,
   getCalendar,
-  // posts,
-  // starred,
-  // star,
-  // unstar,
 };

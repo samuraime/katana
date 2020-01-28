@@ -24,8 +24,6 @@ const mockYume = {
   images: [],
   type: 'normal',
   tags: [],
-  stars: 0,
-  stargazers: [],
   public: true,
 };
 
@@ -61,8 +59,6 @@ describe('yumeActions.updateYume', () => {
       images: [],
       type: 'normal',
       tags: [],
-      stars: 0,
-      stargazers: [],
       public: false,
     };
     putYume.mockResolvedValueOnce(updatedYume);
@@ -83,8 +79,6 @@ describe('yumeActions.deleteYume', () => {
       images: [],
       type: 'normal',
       tags: [],
-      stars: 0,
-      stargazers: [],
       public: false,
     };
     deleteYume.mockResolvedValueOnce(deletedYume);
