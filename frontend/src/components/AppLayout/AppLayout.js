@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import { node } from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Navigation from '../Navigation';
-import MenuDrawer from '../Navigation/MenuDrawer';
+import Navigation from './Navigation';
+import MenuDrawer from './MenuDrawer';
 
 const drawerWidth = 220;
 const useStyles = makeStyles(theme => ({
