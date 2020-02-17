@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import CalendarGraph from '../../components/CalendarGraph';
-import formatDate from '../../utils/date';
+import { formatDate } from '../../utils';
 import { YumeRecord, arrayOf } from '../../types';
 
 const getColor = key => {

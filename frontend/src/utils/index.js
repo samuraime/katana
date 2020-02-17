@@ -1,5 +1,7 @@
 import { DOWNLOAD_DOMAIN } from '../constants/upload';
 
+export { default as formatDate } from './formatDate';
+
 export const noop = () => {};
 
 export const delay = ms =>

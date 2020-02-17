@@ -19,6 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { bool, func, oneOfType, Yume } from '../../types';
+import { formatDate } from '../../utils';
 import s from './YumeCard.module.scss';
 
 function YumeCard({ yume, onDelete, ...otherProps }) {
@@ -69,7 +70,7 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
           </IconButton>
         }
         title={dreamer.name}
-        subheader={yume.createdAt}
+        subheader={formatDate(yume.createdAt)}
       />
       <Menu
         anchorEl={anchorEl}
