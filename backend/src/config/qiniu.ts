@@ -5,5 +5,5 @@ export default {
     scope: 'mimosa', // bucket
     expires: 86400,
   },
-  domain: 'http://cdn-katana.samuraime.com',
+  domain: 'https://cdn-katana.samuraime.com',
 };
