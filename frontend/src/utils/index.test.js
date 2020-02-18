@@ -1,4 +1,4 @@
-import { delay, getDownloadURL, getLoginURL } from '.';
+import { delay, getLoginURL } from '.';
 
 describe('delay', () => {
   it('should return a valid URL', async () => {
@@ -7,12 +7,6 @@ describe('delay', () => {
     const end = Date.now();
 
     expect(end - start).toBeGreaterThanOrEqual(100);
-  });
-});
-
-describe('getDownloadURL', () => {
-  it('should return a valid URL', () => {
-    expect(typeof getDownloadURL()).toBe('string');
   });
 });
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
 import List, { ListItem } from '../../components/List';
 import { bool, func, arrayOf, Archive } from '../../types';
-import { getDownloadURL } from '../../utils';
+import { download } from '../../utils';
 import { formatSize, getIconComponent } from './utils';
 import s from './ArchiveList.module.scss';
 
@@ -12,10 +12,15 @@ export default function ArchiveList({
   onDelete,
   ...otherProps
 }) {
+  const save = archive => () => {
+    download(archive.link, archive.name);
+  };
+
   return (
     <List {...otherProps}>
       {archives.map(archive => {
         const isDone = !archive.status || archive.status === 'DONE';
+
         return (
           <ListItem key={archive.id} className={s.item}>
             <Octicon
@@ -29,15 +34,13 @@ export default function ArchiveList({
             </div>
             <div className={s.actions}>
               {isDone && (
-                <a
-                  href={getDownloadURL(archive.key || archive.hash)}
-                  download={archive.name}
+                <button
+                  type="button"
                   className={s.download}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={save(archive)}
                 >
                   <Octicon icon={CloudDownload} size={20} />
-                </a>
+                </button>
               )}
               {deletable && (
                 <button
