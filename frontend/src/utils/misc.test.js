@@ -1,4 +1,4 @@
-import { delay, getLoginURL } from '.';
+import { delay } from './misc';
 
 describe('delay', () => {
   it('should return a valid URL', async () => {
@@ -7,11 +7,5 @@ describe('delay', () => {
     const end = Date.now();
 
     expect(end - start).toBeGreaterThanOrEqual(100);
-  });
-});
-
-describe('getLoginURL', () => {
-  it('should return a valid URL', () => {
-    expect(typeof getLoginURL()).toBe('string');
   });
 });

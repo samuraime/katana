@@ -1,3 +1,7 @@
+/**
+ * @param {string} url
+ * @param {string} filename
+ */
 async function download(url, filename) {
   const data = await fetch(url).then(res => res.blob());
   const a = document.createElement('a');
