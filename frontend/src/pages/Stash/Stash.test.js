@@ -21,7 +21,7 @@ describe('Stash Page', () => {
                 hash: 'FukVE6cK9fOs4O8tNzqd6OjAxZBe',
                 updatedAt: '2020-01-27T14:12:14.243Z',
                 createdAt: '2020-01-27T14:12:14.243Z',
-                link: 'http://cdn-katana.samuraime.com/TEST/3RXFKKGDV0C',
+                link: 'http://katana-storage.samuraime.com/TEST/3RXFKKGDV0C',
               },
               {
                 id: '5e2ee58e2b0ddaad36f9b685',
@@ -32,7 +32,7 @@ describe('Stash Page', () => {
                 hash: 'FqB0ug3Xgyp1PaXEFHh7sTgqAd7J',
                 updatedAt: '2020-01-27T13:28:46.759Z',
                 createdAt: '2020-01-27T13:28:46.759Z',
-                link: 'http://cdn-katana.samuraime.com/TEST/43SW7593RP1',
+                link: 'http://katana-storage.samuraime.com/TEST/43SW7593RP1',
               },
             ],
           },

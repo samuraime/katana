@@ -30,7 +30,7 @@ describe('stashActions.getYumes', () => {
       hash: 'Ftf07dcsY1aLIkA9BvfMA_D-b0UT',
       createdAt: '2019-08-26T12:29:19.155Z',
       updatedAt: '2019-08-26T12:29:19.155Z',
-      link: 'http://cdn-katana.samuraime.com/TEST/JQ52IDGDAOK',
+      link: 'http://katana-storage.samuraime.com/TEST/JQ52IDGDAOK',
     },
     {
       id: '5d63d042997866e7cac1f9de',
@@ -41,7 +41,7 @@ describe('stashActions.getYumes', () => {
       hash: 'Ftf07dcsY1aLIkA9BvfMA_D-b0UT',
       createdAt: '2019-08-26T12:27:46.071Z',
       updatedAt: '2019-08-26T12:27:46.071Z',
-      link: 'http://cdn-katana.samuraime.com/TEST/WVX56ZXEUQD',
+      link: 'http://katana-storage.samuraime.com/TEST/WVX56ZXEUQD',
     },
   ];
   it('should put archives to state', async () => {
@@ -65,7 +65,7 @@ describe('stashActions.deleteArchive', () => {
       hash: 'Ftf07dcsY1aLIkA9BvfMA_D-b0UT',
       createdAt: '2019-08-26T12:29:19.155Z',
       updatedAt: '2019-08-26T12:29:19.155Z',
-      link: 'http://cdn-katana.samuraime.com/TEST/JQ52IDGDAOK',
+      link: 'http://katana-storage.samuraime.com/TEST/JQ52IDGDAOK',
     });
 
     store.dispatch(actions.deleteArchive());
