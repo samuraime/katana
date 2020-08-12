@@ -56,7 +56,7 @@
     "ky-universal": "^0.3.0",
     "mongoose": "^5.7.11",
     "qiniu": "^7.3.0",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^4.0.0",
     "winston": "^2.3.1"
   },
   "repository": "git@github.com:samuraime/katana.git"
