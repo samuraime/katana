@@ -48,9 +48,10 @@ jobs:
           chmod 700 "$SSH_PATH"
           chmod 600 "$SSH_PATH/known_hosts"
           chmod 600 "$SSH_PATH/deploy_key"
+          ssh-keygen -R $SSH_HOST
           eval $(ssh-agent)
           ssh-add "$SSH_PATH/deploy_key"
           ssh-keyscan -t rsa $SSH_HOST >> "$SSH_PATH/known_hosts"
 
-          scp -i $SSH_PATH/deploy_key ./dist.tar ci@sh.samuraime.com:/www/katana/dist.tar
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd /www/katana && tar -xf dist.tar -C ./ && pm2 restart ./process.json"
+          scp -i $SSH_PATH/deploy_key ./dist.tar $SSH_USER@$SSH_HOST:/www/katana/dist.tar
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd /www/katana && tar -xf dist.tar -C ./ && pm2 restart ./process.json"
