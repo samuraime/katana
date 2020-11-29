@@ -18,7 +18,7 @@ function getStatement(): string {
 function getSVG(text: string): string {
   const fontSize = 20;
   const letterSpacing = 2;
-  const width = text.length * (fontSize + letterSpacing);
+  const width = text.length * fontSize + (text.length - 1) * letterSpacing;
   const height = fontSize * 1.5;
   return `
 <svg
