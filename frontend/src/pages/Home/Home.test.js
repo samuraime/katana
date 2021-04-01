@@ -1,9 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import TestWrapper from '../TestWrapper';
 import Home from './Home';
 
 describe('Home', () => {
   it('should render correctly', () => {
-    expect(() => render(<Home />)).not.toThrowError();
+    expect(() => (
+      <TestWrapper>
+        <Home />
+      </TestWrapper>
+    )).not.toThrowError();
   });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import { object } from 'prop-types';
 import { ThemeProvider } from '@material-ui/styles';
 import AuthRoute from './components/AuthRoute';
@@ -11,6 +12,7 @@ import Stash from './pages/Stash';
 import Yume from './pages/Yume';
 import NotFound from './pages/NotFound';
 import theme from './styles/theme';
+import messages from './locales/zh-CN';
 
 function AppLayoutPage() {
   return (
@@ -26,15 +28,17 @@ function AppLayoutPage() {
 
 function App({ store }) {
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/playground" component={Playground} />
-          <Route component={AppLayoutPage} />
-        </Switch>
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <IntlProvider locale="zh-CN" messages={messages}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/playground" component={Playground} />
+            <Route component={AppLayoutPage} />
+          </Switch>
+        </IntlProvider>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
