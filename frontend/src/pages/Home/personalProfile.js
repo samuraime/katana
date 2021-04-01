@@ -1,6 +1,4 @@
 export default {
-  introduction:
-    '一个心心念念回到长安的秦人, 常自夸为赵二狗, 附会作秦王后裔. 初学耕田, 后以码为梦(或以梦为马), 凭一手 JavaScript 空手套白狼.',
   socialMedia: [
     { name: 'GitHub', link: 'https://github.com/samuraime' },
     { name: 'Blog', link: 'https://blog.samuraime.com' },
