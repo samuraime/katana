@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Octicon, { MarkGithub } from '@primer/octicons-react';
 import Container from '../Container';
 import { getLoginURL } from '../../utils';
@@ -12,7 +12,7 @@ function SignIn() {
       <Typography variant="h5" component="h3" className={s.title}>
         游人止步区
       </Typography>
-      <Button href={getLoginURL()} variant="contained" color="default">
+      <Button href={getLoginURL()} variant="contained">
         <Octicon className={s.icon} icon={MarkGithub} size={20} />
         Sign In
       </Button>

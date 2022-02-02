@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
 
 const opacityMap = {
   0: 0,
@@ -37,9 +37,9 @@ const getElevations = () => {
   return map;
 };
 
-export default createMuiTheme({
+export default createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     background: {
       paper: '#121212',
       default: '#121212',
@@ -53,12 +53,14 @@ export default createMuiTheme({
       contrastText: '#fff',
     },
   },
-  overrides: {
+  components: {
     MuiPaper: {
-      root: {
-        backgroundColor: '#121212',
+      styleOverrides: {
+        root: {
+          backgroundColor: '#121212',
+        },
+        ...getElevations(),
       },
-      ...getElevations(),
     },
   },
 });

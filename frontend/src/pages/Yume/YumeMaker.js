@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import IconButton from '@material-ui/core/IconButton';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import IconButton from '@mui/material/IconButton';
 import { func } from '../../types';
 import s from './YumeMaker.module.scss';
 
@@ -45,7 +45,7 @@ function YumeMaker({ onSubmit, ...otherProps }) {
           label="Compose a yume"
           multiline
           rows={rows}
-          rowsMax={8}
+          maxRows={8}
           value={text}
           onChange={handleChange}
           onFocus={handleFocus}
@@ -62,7 +62,7 @@ function YumeMaker({ onSubmit, ...otherProps }) {
             onClick={handleClose}
             aria-expanded={active}
             aria-label="close"
-          >
+            size="large">
             <ExpandLessIcon />
           </IconButton>
         )}

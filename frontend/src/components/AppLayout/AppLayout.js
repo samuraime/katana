@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
 import { node } from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
 import Navigation from './Navigation';
 import MenuDrawer from './MenuDrawer';
 

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { object } from 'prop-types';
-import { ThemeProvider } from '@material-ui/styles';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material';
 import AuthRoute from './components/AuthRoute';
 import AppLayout from './components/AppLayout';
 import Home from './pages/Home';
@@ -13,6 +13,9 @@ import Yume from './pages/Yume';
 import NotFound from './pages/NotFound';
 import theme from './styles/theme';
 import messages from './locales/zh-CN';
+
+
+
 
 function AppLayoutPage() {
   return (
@@ -29,15 +32,17 @@ function AppLayoutPage() {
 function App({ store }) {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <IntlProvider locale="zh-CN" messages={messages}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/playground" element={<Playground />} />
-            <Route path="/*" element={<AppLayoutPage />} />
-          </Routes>
-        </IntlProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <IntlProvider locale="zh-CN" messages={messages}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/playground" element={<Playground />} />
+              <Route path="/*" element={<AppLayoutPage />} />
+            </Routes>
+          </IntlProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>
   );
 }

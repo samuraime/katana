@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import RouterLink from '../../components/RouterLink';
 import Container from '../../components/Container';
 import s from './NotFound.module.scss';
