@@ -5,8 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: .5rem .5rem .5rem 1rem;
-  margin: .5rem 0;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin: 0.5rem 0;
 
   &:first-child {
     margin-top: 0;
@@ -38,9 +38,10 @@
   flex: none;
 }
 
-.download, .delete {
+.download,
+.delete {
   height: 100%;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
   cursor: pointer;
   color: #999;
   background: transparent;
@@ -57,7 +58,7 @@
   height: 1px;
   width: 0;
   background: hsl(130, 60%, 60%);
-  transition: all .2s;
+  transition: all 0.2s;
   z-index: -10;
 
   &.start {

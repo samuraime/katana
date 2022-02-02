@@ -17,7 +17,7 @@ describe('Carousel', () => {
     ];
     const { getAllByTitle } = render(
       <Carousel>
-        {images.map(image => (
+        {images.map((image) => (
           <img
             key={image}
             title="image title"
@@ -31,7 +31,7 @@ describe('Carousel', () => {
     const imageElements = getAllByTitle('image title');
     expect(imageElements.length).toBe(5);
 
-    imageElements.forEach(image => {
+    imageElements.forEach((image) => {
       expect(image.classList.contains('image')).toBe(true);
     });
   });

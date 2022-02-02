@@ -18,7 +18,7 @@ export default function FilePicker({
     inputRef.current.dispatchEvent(pickEvent);
   };
 
-  const handleDragOver = e => {
+  const handleDragOver = (e) => {
     e.preventDefault();
     setDragOver(true);
   };
@@ -27,14 +27,14 @@ export default function FilePicker({
     setDragOver(false);
   };
 
-  const handleDrop = e => {
+  const handleDrop = (e) => {
     e.preventDefault();
     setDragOver(false);
     const files = Array.from(e.dataTransfer.files);
     onChange(e, files);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const files = Array.from(e.target.files);
     onChange(e, files);
   };

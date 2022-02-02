@@ -1,6 +1,6 @@
 import ky from 'ky-universal';
 
-const normalize = object => {
+const normalize = (object) => {
   if (typeof object !== 'object' || object === null) {
     return object;
   }
@@ -10,7 +10,7 @@ const normalize = object => {
   }
 
   const normalized = {};
-  Object.keys(object).forEach(key => {
+  Object.keys(object).forEach((key) => {
     if (key === '_id') {
       normalized.id = object[key];
       return;
@@ -32,7 +32,7 @@ const kyInstance = ky.extend({
   },
 });
 
-requestMethods.forEach(method => {
+requestMethods.forEach((method) => {
   http[method] = async (input, options) => {
     const response = kyInstance[method](input, options);
     const data = await response.json();

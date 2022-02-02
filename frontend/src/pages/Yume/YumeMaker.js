@@ -62,7 +62,8 @@ function YumeMaker({ onSubmit, ...otherProps }) {
             onClick={handleClose}
             aria-expanded={active}
             aria-label="close"
-            size="large">
+            size="large"
+          >
             <ExpandLessIcon />
           </IconButton>
         )}

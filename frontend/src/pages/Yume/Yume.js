@@ -11,7 +11,7 @@ function Yume() {
   const dispatch = useDispatch();
   const yumes = useSelector(({ yume }) => yume.yumes);
   const calendarRecords = useSelector(({ yume }) => yume.calendarRecords);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const [makerKey, setMakerKey] = useState(0);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ function Yume() {
           onSubmit={handleSubmit}
         />
       )}
-      {yumes.map(yume => (
+      {yumes.map((yume) => (
         <YumeCard
           key={yume.id}
           yume={yume}

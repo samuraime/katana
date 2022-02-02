@@ -111,7 +111,7 @@ describe('stashActions.appendNewArchives', () => {
   it('should fail to append new archives', async () => {
     getUploadToken.mockResolvedValueOnce({ token: 'token' });
     upload.mockImplementationOnce((file, options) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           options.onProgress(10);
           resolve({
@@ -131,7 +131,7 @@ describe('stashActions.appendNewArchives', () => {
     store.dispatch(actions.appendNewArchives(files));
     await delay();
     await delay();
-    const newArchive = store.getState().stash.archives.find(archive => {
+    const newArchive = store.getState().stash.archives.find((archive) => {
       return archive.name === 'error.txt';
     });
 
@@ -142,7 +142,7 @@ describe('stashActions.appendNewArchives', () => {
   it('should append new archives successfully', async () => {
     getUploadToken.mockResolvedValueOnce({ token: 'token' });
     upload.mockImplementationOnce((file, options) => {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         setTimeout(() => {
           options.onProgress(10);
           resolve({
@@ -169,7 +169,7 @@ describe('stashActions.appendNewArchives', () => {
       }),
     ];
     store.dispatch(actions.appendNewArchives(files));
-    let newArchive = store.getState().stash.archives.find(archive => {
+    let newArchive = store.getState().stash.archives.find((archive) => {
       return archive.name === 'demacia.txt';
     });
 
@@ -178,7 +178,7 @@ describe('stashActions.appendNewArchives', () => {
 
     await delay();
     await delay();
-    newArchive = store.getState().stash.archives.find(archive => {
+    newArchive = store.getState().stash.archives.find((archive) => {
       return (
         archive.name === 'demacia.txt' &&
         archive.hash === 'FukVE6cK9fOs4O8tNzqd6OjAxZBe'

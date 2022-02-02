@@ -12,10 +12,7 @@ export default function uploadFile(file, { onProgress }) {
     getKey() {
       return process.env.NODE_ENV === 'production'
         ? ''
-        : `TEST/${Math.random()
-            .toString(36)
-            .substr(2)
-            .toUpperCase()}`;
+        : `TEST/${Math.random().toString(36).substr(2).toUpperCase()}`;
     },
     onProgress,
   });

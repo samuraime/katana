@@ -27,7 +27,7 @@ function MenuDrawer(props) {
   const { open, onClose, toolbarPlaceholder, ...otherProps } = props;
   const menuList = (
     <List>
-      {menuConfigs.map(menu => (
+      {menuConfigs.map((menu) => (
         <ListItem key={menu.name} button component={AdapterLink} to={menu.path}>
           <ListItemIcon>
             <menu.icon />
@@ -38,32 +38,34 @@ function MenuDrawer(props) {
     </List>
   );
 
-  return (<>
-    <Hidden smUp implementation="js">
-      <Drawer
-        variant="temporary"
-        open={open}
-        onClose={onClose}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        {...otherProps}
-      >
-        {menuList}
-      </Drawer>
-    </Hidden>
-    <Hidden smDown implementation="js">
-      <Drawer
-        variant="persistent"
-        open={open}
-        onClose={onClose}
-        {...otherProps}
-      >
-        {toolbarPlaceholder}
-        {menuList}
-      </Drawer>
-    </Hidden>
-  </>);
+  return (
+    <>
+      <Hidden smUp implementation="js">
+        <Drawer
+          variant="temporary"
+          open={open}
+          onClose={onClose}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          {...otherProps}
+        >
+          {menuList}
+        </Drawer>
+      </Hidden>
+      <Hidden smDown implementation="js">
+        <Drawer
+          variant="persistent"
+          open={open}
+          onClose={onClose}
+          {...otherProps}
+        >
+          {toolbarPlaceholder}
+          {menuList}
+        </Drawer>
+      </Hidden>
+    </>
+  );
 }
 
 MenuDrawer.propTypes = {

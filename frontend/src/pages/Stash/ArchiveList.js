@@ -12,13 +12,13 @@ export default function ArchiveList({
   onDelete,
   ...otherProps
 }) {
-  const save = archive => () => {
+  const save = (archive) => () => {
     download(archive.link, archive.name);
   };
 
   return (
     <List {...otherProps}>
-      {archives.map(archive => {
+      {archives.map((archive) => {
         const isDone = !archive.status || archive.status === 'DONE';
 
         return (

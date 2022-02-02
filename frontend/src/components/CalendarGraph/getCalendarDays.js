@@ -18,7 +18,7 @@ const getDays = (start, end) => {
 /**
  * @param {Date[]} days
  */
-const getWeekGroupedDays = days => {
+const getWeekGroupedDays = (days) => {
   if (days.length <= 1) {
     return [];
   }

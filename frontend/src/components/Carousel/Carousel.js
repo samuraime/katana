@@ -29,9 +29,9 @@ function Carousel({
         style={{
           width,
           height,
-          transform: `translateZ(${-radius}px) ${rotateFn}(${-1 *
-            theta *
-            index}rad)`,
+          transform: `translateZ(${-radius}px) ${rotateFn}(${
+            -1 * theta * index
+          }rad)`,
           transitionDuration: `${duration}s`,
         }}
       >

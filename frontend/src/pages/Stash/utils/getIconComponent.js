@@ -24,7 +24,7 @@ const getExtIconMap = () => {
 
   const map = {};
   iconConfigs.forEach(({ icon, exts }) => {
-    exts.forEach(ext => {
+    exts.forEach((ext) => {
       map[ext] = icon;
     });
   });
@@ -32,7 +32,7 @@ const getExtIconMap = () => {
   return map;
 };
 
-const extname = filename => {
+const extname = (filename) => {
   const ext = filename.includes('.') ? filename.split('.').pop() : '';
   return ext.toLowerCase();
 };

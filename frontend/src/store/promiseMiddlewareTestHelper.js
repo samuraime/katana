@@ -5,4 +5,4 @@
  *
  * even if dispatch a instant resolved Promise, still need to await fulfilled and rejected actions
  */
-export const nextFrame = () => new Promise(resolve => setTimeout(resolve));
+export const nextFrame = () => new Promise((resolve) => setTimeout(resolve));

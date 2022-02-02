@@ -65,7 +65,11 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="Settings" onClick={handleMenuOpen} size="large">
+          <IconButton
+            aria-label="Settings"
+            onClick={handleMenuOpen}
+            size="large"
+          >
             <MoreVertIcon />
           </IconButton>
         }
@@ -102,7 +106,8 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show interpretation"
-          size="large">
+          size="large"
+        >
           <ExpandMoreIcon />
         </IconButton>
       )}

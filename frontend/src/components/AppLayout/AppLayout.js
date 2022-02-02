@@ -7,7 +7,7 @@ import Navigation from './Navigation';
 import MenuDrawer from './MenuDrawer';
 
 const drawerWidth = 220;
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',

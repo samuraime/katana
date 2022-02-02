@@ -15,7 +15,7 @@ function Stash() {
     dispatch(stashActions.getArchives());
   }, [dispatch]);
 
-  const handleDelete = archive => {
+  const handleDelete = (archive) => {
     if (window.confirm('Do you really delete it?')) {
       dispatch(stashActions.deleteArchive(archive.id));
     }

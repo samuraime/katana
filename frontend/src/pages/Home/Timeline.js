@@ -6,7 +6,7 @@ import s from './Timeline.module.scss';
 function Timeline({ events, ...otherProps }) {
   return (
     <List {...otherProps}>
-      {events.map(event => (
+      {events.map((event) => (
         <ListItem key={event.start} className={s.event}>
           <span>{event.start}</span>
           <span> ~ </span>

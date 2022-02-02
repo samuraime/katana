@@ -14,9 +14,6 @@ import NotFound from './pages/NotFound';
 import theme from './styles/theme';
 import messages from './locales/zh-CN';
 
-
-
-
 function AppLayoutPage() {
   return (
     <AppLayout>

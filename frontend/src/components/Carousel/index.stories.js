@@ -61,7 +61,7 @@ export const withControl = () => {
             id="verticle"
             type="checkbox"
             value={vertical}
-            onChange={e => {
+            onChange={(e) => {
               setVerticle(e.target.checked);
             }}
           />

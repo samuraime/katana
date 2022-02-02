@@ -3,7 +3,7 @@ import CalendarGraph from '../../components/CalendarGraph';
 import { formatDate } from '../../utils';
 import { YumeRecord, arrayOf } from '../../types';
 
-const getColor = key => {
+const getColor = (key) => {
   const colorMap = {
     normal: '#7bc96f',
     nightmare: '#666',
@@ -18,8 +18,8 @@ function YumeCalendar({ records, ...props }) {
   start.setFullYear(end.getFullYear() - 1);
 
   const colorFn = useCallback(
-    date => {
-      const found = records.find(record => {
+    (date) => {
+      const found = records.find((record) => {
         return formatDate(record.createdAt) === formatDate(date);
       });
       const type = found ? found.type || 'normal' : '';

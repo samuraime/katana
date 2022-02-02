@@ -21,10 +21,10 @@ const actions = createActions({
   UPDATE_ARCHIVE_PROGRESS: null,
 });
 
-const appendNewArchives = newFiles => (dispatch, getState) => {
+const appendNewArchives = (newFiles) => (dispatch, getState) => {
   const currentArchives = getState().stash.archives;
   const filteredFiles = newFiles.filter(
-    file => !currentArchives.find(a => a.id === getTempId(file))
+    (file) => !currentArchives.find((a) => a.id === getTempId(file))
   );
   const newArchives = filteredFiles.map(getUploadArchive);
 

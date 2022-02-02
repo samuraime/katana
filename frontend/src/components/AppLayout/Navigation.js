@@ -31,7 +31,7 @@ function getAppBarTitleByPathName(pathname) {
 function Navigation({ onMenuClick, className }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
@@ -63,7 +63,8 @@ function Navigation({ onMenuClick, className }) {
           color="inherit"
           aria-label="Menu"
           onClick={onMenuClick}
-          size="large">
+          size="large"
+        >
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={s.title}>

@@ -16,7 +16,7 @@ const opacityMap = {
 const mix = (base, opacity) => {
   const color = base
     .match(/\d{2}/g)
-    .map(hex => {
+    .map((hex) => {
       const background = Number.parseInt(hex, 16);
       const mixed = background + (0xff - background) * opacity;
       return Math.round(mixed).toString(16);
@@ -28,7 +28,7 @@ const mix = (base, opacity) => {
 
 const getElevations = () => {
   const map = {};
-  Object.keys(opacityMap).forEach(key => {
+  Object.keys(opacityMap).forEach((key) => {
     map[`elevation${key}`] = {
       backgroundColor: mix('#121212', opacityMap[key]),
     };
