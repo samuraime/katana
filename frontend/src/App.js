@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { object } from 'prop-types';
@@ -17,11 +17,11 @@ import messages from './locales/zh-CN';
 function AppLayoutPage() {
   return (
     <AppLayout>
-      <Switch>
-        <Route path="/stash" component={Stash} />
-        <AuthRoute path="/yume" component={Yume} />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route path="/stash" element={<Stash />} />
+        <Route path="/yume" element={<AuthRoute component={Yume} />} />
+        <Route element={<NotFound />} />
+      </Routes>
     </AppLayout>
   );
 }
@@ -31,11 +31,11 @@ function App({ store }) {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <IntlProvider locale="zh-CN" messages={messages}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/playground" component={Playground} />
-            <Route component={AppLayoutPage} />
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/playground" element={<Playground />} />
+            <Route path="/*" element={<AppLayoutPage />} />
+          </Routes>
         </IntlProvider>
       </ThemeProvider>
     </Provider>

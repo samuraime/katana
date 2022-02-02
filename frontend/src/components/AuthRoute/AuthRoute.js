@@ -4,18 +4,14 @@ import { useSelector } from 'react-redux';
 import { elementType } from 'prop-types';
 import SignIn from './SignIn';
 
-function AuthRoute({ component: Component, ...rest }) {
+function AuthRoute({ component: Component, ...props }) {
   const signedIn = useSelector(({ user }) => user.signedIn);
 
-  function RedirectComponent(props) {
-    if (!signedIn) {
-      return <SignIn />;
-    }
-
-    return <Component {...props} />;
+  if (!signedIn) {
+    return <SignIn />;
   }
 
-  return <Route {...rest} component={RedirectComponent} />;
+  return <Component {...props} />;
 }
 
 AuthRoute.propTypes = {
