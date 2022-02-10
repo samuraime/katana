@@ -50,7 +50,8 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-promise-middleware": "^6.1.2",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
