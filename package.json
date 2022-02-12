@@ -25,27 +25,16 @@
     "test:be": "CI=true yarn workspace backend test --coverage --coverageReporters=json",
     "coverage": "yarn coverage:merge && yarn coverage:report",
     "coverage:merge": "rm -Rf coverage && mkdir coverage && cp frontend/coverage/coverage-final.json coverage/frontend.json && cp backend/coverage/coverage-final.json coverage/backend.json",
-    "coverage:report": "nyc report --reporter=lcov --temp-dir=coverage"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ]
+    "coverage:report": "nyc report --reporter=lcov --temp-dir=coverage",
+    "prepare": "husky install"
   },
   "author": "SamuraiMe",
   "license": "MIT",
   "repository": "git@github.com:samuraime/katana.git",
   "devDependencies": {
     "concurrently": "^5.3.0",
-    "husky": "^4.3.0",
-    "lint-staged": "^10.5.2",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.3",
     "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "qupload": "^0.4.1"
