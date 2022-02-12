@@ -48,7 +48,9 @@ const appendNewArchives = (newFiles) => (dispatch, getState) => {
   });
 };
 
-export default {
+const combinedActions = {
   ...actions,
   appendNewArchives,
 };
+
+export default combinedActions;

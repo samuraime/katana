@@ -1,4 +1,4 @@
-export default {
+const personalProfile = {
   socialMedia: [
     { name: 'GitHub', link: 'https://github.com/samuraime' },
     { name: 'Blog', link: 'https://blog.samuraime.com' },
@@ -13,3 +13,5 @@ export default {
     { start: '2010-09', end: '2014-06', title: 'Northwest A&F University' },
   ],
 };
+
+export default personalProfile;

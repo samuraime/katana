@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { elementType } from 'prop-types';
 import SignIn from './SignIn';

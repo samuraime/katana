@@ -45,7 +45,6 @@ function YumeMaker({ onSubmit, ...otherProps }) {
           label="Compose a yume"
           multiline
           rows={rows}
-          maxRows={8}
           value={text}
           onChange={handleChange}
           onFocus={handleFocus}
