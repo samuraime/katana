@@ -70,7 +70,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "postcss": "^8.1.0",
     "postcss-syntax": "^0.36.2",
     "storybook-addon-sass-postcss": "^0.1.0",
