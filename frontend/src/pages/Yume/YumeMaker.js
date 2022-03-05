@@ -6,7 +6,34 @@ import Switch from '@mui/material/Switch';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import IconButton from '@mui/material/IconButton';
 import { func } from '../../types';
-import s from './YumeMaker.module.scss';
+import styled from 'styled-components';
+
+const Editor = styled.div`
+  position: relative;
+`;
+
+const StyledTextField = styled(TextField)`
+  width: 100%;
+
+  // TODO: how to generate a className from styled-components?
+  textarea {
+    transition: height 0.3s ease;
+  }
+`;
+
+const ToggleButton = styled(IconButton).attrs({
+  size: 'large',
+})`
+  position: absolute !important;
+  right: 0.5rem;
+  bottom: 1rem;
+`;
+
+const ActionPanel = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
 
 function YumeMaker({ onSubmit, ...otherProps }) {
   const [text, setText] = useState('');
@@ -40,35 +67,29 @@ function YumeMaker({ onSubmit, ...otherProps }) {
 
   return (
     <div {...otherProps}>
-      <div className={s.editor}>
-        <TextField
+      <Editor>
+        <StyledTextField
           label="Compose a yume"
           multiline
           rows={rows}
           value={text}
           onChange={handleChange}
           onFocus={handleFocus}
-          className={s.text}
           margin="normal"
           variant="outlined"
-          inputProps={{
-            className: s.input,
-          }}
         />
         {active && (
-          <IconButton
-            className={s.expandLess}
+          <ToggleButton
             onClick={handleClose}
             aria-expanded={active}
             aria-label="close"
-            size="large"
           >
             <ExpandLessIcon />
-          </IconButton>
+          </ToggleButton>
         )}
-      </div>
+      </Editor>
       {active && (
-        <div className={s.actions}>
+        <ActionPanel>
           <FormControlLabel
             control={
               <Switch
@@ -83,7 +104,7 @@ function YumeMaker({ onSubmit, ...otherProps }) {
           <Button variant="contained" color="primary" onClick={handleRecord}>
             Done
           </Button>
-        </div>
+        </ActionPanel>
       )}
     </div>
   );

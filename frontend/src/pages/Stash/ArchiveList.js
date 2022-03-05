@@ -1,10 +1,75 @@
 import React from 'react';
+import styled from 'styled-components';
 import Octicon, { Trashcan, CloudDownload } from '@primer/octicons-react';
 import List, { ListItem } from '../../components/List';
 import { bool, func, arrayOf, Archive } from '../../types';
 import { download } from '../../utils';
 import { formatSize, getIconComponent } from './utils';
-import s from './ArchiveList.module.scss';
+
+const StyledListItem = styled(ListItem)`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  margin: 0.5rem 0;
+
+  :first-child {
+    margin-top: 0;
+  }
+
+  :last-child {
+    margin-bottom: 0;
+  }
+`;
+
+const ArchiveIcon = styled(Octicon).attrs({
+  size: 20,
+})`
+  flex: none;
+  margin-right: 0.5rem;
+`;
+
+const ArchiveInfo = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  width: 100%;
+
+  > * {
+    margin-right: 0.5rem;
+  }
+`;
+
+const ArchiveActions = styled.div`
+  flex: none;
+`;
+
+const ArchiveAction = styled.button.attrs({
+  type: 'button',
+})`
+  height: 100%;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  color: #999;
+  background: transparent;
+
+  :hover {
+    color: inherit;
+  }
+`;
+
+const ArchiveProgress = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 0;
+  background: hsl(130, 60%, 60%);
+  transition: all 0.2s;
+  z-index: -10;
+`;
 
 export default function ArchiveList({
   archives,
@@ -22,43 +87,30 @@ export default function ArchiveList({
         const isDone = !archive.status || archive.status === 'DONE';
 
         return (
-          <ListItem key={archive.id} className={s.item}>
-            <Octicon
-              className={s.typeIcon}
-              icon={getIconComponent(archive.name)}
-              size={20}
-            />
-            <div className={s.archiveInfo}>
+          <StyledListItem key={archive.id}>
+            <ArchiveIcon icon={getIconComponent(archive.name)} />
+            <ArchiveInfo>
               <span>{archive.name}</span>
               <span>{formatSize(archive.size)}</span>
-            </div>
-            <div className={s.actions}>
+            </ArchiveInfo>
+            <ArchiveActions>
               {isDone && (
-                <button
-                  type="button"
-                  className={s.download}
-                  onClick={save(archive)}
-                >
+                <ArchiveAction onClick={save(archive)}>
                   <Octicon icon={CloudDownload} size={20} />
-                </button>
+                </ArchiveAction>
               )}
               {deletable && (
-                <button
-                  type="button"
-                  className={s.delete}
-                  onClick={() => onDelete(archive)}
-                >
+                <ArchiveAction onClick={() => onDelete(archive)}>
                   <Octicon icon={Trashcan} size={20} />
-                </button>
+                </ArchiveAction>
               )}
-            </div>
+            </ArchiveActions>
             {!isDone && (
-              <div
-                className={s.progress}
+              <ArchiveProgress
                 style={{ width: `${(archive.uploaded / archive.size) * 100}%` }}
               />
             )}
-          </ListItem>
+          </StyledListItem>
         );
       })}
     </List>

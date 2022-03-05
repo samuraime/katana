@@ -5,11 +5,24 @@ import {
   func,
   shape,
   arrayOf,
+  element,
+  elementType,
   node,
   oneOfType,
 } from 'prop-types';
 
-export { string, number, bool, func, shape, arrayOf, node, oneOfType };
+export {
+  string,
+  number,
+  bool,
+  func,
+  shape,
+  arrayOf,
+  element,
+  elementType,
+  node,
+  oneOfType,
+};
 
 // TODO: map MongoDB Schema to PropTypes
 

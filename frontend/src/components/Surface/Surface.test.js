@@ -9,13 +9,11 @@ describe('Surface', () => {
 
   it('should render children correctly', () => {
     const { getByTitle } = render(
-      <Surface title="hana" component="li" className="kirei">
+      <Surface title="hana">
         <div>arisu</div>
       </Surface>
     );
     const rootElement = getByTitle('hana');
-    expect(rootElement.nodeName).toBe('LI');
-    expect(rootElement.classList.contains('kirei')).toBe(true);
     expect(rootElement.textContent).toBe('arisu');
   });
 });

@@ -1,25 +1,3 @@
-$background: #121212;
-
-$text-light: rgba(255, 255, 255, 0.95);
-$text-primary: rgba(255, 255, 255, 0.87);
-$text-secondary: rgba(255, 255, 255, 0.6);
-$text-disabled: rgba(255, 255, 255, 0.38);
-
-$gray-50: #fafafa;
-$gray-100: #f5f5f5;
-$gray-200: #eeeeee;
-$gray-300: #e0e0e0;
-$gray-400: #bdbdbd;
-$gray-500: #9e9e9e;
-$gray-600: #757575;
-$gray-700: #616161;
-$gray-800: #424242;
-$gray-900: #212121;
-$gray-A100: #d5d5d5;
-$gray-A200: #aaaaaa;
-$gray-A400: #303030;
-$gray-A700: #616161;
-
 $primary-main: #2bb24c;
 $primary-dark: rgb(30, 124, 53);
 $primary-light: rgb(85, 193, 111);
@@ -34,43 +12,6 @@ $error-main: #fff;
 $error-dark: #fff;
 $error-light: #fff;
 $error-text: #fff;
-
-$elevation-colors: (
-  0: rgba(255, 255, 255, 0),
-  1: rgba(255, 255, 255, 0.05),
-  2: rgba(255, 255, 255, 0.07),
-  3: rgba(255, 255, 255, 0.08),
-  4: rgba(255, 255, 255, 0.09),
-  6: rgba(255, 255, 255, 0.11),
-  8: rgba(255, 255, 255, 0.12),
-  12: rgba(255, 255, 255, 0.14),
-  16: rgba(255, 255, 255, 0.15),
-  24: rgba(255, 255, 255, 0.16),
-);
-
-$elevation-hover-colors: (
-  0: rgba(255, 255, 255, 0.05),
-  1: rgba(255, 255, 255, 0.07),
-  2: rgba(255, 255, 255, 0.08),
-  3: rgba(255, 255, 255, 0.09),
-  4: rgba(255, 255, 255, 0.11),
-  6: rgba(255, 255, 255, 0.12),
-  8: rgba(255, 255, 255, 0.14),
-  12: rgba(255, 255, 255, 0.15),
-  16: rgba(255, 255, 255, 0.16),
-  24: rgba(255, 255, 255, 0.18),
-);
-
-$surface-0: rgba(255, 255, 255, 0);
-$surface-1: rgba(255, 255, 255, 0.05);
-$surface-2: rgba(255, 255, 255, 0.07);
-$surface-3: rgba(255, 255, 255, 0.08);
-$surface-4: rgba(255, 255, 255, 0.09);
-$surface-6: rgba(255, 255, 255, 0.11);
-$surface-8: rgba(255, 255, 255, 0.12);
-$surface-12: rgba(255, 255, 255, 0.14);
-$surface-16: rgba(255, 255, 255, 0.15);
-$surface-24: rgba(255, 255, 255, 0.16);
 
 $shadow-0: none;
 $shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -121,12 +62,3 @@ $shadow-23: 0px 11px 14px -7px rgba(0, 0, 0, 0.2),
   0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
 $shadow-24: 0px 11px 15px -7px rgba(0, 0, 0, 0.2),
   0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-
-$xsmall: 0;
-$small: 600px;
-$medium: 1024px;
-$large: 1440px;
-$xlarge: 1920px;
-
-$font-regular: Roboto, Helvetica, Arial, sans-serif;
-$font-mono: source-code-pro, Consolas, Menlo, Monaco, 'Courier New', monospace;

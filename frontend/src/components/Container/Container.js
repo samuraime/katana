@@ -1,21 +1,12 @@
-import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import s from './Container.module.scss';
+import styled from 'styled-components';
+import { size, textColor } from '../../styles';
 
-export default function Container({ component, className, ...otherProps }) {
-  return React.createElement(component, {
-    className: classnames(s.root, className),
-    ...otherProps,
-  });
-}
+const Container = styled.div`
+  max-width: ${size.small}px;
+  width: 100%;
+  margin: auto;
+  padding: 0.5rem;
+  color: ${textColor.light};
+`;
 
-Container.propTypes = {
-  component: PropTypes.elementType,
-  className: PropTypes.string,
-};
-
-Container.defaultProps = {
-  component: 'div',
-  className: '',
-};
+export default Container;

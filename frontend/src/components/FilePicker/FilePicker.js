@@ -1,15 +1,7 @@
-import React, { createElement, useState, useRef } from 'react';
-import classnames from 'classnames';
-import { string, bool, func, node, oneOfType } from '../../types';
+import React, { createElement, useState, useRef, Fragment } from 'react';
+import { bool, func, elementType } from '../../types';
 
-export default function FilePicker({
-  elementType,
-  className,
-  hoverClassName,
-  multiple,
-  children,
-  onChange,
-}) {
+export default function FilePicker({ multiple, contentMaker, onChange }) {
   const [isDragOver, setDragOver] = useState(false);
   const inputRef = useRef(null);
 
@@ -40,7 +32,6 @@ export default function FilePicker({
   };
 
   const props = {
-    className: classnames(className, { [hoverClassName]: isDragOver }),
     onDragOver: handleDragOver,
     onDragLeave: handleDragLeave,
     onDrop: handleDrop,
@@ -56,23 +47,24 @@ export default function FilePicker({
     />
   );
 
-  return createElement(elementType, props, ghostInput, children);
+  return (
+    <Fragment>
+      {createElement(contentMaker, {
+        isDragOver,
+        ...props,
+      })}
+      {ghostInput}
+    </Fragment>
+  );
 }
 
 FilePicker.propTypes = {
-  elementType: oneOfType([string, func]),
-  className: string,
-  hoverClassName: string,
   multiple: bool,
-  children: node,
+  contentMaker: elementType.isRequired,
   onChange: func,
 };
 
 FilePicker.defaultProps = {
-  elementType: 'div',
-  className: '',
-  hoverClassName: '',
   multiple: true,
-  children: null,
   onChange: () => {},
 };

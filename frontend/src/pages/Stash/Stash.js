@@ -1,10 +1,25 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from '../../components/Container';
 import stashActions from '../../store/stash/actions';
 import Uploader from './Uploader';
 import ArchiveList from './ArchiveList';
-import s from './Stash.module.scss';
+
+const StashPage = styled(Container)`
+  white-space: nowrap;
+`;
+
+const StyledUploader = styled(Uploader)`
+  width: 100%;
+  margin: 1rem auto;
+  cursor: pointer;
+`;
+
+const StyledArchiveList = styled(ArchiveList)`
+  width: 100%;
+  margin: 1rem auto;
+`;
 
 function Stash() {
   const dispatch = useDispatch();
@@ -22,21 +37,16 @@ function Stash() {
   };
 
   return (
-    <Container className={s.root}>
+    <StashPage>
       {isSuperUser && (
-        <Uploader
-          archives={archives}
-          className={s.uploader}
-          dispatch={dispatch}
-        />
+        <StyledUploader archives={archives} dispatch={dispatch} />
       )}
-      <ArchiveList
-        className={s.archiveList}
+      <StyledArchiveList
         archives={archives}
         deletable={isSuperUser}
         onDelete={handleDelete}
       />
-    </Container>
+    </StashPage>
   );
 }
 

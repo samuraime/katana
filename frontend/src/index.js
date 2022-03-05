@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store';
 import App from './App';
-import './styles/index.scss';
+import { GlobalStyle } from './styles';
 import * as serviceWorker from './serviceWorker';
 
 function render() {
   ReactDOM.render(
     <Router>
+      <GlobalStyle />
       <App store={store} />
     </Router>,
     document.getElementById('root')

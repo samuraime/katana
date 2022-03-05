@@ -4,7 +4,8 @@ import FilePicker from './FilePicker';
 
 describe('FilePicker', () => {
   it('should render children correctly', () => {
-    const { getByText } = render(<FilePicker>click here</FilePicker>);
+    const contentMaker = () => <p>click here</p>;
+    const { getByText } = render(<FilePicker contentMaker={contentMaker} />);
 
     expect(getByText('click here')).toBeDefined();
   });
@@ -12,20 +13,11 @@ describe('FilePicker', () => {
   it.skip('should handle change event', () => {});
 
   it('should handle hover event', () => {
-    const { getByText } = render(
-      <FilePicker className="file-picker" hoverClassName="file-picker-hover">
-        click here
-      </FilePicker>
-    );
+    const contentMaker = () => <p>click here</p>;
+    const { getByText } = render(<FilePicker contentMaker={contentMaker} />);
 
     const picker = getByText('click here');
 
-    expect(picker.classList.contains('file-picker')).toBe(true);
-    expect(picker.classList.contains('file-picker-hover')).toBe(false);
-
     fireEvent.dragOver(picker);
-
-    expect(picker.classList.contains('file-picker')).toBe(true);
-    expect(picker.classList.contains('file-picker-hover')).toBe(true);
   });
 });

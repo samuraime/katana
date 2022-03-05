@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -10,9 +11,22 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { getLoginURL } from '../../utils';
-import { string, func } from '../../types';
+import { func } from '../../types';
 import userActions from '../../store/user/actions';
-import s from './Navigation.module.scss';
+
+const MenuButton = styled(IconButton).attrs({
+  edge: 'start',
+  color: 'inherit',
+  size: 'large',
+})`
+  margin-right: 0.5rem !important;
+`;
+
+const Title = styled(Typography).attrs({
+  variant: 'h6',
+})`
+  flex-grow: 1;
+`;
 
 function getAppBarTitleByPathName(pathname) {
   const appBarTitleMap = {
@@ -28,7 +42,7 @@ function getAppBarTitleByPathName(pathname) {
   return appBarTitleMap[match[0]];
 }
 
-function Navigation({ onMenuClick, className }) {
+function Navigation({ onMenuClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const user = useSelector((state) => state.user);
@@ -55,21 +69,12 @@ function Navigation({ onMenuClick, className }) {
   const title = getAppBarTitleByPathName(pathname);
 
   return (
-    <AppBar color="default" position="static" className={className}>
+    <AppBar color="default" position="static">
       <Toolbar variant="dense">
-        <IconButton
-          className={s.menu}
-          edge="start"
-          color="inherit"
-          aria-label="Menu"
-          onClick={onMenuClick}
-          size="large"
-        >
+        <MenuButton aria-label="Menu" onClick={onMenuClick}>
           <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={s.title}>
-          {title}
-        </Typography>
+        </MenuButton>
+        <Title>{title}</Title>
         {user.signedIn ? (
           <Button color="inherit" onClick={handleMenu}>
             {user.name}
@@ -102,7 +107,6 @@ function Navigation({ onMenuClick, className }) {
 
 Navigation.propTypes = {
   onMenuClick: func.isRequired,
-  className: string.isRequired,
 };
 
 export default Navigation;

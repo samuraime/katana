@@ -20,7 +20,7 @@ function AppLayoutPage() {
       <Routes>
         <Route path="/stash" element={<Stash />} />
         <Route path="/yume" element={<AuthRoute component={Yume} />} />
-        <Route element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </AppLayout>
   );

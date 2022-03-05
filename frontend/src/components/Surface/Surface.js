@@ -1,31 +1,21 @@
-import React from 'react';
-import classnames from 'classnames';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import s from './Surface.module.scss';
+import { elevationColors, elevationHoverColors } from '../../styles';
 
-function Surface({ elevation, component, className, children, ...otherProps }) {
-  return React.createElement(
-    component,
-    {
-      ...otherProps,
-      className: classnames(s[`elevation${elevation}`], className),
-    },
-    children
-  );
-}
+const Surface = styled.div`
+  background-color: ${({ elevation }) => elevationColors[elevation]};
+
+  :hover {
+    background-color: ${({ elevation }) => elevationHoverColors[elevation]};
+  }
+`;
 
 Surface.propTypes = {
   elevation: PropTypes.number,
-  component: PropTypes.oneOfType([PropTypes.string, PropTypes.elementType]),
-  className: PropTypes.string,
-  children: PropTypes.node,
 };
 
 Surface.defaultProps = {
   elevation: 1,
-  component: 'div',
-  className: '',
-  children: null,
 };
 
 export default Surface;

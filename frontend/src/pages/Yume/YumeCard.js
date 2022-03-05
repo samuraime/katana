@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -20,7 +19,21 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { bool, func, oneOfType, Yume } from '../../types';
 import { formatDate } from '../../utils';
-import s from './YumeCard.module.scss';
+import styled from 'styled-components';
+
+const StyledCardMedia = styled(CardMedia)`
+  height: 0;
+  padding-top: 56.25%; // 16:9
+`;
+
+const ToggleButton = styled(IconButton).attrs({
+  size: 'large',
+})`
+  transform: rotate(0deg);
+  margin-left: auto;
+  transition: transform 150ms ease !important;
+  transform: ${({ isExpanded }) => isExpanded && 'rotate(180deg)'};
+`;
 
 function YumeCard({ yume, onDelete, ...otherProps }) {
   const [expanded, setExpanded] = React.useState(false);
@@ -87,8 +100,7 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
         )}
       </Menu>
       {!!yume.images.length && (
-        <CardMedia
-          className={s.media}
+        <StyledCardMedia
           image="/static/images/cards/paella.jpg"
           title="Paella dish"
         />
@@ -99,17 +111,14 @@ function YumeCard({ yume, onDelete, ...otherProps }) {
         </Typography>
       </CardContent>
       {!!yume.interpretation && (
-        <IconButton
-          className={classnames(s.expand, {
-            [s.expandOpen]: expanded,
-          })}
+        <ToggleButton
+          isExpanded={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show interpretation"
-          size="large"
         >
           <ExpandMoreIcon />
-        </IconButton>
+        </ToggleButton>
       )}
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

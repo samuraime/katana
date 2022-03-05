@@ -5,7 +5,19 @@ import yumeActions from '../../store/yume/actions';
 import YumeCard from './YumeCard';
 import YumeCalendar from './YumeCalendar';
 import YumeMaker from './YumeMaker';
-import s from './Yume.module.scss';
+import styled from 'styled-components';
+
+const StyledYumeCalendar = styled(YumeCalendar)`
+  margin-top: 1rem;
+`;
+
+const StyledYumeMaker = styled(YumeMaker)`
+  margin: 0 0 1rem;
+`;
+
+const StyleYumeCard = styled(YumeCard)`
+  margin: 0.75rem 0;
+`;
 
 function Yume() {
   const dispatch = useDispatch();
@@ -38,19 +50,14 @@ function Yume() {
 
   return (
     <Container>
-      <YumeCalendar className={s.yumeCalendar} records={calendarRecords} />
+      <StyledYumeCalendar records={calendarRecords} />
       {user.superUser && (
-        <YumeMaker
-          key={makerKey}
-          className={s.yumeMaker}
-          onSubmit={handleSubmit}
-        />
+        <StyledYumeMaker key={makerKey} onSubmit={handleSubmit} />
       )}
       {yumes.map((yume) => (
-        <YumeCard
+        <StyleYumeCard
           key={yume.id}
           yume={yume}
-          className={s.yumeCard}
           onDelete={getDeteleHandler(yume)}
         />
       ))}
