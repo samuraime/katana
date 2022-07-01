@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
+  "type": "module",
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -10,20 +11,13 @@
     "not op_mini all"
   ],
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
+    "start": "parcel --open --port=3000 public/index.html",
+    "build": "NODE_ENV=production NODE_OPTIONS=--no-experimental-fetch parcel build --no-cache --public-url=https://cdn.samuraime.com/katana --dist-dir=build public/index.html && scripts/postbuild.sh",
+    "test": "jest",
+    "start:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
+    "build:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/index.js",
-      "!src/**/*.stories.js",
-      "!src/serviceWorker.js",
-      "!src/setupProxy.js"
-    ]
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -32,7 +26,6 @@
     "@mui/material": "^5.4.0",
     "@mui/styles": "^5.3.0",
     "@primer/octicons-react": "^9.2.0",
-    "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "http-proxy-middleware": "^0.20.0",
     "immutability-helper": "^3.0.1",
@@ -54,14 +47,13 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-syntax-flow": "^7.14.5",
-    "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@storybook/react": "^6.4.16",
-    "@stylelint/postcss-css-in-js": "^0.37.2",
-    "@testing-library/react": "^9.3.2",
+    "@stylelint/postcss-css-in-js": "^0.38.0",
+    "@swc/core": "^1.2.148",
+    "@swc/jest": "^0.2.20",
+    "@testing-library/react": "^12",
     "autoprefixer": "^10.4.2",
-    "babel-loader": "^8.0.6",
+    "core-js": "^3.23.3",
     "create-test-server": "^3.0.1",
     "eslint": "^8.8.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -70,8 +62,12 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "jest": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.1",
+    "parcel": "latest",
     "postcss": "^8.1.0",
     "postcss-syntax": "^0.36.2",
+    "react-test-renderer": "^17.0.2",
     "storybook-addon-sass-postcss": "^0.1.0",
     "stylelint": "^14.4.0",
     "stylelint-config-prettier": "^9.0.3",

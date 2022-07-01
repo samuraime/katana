@@ -67,6 +67,9 @@ typings/
 .env
 !backend/.env
 
+## Parcel cache
+.parcel-cache
+
 build
 
 .DS_Store
