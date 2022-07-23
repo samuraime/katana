@@ -17,7 +17,7 @@
     "postbuild:fe": "scripts/pwa.sh",
     "build:be": "CI=true yarn workspace backend build",
     "build:fe:local": "PUBLIC_URL=http://localhost:8000 yarn workspace frontend build",
-    "deploy:cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p katana/ -r --use-path ./frontend/build",
+    "deploy:cdn": "QUPLOAD_DOMAIN=https://cdn.samuraime.com qupload -p katana/ -r --use-path ./frontend/dist",
     "deploy:fe": "yarn build:fe && yarn deploy:cdn",
     "start:pm2": "pm2 start process.json",
     "test": "yarn test:fe && yarn test:be",

@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "start": "parcel --open --port=3000 public/index.html",
-    "build": "NODE_ENV=production NODE_OPTIONS=--no-experimental-fetch parcel build --no-cache --public-url=https://cdn.samuraime.com/katana --dist-dir=build public/index.html && scripts/postbuild.sh",
+    "build": "NODE_ENV=production NODE_OPTIONS=--no-experimental-fetch parcel build --no-cache --public-url=https://cdn.samuraime.com/katana --dist-dir=dist public/index.html && scripts/postbuild.sh",
     "test": "jest",
     "start:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts build",

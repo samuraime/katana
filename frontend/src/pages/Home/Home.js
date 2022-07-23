@@ -11,12 +11,16 @@ import profile from './personalProfile';
 
 const HomePage = styled(Container)`
   min-height: 100vh;
+  padding-bottom: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Intro = styled(Surface)`
   padding: 0.5rem 1rem;
   margin: 1rem 0;
-  white-space: pre;
+  white-space: break-spaces;
 `;
 
 const SocialMedia = styled.ul`

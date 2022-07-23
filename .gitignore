@@ -71,5 +71,6 @@ typings/
 .parcel-cache
 
 build
+dist
 
 .DS_Store
