@@ -3,7 +3,7 @@ name: Deployment
 on:
   push:
     tags:
-      - v*
+      - v*.*.*
   release:
     types:
       - published
@@ -14,7 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # TODO: find a way to restore artifacts from build
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
       - name: Install dependencies
         run: yarn install
       - name: Run build
