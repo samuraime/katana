@@ -29,10 +29,10 @@ const StyledCardMedia = styled(CardMedia)`
 const ToggleButton = styled(IconButton).attrs({
   size: 'large',
 })`
-  transform: rotate(0deg);
   margin-left: auto;
   transition: transform 150ms ease !important;
-  transform: ${({ isExpanded }) => isExpanded && 'rotate(180deg)'};
+  transform: ${({ isExpanded }) =>
+    isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 function YumeCard({ yume, onDelete, ...otherProps }) {
