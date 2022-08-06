@@ -1,7 +1,9 @@
 {
+  "frontend/**/*.js": [
+    "stylelint frontend/**/*.js"
+  ],
   "*.{js,ts}": [
     "eslint --fix",
-    "stylelint --fix",
     "prettier --write"
   ]
 }

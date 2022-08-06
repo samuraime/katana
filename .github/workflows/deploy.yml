@@ -32,14 +32,8 @@ jobs:
         run: yarn deploy:cdn
       - name: Prepare artifacts
         run: |
-          mkdir prebuild
-          mv backend/build prebuild
-          cd prebuild/build
-          yarn install --production
-          cd ../..
-          rm -rf backend
-          mv prebuild backend
-          tar -cvf dist.tar backend/build frontend/build/*.*
+          yarn workspace frontend pack
+          yarn workspace backend pack
       - name: Deploy
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
@@ -59,5 +53,27 @@ jobs:
           ssh-add "$SSH_PATH/deploy_key"
           ssh-keyscan -t rsa $SSH_HOST >> "$SSH_PATH/known_hosts"
 
-          scp -i $SSH_PATH/deploy_key ./dist.tar $SSH_USER@$SSH_HOST:/www/katana/dist.tar
-          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd /www/katana && tar -xf dist.tar -C ./ && pm2 restart ./process.json"
+          PROJECT_PATH=/www/katana
+
+          # Deploy client version
+          CLIENT_LOCAL_PACKAGE=frontend/package.tgz
+          CLIENT_REMOTE_VERSIONS_DIR=${PROJECT_PATH}/client/versions
+          CLIENT_VERSION=$(node -p "require('frontent/package.json').version")
+          CLIENT_REMOTE_VERSION_PACKAGE=${VERSIONS_DIR}/${SERVER_VERSION}.tgz
+
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p ${CLIENT_REMOTE_VERSIONS_DIR}"
+          scp -i $SSH_PATH/deploy_key ${CLIENT_LOCAL_PACKAGE} $SSH_USER@$SSH_HOST:${CLIENT_REMOTE_VERSION_PACKAGE}
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd CLIENT_REMOTE_VERSIONS_DIR && tar -xf ${CLIENT_REMOTE_VERSION_PACKAGE} && mv package ${CLIENT_VERSION}"
+
+          # Deploy server version
+          SERVER_LOCAL_PACKAGE=backend/package.tgz
+          SERVER_REMOTE_VERSIONS_DIR=${PROJECT_PATH}/server/versions
+          SERVER_VERSION=$(node -p "require('backend/package.json').version")
+          SERVER_REMOTE_VERSION_PACKAGE=${VERSIONS_DIR}/${SERVER_VERSION}.tgz
+
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p ${SERVER_REMOTE_VERSIONS_DIR}"
+          scp -i $SSH_PATH/deploy_key ${SERVER_LOCAL_PACKAGE} $SSH_USER@$SSH_HOST:${SERVER_REMOTE_VERSION_PACKAGE}
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd SERVER_REMOTE_VERSIONS_DIR && tar -xf ${SERVER_REMOTE_VERSION_PACKAGE} && mv package ${SERVER_VERSION}"
+
+          # TODO: Use PM2 to update and deploy the server. Just restart the server for now.
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "pm2 restart ${PROJECT_PATH}/process.json"
