@@ -4,15 +4,19 @@
   "private": true,
   "description": "",
   "type": "module",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
+  "browserslist": "defaults",
+  "files": [
+    "dist/index.html"
   ],
+  "targets": {
+    "default": {
+      "source": "public/index.html",
+      "context": "browser"
+    }
+  },
   "scripts": {
-    "start": "parcel --open --port=3000 public/index.html",
-    "build": "NODE_ENV=production NODE_OPTIONS=--no-experimental-fetch parcel build --no-cache --public-url=https://cdn.samuraime.com/katana --dist-dir=dist public/index.html && scripts/postbuild.sh",
+    "start": "parcel --open --port=3000 --target=default",
+    "build": "NODE_ENV=production NODE_OPTIONS=--no-experimental-fetch parcel build --no-cache --public-url=https://cdn.samuraime.com/katana --target=default && scripts/postbuild.sh",
     "test": "jest",
     "start:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build:cra": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
@@ -47,6 +51,8 @@
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "2.7.0",
+    "@parcel/transformer-webmanifest": "2.7.0",
     "@storybook/react": "^6.4.16",
     "@stylelint/postcss-css-in-js": "^0.37.2",
     "@swc/core": "^1.2.148",
@@ -64,7 +70,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "jest": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
-    "parcel": "latest",
+    "parcel": "^2.7.0",
     "postcss": "^8.1.0",
     "postcss-scss": "^4.0.4",
     "postcss-syntax": "^0.36.2",
