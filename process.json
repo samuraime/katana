@@ -1,17 +1,20 @@
 {
   "name": "katana",
-  "script": "./backend/build/index.js",
+  "script": "versions/1.0.0/dist/index.js",
   "env": {
     "NODE_ENV": "production",
     "SITE_HOME": "https://samuraime.com",
     "PORT": 3001,
     "DB": "mongodb://localhost/katana",
+    "PUBLIC_PATH": "",
+    "CLIENT_VERSION": "",
+    "CLIENT_VERSIONS_PATH": "",
     "JWT_SECRET": "",
     "APP_KEYS": "key1 key2",
     "GITHUB_CLIENT_ID": "",
     "GITHUB_CLIENT_SECRET": "",
     "QINIU_ACCESS_KEY": "",
-    "QINIU_SECRET_KEY": "",
+    "QINIU_SECRET_KEY": ""
   },
   "engines": {
     "node": ">=8.0"

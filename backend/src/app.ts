@@ -15,12 +15,14 @@ app.keys = config.keys;
 app.use(helmet());
 
 // static files
-// app.use(mount('/static', staticServe(config.publicPath)));
-app.use(
-  staticServe(config.publicPath, {
-    index: false,
-  })
-);
+if (config.publicPath) {
+  // app.use(mount('/static', staticServe(config.publicPath)));
+  app.use(
+    staticServe(config.publicPath, {
+      index: false,
+    })
+  );
+}
 
 app.use(cors());
 

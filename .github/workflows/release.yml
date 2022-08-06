@@ -1,0 +1,83 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*.*.*
+  release:
+    types:
+      - published
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: find a way to restore artifacts from build
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+      - name: Install dependencies
+        run: yarn install
+      - name: Build packages
+        run: yarn build
+      - name: Deploy client side assets to CDN
+        env:
+          QUPLOAD_ACCESS_KEY: ${{ secrets.QUPLOAD_ACCESS_KEY }}
+          QUPLOAD_SECRET_KEY: ${{ secrets.QUPLOAD_SECRET_KEY }}
+          QUPLOAD_BUCKET: ${{ secrets.QUPLOAD_BUCKET }}
+          QUPLOAD_DOMAIN: ${{ secrets.QUPLOAD_DOMAIN }}
+          QUPLOAD_ZONE: ${{ secrets.QUPLOAD_ZONE }}
+        run: yarn deploy:cdn
+      - name: Pack NPM packages
+        run: |
+          yarn workspace frontend pack
+          yarn workspace backend pack
+      - name: Deploy versioned packages
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        # ssh setups copied from: https://github.com/maddox/actions/blob/master/ssh/entrypoint.sh
+        run: |
+          SSH_PATH="$HOME/.ssh"
+          mkdir -p "$SSH_PATH"
+          touch "$SSH_PATH/known_hosts"
+          echo "$SSH_PRIVATE_KEY" > "$SSH_PATH/deploy_key"
+          chmod 700 "$SSH_PATH"
+          chmod 600 "$SSH_PATH/known_hosts"
+          chmod 600 "$SSH_PATH/deploy_key"
+          ssh-keygen -R $SSH_HOST
+          eval $(ssh-agent)
+          ssh-add "$SSH_PATH/deploy_key"
+          ssh-keyscan -t rsa $SSH_HOST >> "$SSH_PATH/known_hosts"
+
+          PROJECT_PATH=/www/katana
+
+          # Deploy client version
+          echo 'Start deploying client package'
+          CLIENT_LOCAL_PACKAGE=frontend/package.tgz
+          CLIENT_REMOTE_VERSIONS_DIR=${PROJECT_PATH}/client/versions
+          CLIENT_VERSION=$(node -p "require('frontend/package.json').version")
+          CLIENT_REMOTE_VERSION_PACKAGE=${VERSIONS_DIR}/${SERVER_VERSION}.tgz
+
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p ${CLIENT_REMOTE_VERSIONS_DIR}"
+          scp -i $SSH_PATH/deploy_key ${CLIENT_LOCAL_PACKAGE} $SSH_USER@$SSH_HOST:${CLIENT_REMOTE_VERSION_PACKAGE}
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd CLIENT_REMOTE_VERSIONS_DIR && tar -xf ${CLIENT_REMOTE_VERSION_PACKAGE} --directory ${CLIENT_REMOTE_VERSIONS_DIR} && mv package ${CLIENT_VERSION}"
+
+          # Deploy server version
+          echo 'Start deploying server package'
+          SERVER_LOCAL_PACKAGE=backend/package.tgz
+          SERVER_REMOTE_VERSIONS_DIR=${PROJECT_PATH}/server/versions
+          SERVER_VERSION=$(node -p "require('backend/package.json').version")
+          SERVER_REMOTE_VERSION_PACKAGE=${VERSIONS_DIR}/${SERVER_VERSION}.tgz
+
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "mkdir -p ${SERVER_REMOTE_VERSIONS_DIR}"
+          scp -i $SSH_PATH/deploy_key ${SERVER_LOCAL_PACKAGE} $SSH_USER@$SSH_HOST:${SERVER_REMOTE_VERSION_PACKAGE}
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "cd SERVER_REMOTE_VERSIONS_DIR && tar -xf ${SERVER_REMOTE_VERSION_PACKAGE} --directory ${SERVER_REMOTE_VERSIONS_DIR} && mv package ${SERVER_VERSION}"
+
+          # Restart server
+          echo 'Restart server'
+          # TODO: Use PM2 to update and deploy the server. Just restart the server for now.
+          ssh -i $SSH_PATH/deploy_key -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST "pm2 restart ${PROJECT_PATH}/process.json"
