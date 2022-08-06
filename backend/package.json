@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "nodemon -r ../node_modules/dotenv/config --ext js,ts --exec ts-node src",
-    "build": "tsc --project ./tsconfig.prod.json",
+    "build": "parcel build src/index.ts",
     "postbuild": "cp package.json build/package.json",
     "test": "jest"
   },
@@ -55,6 +58,7 @@
     "ky": "^0.16.1",
     "ky-universal": "^0.3.0",
     "mongoose": "^5.7.11",
+    "parcel": "^2.7.0",
     "qiniu": "^7.3.0",
     "serialize-javascript": "^5.0.1",
     "winston": "^2.3.1"
