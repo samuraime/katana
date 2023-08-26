@@ -4,7 +4,7 @@ import { Middleware } from 'koa';
 import mongoose from 'mongoose';
 import Yume from '../models/Yume';
 
-const index: Middleware = async ctx => {
+const index: Middleware = async (ctx) => {
   const { page, perPage } = ctx.query;
   const yumes = await Yume.list({
     page: +page - 1,
@@ -14,7 +14,7 @@ const index: Middleware = async ctx => {
   ctx.body = yumes;
 };
 
-const create: Middleware = async ctx => {
+const create: Middleware = async (ctx) => {
   // TODO validate
   if (!ctx.request.body.text) {
     ctx.throw(400);
@@ -28,7 +28,7 @@ const create: Middleware = async ctx => {
   ctx.body = yumeWithDreamer;
 };
 
-const remove: Middleware = async ctx => {
+const remove: Middleware = async (ctx) => {
   // TODO validate
   const yume = await Yume.findById(ctx.params.id);
   if (ctx.session.user._id !== yume.dreamer.toString()) {
@@ -39,7 +39,7 @@ const remove: Middleware = async ctx => {
   ctx.body = yume;
 };
 
-const getCalendar: Middleware = async ctx => {
+const getCalendar: Middleware = async (ctx) => {
   const end = new Date();
   const start = new Date(end);
   start.setFullYear(end.getFullYear() - 1);

@@ -40,7 +40,7 @@ function getSVG(text: string): string {
 `;
 }
 
-const longLiveTheCode: Middleware = async ctx => {
+const longLiveTheCode: Middleware = async (ctx) => {
   const text = getStatement();
 
   ctx.set('Content-Type', 'image/svg+xml');

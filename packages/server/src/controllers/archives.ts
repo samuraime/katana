@@ -3,17 +3,17 @@ import Archive from '../models/Archive';
 import qiniu from '../config/qiniu';
 import upload from './upload';
 
-const index: Middleware = async ctx => {
+const index: Middleware = async (ctx) => {
   const { per_page: perPage = 10000, page = 0 } = ctx.query;
   const criteria = { perPage, page };
   const archives = await Archive.list(criteria);
-  ctx.body = archives.map(a => ({
+  ctx.body = archives.map((a) => ({
     ...a.toObject(),
     link: `${qiniu.domain}/${a.key || a.hash}`,
   }));
 };
 
-const get: Middleware = async ctx => {
+const get: Middleware = async (ctx) => {
   const { id } = ctx.params;
   try {
     const archive = await Archive.findById(id);
@@ -23,7 +23,7 @@ const get: Middleware = async ctx => {
   }
 };
 
-const update: Middleware = async ctx => {
+const update: Middleware = async (ctx) => {
   const { id } = ctx.params;
   const updateData = ctx.request.body;
   const archive = await Archive.findByIdAndUpdate(
@@ -34,14 +34,14 @@ const update: Middleware = async ctx => {
   ctx.response.body = archive;
 };
 
-const remove: Middleware = async ctx => {
+const remove: Middleware = async (ctx) => {
   const { id } = ctx.params;
   const archive = await Archive.findByIdAndRemove(id);
   await upload.remove(archive.key);
   ctx.body = archive;
 };
 
-const create: Middleware = async ctx => {
+const create: Middleware = async (ctx) => {
   const { name, size, type, key, hash } = ctx.request.body;
   const archive = new Archive({
     name,

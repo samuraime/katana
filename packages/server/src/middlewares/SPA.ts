@@ -17,7 +17,7 @@ function getEntryHTML(clientVersion: string): string {
   }
 
   const clientEntry = process.env.CI
-    ? path.resolve(__dirname, '../../../frontend/public/index.html')
+    ? path.resolve(__dirname, '../../../client/public/index.html')
     : // e.g. client/versions/1.0.0/dist/index.html
       path.resolve(
         __dirname,

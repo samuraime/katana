@@ -1,8 +1,7 @@
 {
   "extension": [".js", ".ts"],
   "include": [
-    "frontend/src",
-    "backend/src"
+    "packages/*/src"
   ],
   "exclude": [
     "**/*.test.js",

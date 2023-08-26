@@ -12,11 +12,8 @@ const router = new Router();
 
 const userStateKey = 'githubOAuthState';
 
-router.get('/github', ctx => {
-  const randomState = Math.random()
-    .toString(36)
-    .toUpperCase()
-    .slice(2, 10);
+router.get('/github', (ctx) => {
+  const randomState = Math.random().toString(36).toUpperCase().slice(2, 10);
   const { redirect_uri: redirect } = ctx.query;
   const params = {
     client_id: github.clientId,
@@ -35,7 +32,7 @@ router.get('/github', ctx => {
   ctx.redirect(`https://github.com/login/oauth/authorize?${query}`);
 });
 
-router.get('/github/callback', async ctx => {
+router.get('/github/callback', async (ctx) => {
   const { code, state, redirect_uri: redirectURI } = ctx.query;
   const storedState = ctx.session[userStateKey];
   if (state !== storedState) {

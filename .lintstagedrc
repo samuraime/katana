@@ -1,6 +1,6 @@
 {
-  "frontend/**/*.js": [
-    "stylelint frontend/**/*.js"
+  "packages/client/src/**/*.js": [
+    "stylelint"
   ],
   "*.{js,ts}": [
     "eslint --fix",

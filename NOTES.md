@@ -23,13 +23,13 @@ Test for main flow should be placed to `__tests__`.
 
 ### How to share type definition for type checking?
 
-## Backend
+## Server
 
 ### How to use ES Module?
 
 ### How to test mongodb?
 
-## Frontend
+## Client
 
 ### How to preload state in development mode?
 

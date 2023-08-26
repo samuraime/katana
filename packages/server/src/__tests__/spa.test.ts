@@ -42,9 +42,7 @@ describe('GET /', () => {
   });
 
   it('should response HTML that includes preload state', async () => {
-    const res = await request(server)
-      .get('/')
-      .set('Cookie', userCookies);
+    const res = await request(server).get('/').set('Cookie', userCookies);
     expect(res.text).toMatch(/window\.__PRELOADED_STATE__={.+}/);
   });
 });

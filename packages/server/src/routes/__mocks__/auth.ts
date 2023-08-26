@@ -3,7 +3,7 @@ import User from '../../models/User';
 
 const router = new Router();
 
-router.get('/github/callback', async ctx => {
+router.get('/github/callback', async (ctx) => {
   const { query } = ctx;
   const user = await User.create({
     githubID: 2203205,

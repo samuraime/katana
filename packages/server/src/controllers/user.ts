@@ -2,7 +2,7 @@ import { Middleware } from 'koa';
 // import jwt from 'jsonwebtoken';
 // import config from '../config';
 
-const getUser: Middleware = ctx => {
+const getUser: Middleware = (ctx) => {
   const { user } = ctx.session;
   ctx.body = user || {};
 };
@@ -31,7 +31,7 @@ const getUser: Middleware = ctx => {
 //   };
 // };
 
-const signOut: Middleware = ctx => {
+const signOut: Middleware = (ctx) => {
   ctx.session.user = null;
   ctx.status = 204;
 };
